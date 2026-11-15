@@ -1,0 +1,19 @@
+category,line,owner,basis,q1_usd,q2_usd,q3_usd,q4_usd,year_usd,notes
+CapEx,Initial platform implementation services,Head of SEO,quote,,,,,,Confirm CapEx vs OpEx treatment with Finance
+CapEx,Migration of pilot teams to golden paths,Head of SEO,estimate,,,,,,
+CapEx,Plant-edge cluster hardware,Infrastructure,quote,,,,,,
+OpEx people,Platform engineers (4),Head of SEO,headcount x loaded cost,,,,,,
+OpEx people,Hub Leaders time allocation (4),Head of SEO,allocation %,,,,,,
+OpEx people,Training and certifications,Head of SEO,per person,,,,,,CNPA and tool-specific
+OpEx infrastructure,Platform clusters and control plane,SEO Platform,cloud forecast,,,,,,
+OpEx infrastructure,CI runners,SEO Platform,cloud forecast,,,,,,
+OpEx infrastructure,Registry and artifact storage,SEO Platform,cloud forecast,,,,,,
+OpEx infrastructure,Observability storage,SEO Platform,cloud forecast,,,,,,
+OpEx licences,Source control seats,Head of SEO,seats x price,,,,,,Check how external collaborators are counted
+OpEx licences,AI assistant seats,Head of SEO,seats x price,,,,,,
+OpEx licences,AI metered usage beyond included credits,Head of SEO,forecast,,,,,,Set per-user and org-wide caps
+OpEx licences,Portal,Head of SEO,seats x price,,,,,,Zero if open source; people cost is above
+OpEx licences,Developer productivity metrics,Head of SEO,seats x price,,,,,,
+OpEx licences,Security scanning,Security,committers x price,,,,,,
+OpEx licences,Observability,Infrastructure,hosts or GB,,,,,,
+Contingency,Contingency (10-15% in year one),Head of SEO,percent,,,,,,

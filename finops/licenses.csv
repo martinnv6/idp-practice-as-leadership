@@ -1,0 +1,21 @@
+category,product,plan,vendor,pricing_unit,list_price_usd_per_unit_month,metered_extra,prerequisite,candidate_group,source,verified_on,notes
+source-control,GitHub Enterprise Cloud,Enterprise,GitHub,user,21,,,scm,https://www.cloudeagle.ai/blogs/github-copilot-pricing-guide,2026-11-15,Third-party summary; confirm on github.com/pricing
+ai-assistant,GitHub Copilot,Business,GitHub,user,19,"Includes 1,900 AI Credits per user per month (USD 0.01 each), pooled; overage metered",,ai,https://upperedge.com/microsoft/github-copilot-licensing-has-changed-what-enterprise-buyers-need-to-know/,2026-11-15,Seat plus usage model since 2026-06-01; confirm on docs.github.com/en/copilot/get-started/plans
+ai-assistant,GitHub Copilot,Enterprise,GitHub,user,39,"Includes 3,900 AI Credits per user per month, pooled; overage metered",GitHub Enterprise Cloud,ai,https://www.cloudzero.com/blog/github-copilot-enterprise-pricing/,2026-11-15,Requires GitHub Enterprise Cloud underneath; fully loaded about USD 60 per user
+ai-assistant,Claude Code,,Anthropic,user,,,,ai,,,Fill from vendor quote
+ai-assistant,SAP Joule for Developers,,SAP,,,,,ai,,,Fill from vendor quote; licensing unit differs from per-seat tools
+security,GitHub Advanced Security,,GitHub,active committer,,,GitHub Enterprise Cloud,security,,,Fill from github.com/pricing; product was split into separate secret and code security SKUs
+portal,Backstage,Open source,CNCF,none,0,,,portal,https://backstage.io,2026-11-15,No licence fee; people cost is in scenarios.csv
+portal,Managed Backstage,,Roadie,developer,,,,portal,,,Fill from vendor quote
+portal,Port,,Port,developer,,,,portal,,,Fill from vendor quote
+portal,Cortex,,Cortex,developer,,,,portal,,,Fill from vendor quote
+portal,Compass,,Atlassian,user,,,,portal,,,Fill from vendor pricing page
+metrics,Apache DevLake,Open source,ASF,none,0,,,metrics,https://devlake.apache.org,2026-11-15,No licence fee; hosting and upkeep only
+metrics,DX,,Atlassian,developer,,,,metrics,,,Fill from vendor quote
+observability,Prometheus + Grafana,Open source,CNCF / Grafana Labs,none,0,,,observability,,2026-11-15,No licence fee; storage and upkeep only
+observability,Commercial APM,,,host or GB,,,,observability,,,Fill from the incumbent vendor's contract
+cost,OpenCost,Open source,CNCF,none,0,,,cost,https://www.opencost.io,2026-11-15,No licence fee
+ci,GitHub Actions,Included minutes plus metered,GitHub,minute,,,,ci,,,Fill from github.com/pricing; self-hosted runners change the model
+ci,Azure DevOps,,Microsoft,user,,,,ci,,,Fill from azure.microsoft.com pricing
+paas,Azure Container Apps,Consumption,Microsoft,vCPU-second and GiB-second,,,,paas,,,Fill from azure.microsoft.com pricing
+paas,Heroku,,Salesforce,dyno,,,,paas,,,Sustaining engineering since 2026-02; no new Enterprise contracts for new customers

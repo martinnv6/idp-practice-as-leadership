@@ -1,0 +1,118 @@
+# Organisation model for Forja Norte (fictional).
+# In a real setup, groups and users come from the identity provider through
+# an org-data provider, not from a hand-written file.
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: forja-norte-it
+  description: Corporate IT
+spec:
+  type: organization
+  children: [seo, delivery]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: seo
+  title: Software Engineering Office
+  description: Owns the internal developer platform as a product
+spec:
+  type: department
+  parent: forja-norte-it
+  children: [seo-platform, seo-hub-leaders]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: seo-platform
+  title: SEO Platform Engineers
+spec:
+  type: team
+  parent: seo
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: seo-hub-leaders
+  title: SEO Hub Leaders
+  description: Matrix leads, one per stack (SAP, Microsoft, Java, Data)
+spec:
+  type: team
+  parent: seo
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: delivery
+  title: Delivery teams
+spec:
+  type: department
+  parent: forja-norte-it
+  children: [team-mfg-tracking, team-scm-yard]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-mfg-tracking
+  title: Manufacturing · Production Tracking
+  annotations:
+    forjanorte.example/workforce: employee
+spec:
+  type: team
+  parent: delivery
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-scm-yard
+  title: Supply Chain · Yard Management
+  annotations:
+    forjanorte.example/workforce: vendor
+    forjanorte.example/vendor: altos-delivery
+spec:
+  type: team
+  parent: delivery
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: ana.employee
+spec:
+  profile:
+    displayName: Ana (employee developer)
+    email: ana.employee@example.invalid
+  memberOf: [team-mfg-tracking]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: victor.vendor
+spec:
+  profile:
+    displayName: Victor (vendor developer)
+    email: victor.vendor@example.invalid
+  memberOf: [team-scm-yard]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: paula.platform
+spec:
+  profile:
+    displayName: Paula (platform engineer)
+    email: paula.platform@example.invalid
+  memberOf: [seo-platform]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: hugo.hubleader
+spec:
+  profile:
+    displayName: Hugo (Hub Leader, Microsoft stack)
+    email: hugo.hubleader@example.invalid
+  memberOf: [seo-hub-leaders]

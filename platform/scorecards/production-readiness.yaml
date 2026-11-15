@@ -1,0 +1,96 @@
+# Production-readiness scorecard. Tool-neutral definition: implement it with
+# Backstage Tech Insights, a commercial portal's scorecards, or a script that
+# reads the catalog and the CI and policy data.
+#
+# The same scorecard applies to employee teams and vendor teams.
+scorecard:
+  name: production-readiness
+  version: 0.1.0
+  owner: seo-hub-leaders
+  applies_to:
+    kind: Component
+    type: service
+  levels:
+    - name: bronze
+      requires: [ownership, source-control]
+    - name: silver
+      requires: [ownership, source-control, quality, security]
+    - name: gold
+      requires: [ownership, source-control, quality, security, operations, docs]
+  minimum_level_by_tier:
+    "1": gold
+    "2": silver
+    "3": bronze
+
+  checks:
+    - id: has-owner
+      group: ownership
+      directive: SEO-DIR-001
+      description: Catalog entity has an owner that resolves to an existing group
+      source: catalog
+    - id: has-tier-and-classification
+      group: ownership
+      directive: SEO-DIR-001
+      description: Tier, data classification and cost center annotations are set
+      source: catalog
+    - id: branch-protection
+      group: source-control
+      directive: SEO-DIR-011
+      description: Default branch requires a pull request and one review by a non-author
+      source: source-control
+    - id: built-by-standard-pipeline
+      group: source-control
+      directive: SEO-DIR-020
+      description: Last production image was built by the standard pipeline
+      source: ci
+    - id: coverage-threshold
+      group: quality
+      directive: SEO-DIR-021
+      description: Coverage on new code is at or above the stack threshold
+      source: code-quality
+    - id: tests-in-pipeline
+      group: quality
+      directive: SEO-DIR-022
+      description: Integration and smoke tests run in the pipeline
+      source: ci
+    - id: no-critical-vulnerabilities
+      group: security
+      directive: SEO-DIR-032
+      description: No critical findings open; high findings within SLA
+      source: scanner
+    - id: image-signed-and-sbom
+      group: security
+      directive: SEO-DIR-031, SEO-DIR-033
+      description: Release image is signed and has an SBOM
+      source: registry
+    - id: no-policy-violations
+      group: security
+      directive: SEO-DIR-034
+      description: Zero failing policy results in prod namespaces, or an unexpired exception
+      source: policy-reports
+    - id: has-slo-and-dashboard
+      group: operations
+      directive: SEO-DIR-050
+      description: At least one SLO defined and a dashboard linked from the catalog
+      source: observability
+    - id: has-runbook
+      group: operations
+      directive: SEO-DIR-051
+      description: Runbook page exists in the service docs
+      source: docs
+    - id: has-techdocs
+      group: docs
+      directive: SEO-DIR-003
+      description: Docs are published in the portal and were updated in the last 180 days
+      source: docs
+    - id: agent-ready
+      group: docs
+      directive: SEO-DIR-073
+      description: Repository contains agent instructions
+      source: source-control
+
+  reporting:
+    - by: team
+    - by: vendor
+    - by: tier
+    - by: golden_path

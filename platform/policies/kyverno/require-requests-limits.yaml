@@ -1,0 +1,36 @@
+# Enforces part of SEO-DIR-034. Untested starter (Phase 5).
+# Requests and limits make cost allocation meaningful and protect neighbours.
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-requests-limits
+  annotations:
+    policies.kyverno.io/title: Require CPU and memory requests and memory limits
+    policies.kyverno.io/category: Best Practices
+    policies.kyverno.io/severity: medium
+    forjanorte.example/directive: SEO-DIR-034
+spec:
+  background: true
+  rules:
+    - name: check-resources
+      match:
+        any:
+          - resources:
+              kinds: [Pod]
+              namespaceSelector:
+                matchLabels:
+                  forjanorte.example/managed: "true"
+      validate:
+        failureAction: Audit
+        message: >-
+          Every container needs CPU and memory requests and a memory limit
+          (directive SEO-DIR-034).
+        pattern:
+          spec:
+            containers:
+              - resources:
+                  requests:
+                    cpu: "?*"
+                    memory: "?*"
+                  limits:
+                    memory: "?*"

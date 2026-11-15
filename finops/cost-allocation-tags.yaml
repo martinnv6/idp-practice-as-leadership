@@ -1,0 +1,85 @@
+# Mandatory allocation keys (directives SEO-DIR-002 and SEO-DIR-080).
+# The same keys are used as Kubernetes labels, cloud resource tags and
+# licence-register columns, so cost can be joined across sources.
+#
+# The focus_column field shows where each key lands in a FOCUS-format cost
+# dataset (FinOps Open Cost and Usage Specification). Check the column names
+# against the FOCUS version your provider exports.
+version: 0.1.0
+
+keys:
+  - key: forjanorte.example/owner
+    cloud_tag: owner
+    required: true
+    values: catalog Group name
+    example: team-mfg-tracking
+    focus_column: Tags["owner"]
+    purpose: Who answers for the spend
+
+  - key: forjanorte.example/cost-center
+    cloud_tag: cost-center
+    required: true
+    values: "CC-<AREA>-<4 digits>"
+    example: CC-MFG-0420
+    focus_column: Tags["cost-center"]
+    purpose: Finance allocation
+
+  - key: forjanorte.example/system
+    cloud_tag: system
+    required: true
+    values: catalog System name
+    example: production-tracking
+    focus_column: Tags["system"]
+    purpose: Cost per business system
+
+  - key: forjanorte.example/environment
+    cloud_tag: environment
+    required: true
+    values: [dev, staging, prod, plant-edge]
+    focus_column: Tags["environment"]
+    purpose: Split production from non-production spend
+
+  - key: forjanorte.example/tier
+    cloud_tag: tier
+    required: true
+    values: ["1", "2", "3"]
+    focus_column: Tags["tier"]
+    purpose: Relate cost to criticality
+
+  - key: forjanorte.example/data-classification
+    cloud_tag: data-classification
+    required: true
+    values: [public, internal, confidential, restricted]
+    focus_column: Tags["data-classification"]
+    purpose: Policy, not cost. Kept here so one label policy covers all keys
+
+  - key: forjanorte.example/vendor
+    cloud_tag: vendor
+    required: false
+    values: delivery vendor identifier, when the owning team is a vendor team
+    example: altos-delivery
+    focus_column: Tags["vendor"]
+    purpose: Cost and quality by delivery vendor
+
+shared_costs:
+  # Costs with no single owner are split by a stated rule, never left unallocated.
+  - item: Cluster control plane and system namespaces
+    split: proportional to each team's requested CPU and memory
+  - item: CI runners
+    split: proportional to pipeline minutes
+  - item: Portal, metrics and observability
+    split: per active developer
+  - item: Platform team
+    split: reported as platform cost, not charged back
+
+reports:
+  - name: Showback by team and environment
+    cadence: monthly
+    audience: tech leads, Hub Leaders
+  - name: Unallocated spend
+    cadence: monthly
+    audience: SEO Platform
+    target: under 10 percent
+  - name: Unit costs (per deployment, per active developer)
+    cadence: monthly
+    audience: Head of SEO, Finance

@@ -1,0 +1,19 @@
+# secrets and local overrides
+.env
+*.local.yaml
+private/
+finops/negotiated-*.csv
+
+# tooling
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.DS_Store
+.idea/
+.vscode/
+
+# lab artefacts
+*.kubeconfig
+kubeconfig
+cosign.key
