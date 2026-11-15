@@ -4,6 +4,8 @@ A practice repository for **leading** an Internal Developer Platform (IDP): sett
 
 The company in it, **Forja Norte**, is fictional. Every number marked `ASSUMPTION` is a placeholder.
 
+**New here? Open [`START-HERE.md`](START-HERE.md).** It gives you the brief from the fictional CIO and the missions that follow it.
+
 ## Two areas
 
 | Area | Question it answers | Start here |
@@ -19,16 +21,18 @@ Head of a Software Engineering Office: one leader, four platform engineers (SAP,
 
 ## How to practise
 
-1. Read the scenario: [`leadership/02-scenario.md`](leadership/02-scenario.md).
-2. Follow the leadership practice plan: [`leadership/03-practice-plan.md`](leadership/03-practice-plan.md). Fourteen exercises, each ending in an artefact a real leader would produce and a five-minute spoken answer.
-3. Read [`technical/01-idp-anatomy.md`](technical/01-idp-anatomy.md) once, so the vocabulary is concrete.
-4. Optional: build parts of the lab with [`technical/04-build-plan.md`](technical/04-build-plan.md).
+1. Read [`START-HERE.md`](START-HERE.md): your brief, the cast and how a mission works.
+2. If an interview is close, do [`journey/sprint.md`](journey/sprint.md): four sessions.
+3. Otherwise follow [`journey/missions.md`](journey/missions.md): eleven missions over the first two quarters in the job. Each pairs a leadership decision with the technical piece that makes it real.
+4. Write the theory in your own words in [`notes/study-notes.md`](notes/study-notes.md) as you go.
 
 Work is tracked as GitHub issues: epics, stories and defects, labelled `area:leadership` or `area:technical`.
 
 ## Repository map
 
 ```
+journey/         the missions and the sprint
+notes/           study notes (notes/private/ is ignored by Git)
 leadership/      strategy, governance, measurement, finops, vendors, ai, people
 technical/       anatomy, architecture, tooling options, build plan, golden-path design, starter config
 docs/            standards map, glossary, references

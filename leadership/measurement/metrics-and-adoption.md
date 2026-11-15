@@ -95,7 +95,7 @@ Worked example with a typical pipeline modernisation:
 | What was measured | DORA term | Have the data? |
 | --- | --- | --- |
 | Deployment duration went from hours to minutes | Contributes to change lead time (the deploy segment) | Yes |
-| Rollback went from 50 minutes to 4 minutes | Failed deployment recovery time | Yes |
+| Rollback went from close to an hour to a few minutes | Failed deployment recovery time | Yes |
 | Nearly all deployments stable | Change fail rate | Yes, approximate |
 | How often the team deployed | Deployment frequency | No. Say so |
 | Unplanned fix deployments | Rework rate | No. Say so |

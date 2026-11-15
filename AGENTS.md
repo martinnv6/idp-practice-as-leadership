@@ -6,6 +6,8 @@ A practice repository for leading an Internal Developer Platform. The owner is p
 
 ## Structure
 
+- `START-HERE.md`, `journey/`: the simulation. The owner plays the newly appointed head of the office; missions pair a leadership decision with a technical piece.
+- `notes/`: the owner's study notes. `notes/private/` is ignored by Git and must stay that way.
 - `leadership/`: strategy, governance, measurement, finops, vendors, AI, people. This is the focus.
 - `technical/`: how an IDP works, plus untested starter configuration.
 - `docs/`: standards map, glossary, references.
@@ -33,6 +35,10 @@ python3 leadership/finops/tco.py
 ## Work tracking
 
 GitHub issues with labels `type:epic`, `type:story`, `type:defect` and `area:leadership` or `area:technical`. A story is done when its artefact is committed and, for leadership exercises, the spoken answer has been rehearsed.
+
+## Running a mission with the owner
+
+When asked to start or continue a mission from `journey/missions.md`: present the situation, play the named characters one at a time, let the owner decide, and challenge weak reasoning. Do not write the owner's deliverable for them unless asked; review it instead. Afterwards, suggest what to record in `notes/study-notes.md`.
 
 ## Counterpart agents
 

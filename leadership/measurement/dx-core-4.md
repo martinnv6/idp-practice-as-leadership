@@ -66,14 +66,9 @@ The platform does not own these numbers; delivery teams do. The platform's claim
 
 Report adoption (how many teams are on the path) next to Core 4 (what happens to them). Adoption without Core 4 is activity. Core 4 without adoption is someone else's result.
 
-## Translating past results
+## Translating your own past results
 
-| Past result | Core 4 dimension | Honest gap |
-| --- | --- | --- |
-| Deployment time from hours to minutes | Speed (part of lead time) | No deployment frequency recorded |
-| Rollback from 50 minutes to 4 | Quality (recovery time) | |
-| Nearly all deployments stable | Quality (change failure rate) | Approximate |
-| A shared repo of agent skills adopted by the whole sub-team and forked by others | Effectiveness (less friction) and adoption | No survey or time measurement |
+Write your real results in this vocabulary in `notes/private/`, not here: this repository is public. For each result, name the Core 4 dimension it belongs to and state plainly which data you had and which you did not. For example, a faster deployment is part of Speed (lead time), a faster rollback is Quality (recovery time), and neither says anything about deployment frequency unless you recorded it.
 
 ## Tooling
 

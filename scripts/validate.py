@@ -16,7 +16,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 SKIP_DIRS = {".git", "node_modules", ".venv"}
-TOP_LEVEL = ("leadership", "technical", "docs", "wiki", "scripts", ".github", ".claude")
+TOP_LEVEL = ("leadership", "technical", "docs", "wiki", "scripts", "journey", "notes", ".github", ".claude")
 
 # Files that exercises ask the practitioner to create later.
 PLANNED = {
@@ -25,6 +25,8 @@ PLANNED = {
     "leadership/ai/rollout-plan.md",
     "leadership/governance/exceptions",
     "technical/lab/log/phase-N.md",
+    "technical/lab/log",
+    "notes/private",
 }
 
 BACKTICK_PATH = re.compile(r"`((?:%s)/[^`\s*<>]+)`" % "|".join(re.escape(t) for t in TOP_LEVEL))

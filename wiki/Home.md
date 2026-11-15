@@ -6,6 +6,7 @@ Practice space for leading an Internal Developer Platform. The repository holds 
 
 | I want to | Go to |
 | --- | --- |
+| Start the simulation | [Start here](https://github.com/martinnv6/idp-practice-as-leadership/blob/main/START-HERE.md) |
 | Understand the role | [Role and operating model](https://github.com/martinnv6/idp-practice-as-leadership/blob/main/leadership/01-role-and-operating-model.md) |
 | Do the leadership exercises | [[Leadership track]] |
 | Understand how an IDP works | [[Technical track]] |
