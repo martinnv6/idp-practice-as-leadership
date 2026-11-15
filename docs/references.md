@@ -11,8 +11,14 @@ Checked on 2026-11-15 unless noted. Items marked *to read* were not opened on th
 - CNPA certification page: https://www.cncf.io/training/certification/cnpa/
 - CNOE idpbuilder: https://github.com/cnoe-io/idpbuilder
 - CNOE stacks (reference implementation): https://github.com/cnoe-io/stacks
-- Backstage: https://backstage.io (*to read*)
 - Score: https://score.dev (*to read*)
+
+## Golden paths, Backstage and CI/CD at Spotify
+
+- Spotify Engineering, "How We Improved Developer Productivity for Our DevOps Teams" (Golden Paths, Backstage, Tingle): https://engineering.atspotify.com/2020/8/how-we-improved-developer-productivity-for-our-devops-teams
+- InfoQ, "Spotify's paved paths" (three levels of use; Tingle APIs): https://www.infoq.com/news/2021/03/spotify-paved-paths
+- Backstage: https://backstage.io
+- Reddit r/sre, "What is an Internal Developer Platform and why...": https://www.reddit.com/r/sre/comments/lg2l2u/what_is_an_internal_developer_platform_and_why_i/ (*could not be opened on 2026-11-15; the five-function model in `technical/01-idp-anatomy.md` is the widely cited one from internaldeveloperplatform.org and was written from memory*)
 
 ## Heroku
 
@@ -42,7 +48,7 @@ Checked on 2026-11-15 unless noted. Items marked *to read* were not opened on th
 - FOCUS specification: https://focus.finops.org/what-is-focus/
 - "Introducing FOCUS 1.4": https://www.finops.org/insights/introducing-focus-1-4/
 - OpenCost: https://www.opencost.io (*to read*)
-- GitHub Copilot plans (authoritative for Copilot prices): https://docs.github.com/en/copilot/get-started/plans (*to read*; prices in `finops/licenses.csv` were taken from the third-party summaries below)
+- GitHub Copilot plans (authoritative for Copilot prices): https://docs.github.com/en/copilot/get-started/plans (*to read*; prices in `leadership/finops/licenses.csv` were taken from the third-party summaries below)
 - Upper Edge, "GitHub Copilot licensing has changed": https://upperedge.com/microsoft/github-copilot-licensing-has-changed-what-enterprise-buyers-need-to-know/
 - CloudZero, "GitHub Copilot Enterprise pricing": https://www.cloudzero.com/blog/github-copilot-enterprise-pricing/
 - CloudEagle, "GitHub Copilot pricing guide": https://www.cloudeagle.ai/blogs/github-copilot-pricing-guide

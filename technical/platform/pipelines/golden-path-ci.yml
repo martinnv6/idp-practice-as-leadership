@@ -1,0 +1,86 @@
+# Standard pipeline for the .NET golden path, written as a GitHub Actions
+# reusable workflow. Untested example. It lives here, not in .github/workflows,
+# so it does not run in this repository.
+#
+# In a real setup this file sits in a platform-owned repository and each
+# service calls it with a few lines:
+#
+#   jobs:
+#     build:
+#       uses: forja-norte/platform-pipelines/.github/workflows/golden-path-ci.yml@v1
+#       with:
+#         service-name: coil-tracking-api
+#
+# Action versions and tool flags must be checked when this is first run.
+name: golden-path-ci
+
+on:
+  workflow_call:
+    inputs:
+      service-name:
+        required: true
+        type: string
+      dotnet-version:
+        required: false
+        type: string
+        default: "8.0.x"
+      coverage-threshold:
+        description: Minimum line coverage, percent (directive SEO-DIR-021)
+        required: false
+        type: number
+        default: 80
+      registry:
+        required: false
+        type: string
+        default: ghcr.io
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}
+
+      - name: Restore and build
+        run: dotnet build --configuration Release
+
+      - name: Unit tests with coverage gate
+        run: >
+          dotnet test --configuration Release --no-build
+          /p:CollectCoverage=true
+          /p:Threshold=${{ inputs.coverage-threshold }}
+          /p:ThresholdType=line
+
+      # Extension point: teams on the "configured" level add steps through a
+      # second job in their own workflow that needs this one.
+
+  scan-package-publish:
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dependency and code scan (directive SEO-DIR-032)
+        run: echo "Run the organisation's code scanner here; fail on critical findings"
+
+      - name: Build image
+        run: docker build -t ${{ inputs.registry }}/${{ github.repository_owner }}/${{ inputs.service-name }}:${{ github.sha }} .
+
+      - name: Image scan and SBOM (directives SEO-DIR-032, SEO-DIR-033)
+        run: echo "Scan the image, fail on critical vulnerabilities, write an SBOM file"
+
+      - name: Sign and publish (directive SEO-DIR-031)
+        if: github.ref == 'refs/heads/main'
+        run: echo "Push the image and sign it with the pipeline identity"
+
+      - name: Update desired version for dev
+        if: github.ref == 'refs/heads/main'
+        run: echo "Commit the new image tag to the environment repository; GitOps deploys it"

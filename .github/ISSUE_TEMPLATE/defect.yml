@@ -1,0 +1,43 @@
+name: Defect
+description: Something in the repository is wrong, unverified or broken
+title: "[Defect] "
+labels: ["type:defect"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - leadership
+        - technical
+        - docs
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Incorrect or unverified fact
+        - Untested configuration
+        - Broken link or reference
+        - Inconsistency between documents
+        - Pipeline failure
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What it should be, or how to verify
+    validations:
+      required: true
+  - type: input
+    id: files
+    attributes:
+      label: Files affected

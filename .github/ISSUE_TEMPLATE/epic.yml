@@ -1,0 +1,29 @@
+name: Epic
+description: A goal that groups several stories
+title: "[Epic] "
+labels: ["type:epic"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - leadership
+        - technical
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: What will be true when this epic is done.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: In scope and out of scope
+  - type: textarea
+    id: measure
+    attributes:
+      label: How we will know

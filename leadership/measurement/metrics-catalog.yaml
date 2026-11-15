@@ -1,0 +1,345 @@
+# Metrics catalog for the platform.
+# One entry per metric: what it means, where the data comes from, who owns it,
+# how often it is reported and which metric keeps it honest.
+#
+# Targets are practice targets for the fictional scenario, not benchmarks.
+version: 0.1.0
+reporting_levels: [service, team, vendor, stack, organisation]
+never_report_by: individual
+
+metrics:
+  # ---- Layer 1: adoption and usage -------------------------------------
+  - id: catalog-coverage
+    layer: adoption
+    name: Catalog coverage
+    definition: Services with valid owner, tier and lifecycle / all known services
+    unit: percent
+    source: portal catalog
+    owner: seo-platform
+    cadence: weekly
+    target: ">= 90"
+    counter_metric: null
+
+  - id: funnel-aware
+    layer: adoption
+    name: Teams aware
+    definition: Teams with at least one portal visit or demo attendance in the last 90 days / all teams
+    unit: percent
+    source: portal analytics, demo attendance
+    owner: seo-hub-leaders
+    cadence: monthly
+
+  - id: funnel-onboarded
+    layer: adoption
+    name: Teams onboarded
+    definition: Teams with at least one owned service in the catalog / all teams
+    unit: percent
+    source: portal catalog
+    owner: seo-hub-leaders
+    cadence: monthly
+
+  - id: funnel-activated
+    layer: adoption
+    name: Teams activated
+    definition: Teams that created or migrated at least one service with a golden path / all teams
+    unit: percent
+    source: scaffolder task history, golden-path annotation
+    owner: seo-hub-leaders
+    cadence: monthly
+
+  - id: funnel-active
+    layer: adoption
+    name: Weekly active teams
+    definition: Teams with at least one golden-path deployment in the last 7 days / all teams
+    unit: percent
+    source: deployment events
+    owner: seo-hub-leaders
+    cadence: weekly
+
+  - id: funnel-retained
+    layer: adoption
+    name: 90-day retention
+    definition: Teams still weekly-active 90 days after activation / teams activated at least 90 days ago
+    unit: percent
+    source: deployment events
+    owner: seo-hub-leaders
+    cadence: quarterly
+
+  - id: golden-path-share
+    layer: adoption
+    name: Golden-path share (market share)
+    definition: Production deployments through a golden path / all production deployments
+    unit: percent
+    source: deployment events
+    owner: seo-platform
+    cadence: weekly
+    target: ">= 30 (all services), >= 60 (new services)"
+    counter_metric: platform-satisfaction
+
+  - id: time-to-first-deploy
+    layer: adoption
+    name: Time to first deploy
+    definition: Template run to first successful deployment in dev, median
+    unit: minutes
+    source: scaffolder task history, deployment events
+    owner: seo-platform
+    cadence: weekly
+    target: "<= 60"
+    counter_metric: scorecard-pass-rate
+
+  - id: time-to-tenth-pr
+    layer: adoption
+    name: Time to tenth pull request
+    definition: Days from first access to tenth merged pull request for a new engineer, median, split employee and vendor
+    unit: days
+    source: source control
+    owner: seo-hub-leaders
+    cadence: quarterly
+
+  - id: self-service-rate
+    layer: adoption
+    name: Self-service rate
+    definition: Requests fulfilled with no platform-team action / all requests
+    unit: percent
+    source: portal actions, support tickets
+    owner: seo-platform
+    cadence: monthly
+
+  # ---- Layer 2: satisfaction and productivity (SPACE, DevEx) ------------
+  - id: platform-satisfaction
+    layer: experience
+    name: Platform satisfaction
+    definition: Share of respondents satisfied or very satisfied with the platform
+    unit: percent
+    source: quarterly developer survey
+    owner: head-of-seo
+    cadence: quarterly
+    frameworks: [SPACE satisfaction]
+
+  - id: ease-of-delivery
+    layer: experience
+    name: Ease of delivery
+    definition: Mean score for "how easy is it to ship a change to production?"
+    unit: score 1-5
+    source: quarterly developer survey
+    owner: head-of-seo
+    cadence: quarterly
+    frameworks: [DevEx flow, DX Core 4 effectiveness]
+
+  - id: cognitive-load
+    layer: experience
+    name: Tooling cognitive load
+    definition: Mean score for "how much do tools and process get in the way of the problem you are solving?"
+    unit: score 1-5 (lower is better)
+    source: quarterly developer survey
+    owner: head-of-seo
+    cadence: quarterly
+    frameworks: [DevEx cognitive load]
+
+  - id: ci-feedback-time
+    layer: experience
+    name: CI feedback time
+    definition: Pipeline duration from push to result, p50 and p90
+    unit: minutes
+    source: CI system
+    owner: seo-platform
+    cadence: weekly
+    frameworks: [DevEx feedback loops, SPACE efficiency]
+
+  - id: pr-review-turnaround
+    layer: experience
+    name: Review turnaround
+    definition: Time from pull request opened to first review, median
+    unit: hours
+    source: source control
+    owner: delivery teams
+    cadence: weekly
+    frameworks: [SPACE communication]
+
+  # ---- Layer 3: organisational efficiency (CNCF white paper) ------------
+  - id: request-to-fulfilment
+    layer: efficiency
+    name: Request-to-fulfilment time
+    definition: Time from request to a usable environment, database or access, median
+    unit: hours
+    source: portal actions, tickets
+    owner: seo-platform
+    cadence: monthly
+
+  - id: time-to-production-new-service
+    layer: efficiency
+    name: Time to production for a new service
+    definition: Template run to first production deployment, median
+    unit: days
+    source: scaffolder, deployment events
+    owner: seo-hub-leaders
+    cadence: quarterly
+
+  - id: platform-toil
+    layer: efficiency
+    name: Platform-team toil
+    definition: Platform-team time spent on tickets and manual operations / total time
+    unit: percent
+    source: team time allocation
+    owner: head-of-seo
+    cadence: monthly
+
+  # ---- Layer 4: delivery (DORA) ----------------------------------------
+  - id: change-lead-time
+    layer: delivery
+    name: Change lead time
+    definition: Commit to running in production, median, per service
+    unit: hours
+    source: DevLake (source control + deployments)
+    owner: delivery teams
+    cadence: weekly
+    frameworks: [DORA throughput]
+    counter_metric: change-fail-rate
+
+  - id: deployment-frequency
+    layer: delivery
+    name: Deployment frequency
+    definition: Production deployments per service per week
+    unit: deployments/week
+    source: DevLake
+    owner: delivery teams
+    cadence: weekly
+    frameworks: [DORA throughput]
+    counter_metric: rework-rate
+
+  - id: failed-deployment-recovery-time
+    layer: delivery
+    name: Failed deployment recovery time
+    definition: Time from a failed deployment to recovery, median
+    unit: minutes
+    source: DevLake (deployments + incidents)
+    owner: delivery teams
+    cadence: weekly
+    frameworks: [DORA throughput]
+
+  - id: change-fail-rate
+    layer: delivery
+    name: Change fail rate
+    definition: Deployments that need immediate intervention / all deployments
+    unit: percent
+    source: DevLake
+    owner: delivery teams
+    cadence: weekly
+    frameworks: [DORA instability, DX Core 4 quality]
+
+  - id: rework-rate
+    layer: delivery
+    name: Deployment rework rate
+    definition: Unplanned deployments made to fix a production problem / all deployments
+    unit: percent
+    source: DevLake
+    owner: delivery teams
+    cadence: weekly
+    frameworks: [DORA instability]
+
+  # ---- Layer 5: cost and risk ------------------------------------------
+  - id: cost-per-active-developer
+    layer: cost
+    name: Platform cost per active developer
+    definition: (licences + infrastructure + platform-team cost) / developers active in the month
+    unit: USD/developer/month
+    source: finance, OpenCost, licence register
+    owner: head-of-seo
+    cadence: monthly
+    counter_metric: platform-satisfaction
+
+  - id: cost-per-deployment
+    layer: cost
+    name: Cost per deployment
+    definition: Platform run cost / production deployments
+    unit: USD
+    source: OpenCost, deployment events
+    owner: seo-platform
+    cadence: monthly
+
+  - id: allocated-spend
+    layer: cost
+    name: Allocated spend
+    definition: Cloud and licence cost mapped to an owner / total
+    unit: percent
+    source: OpenCost, cloud billing in FOCUS format
+    owner: seo-platform
+    cadence: monthly
+    target: ">= 90"
+
+  - id: idle-licences
+    layer: cost
+    name: Idle licences
+    definition: Paid seats with no activity in 30 days / paid seats
+    unit: percent
+    source: vendor admin reports
+    owner: head-of-seo
+    cadence: monthly
+
+  - id: scorecard-pass-rate
+    layer: risk
+    name: Scorecard pass rate
+    definition: Services at or above the minimum level for their tier / all services, by team and by vendor
+    unit: percent
+    source: scorecards
+    owner: seo-hub-leaders
+    cadence: weekly
+
+  - id: open-exceptions
+    layer: risk
+    name: Open policy exceptions
+    definition: Count of unexpired exceptions and age of the oldest
+    unit: count, days
+    source: leadership/governance/exceptions
+    owner: seo-hub-leaders
+    cadence: monthly
+
+  - id: vulns-past-sla
+    layer: risk
+    name: Vulnerabilities past SLA
+    definition: Critical and high findings older than their fix SLA
+    unit: count
+    source: scanner
+    owner: delivery teams
+    cadence: weekly
+
+  # ---- AI capability ---------------------------------------------------
+  - id: ai-weekly-active
+    layer: ai
+    name: AI weekly active users
+    definition: Developers using an approved AI tool in the last 7 days / licensed developers
+    unit: percent
+    source: vendor admin reports, gateway
+    owner: seo-platform
+    cadence: weekly
+
+  - id: ai-ticket-to-first-pr
+    layer: ai
+    name: Ticket to first pull request
+    definition: Time from ticket started to first pull request, median, AI-assisted vs. not
+    unit: hours
+    source: issue tracker, source control
+    owner: seo-hub-leaders
+    cadence: monthly
+    counter_metric: rework-rate
+
+  - id: ai-spend-per-active-user
+    layer: ai
+    name: AI spend per active user
+    definition: Seats plus metered usage / weekly active AI users
+    unit: USD/user/month
+    source: vendor billing
+    owner: head-of-seo
+    cadence: monthly
+
+summaries:
+  monk:
+    market_share: golden-path-share
+    onboarding_time: time-to-first-deploy
+    nps: platform-satisfaction
+    key_customer_metrics: [change-lead-time, change-fail-rate]
+  dx_core_4:
+    speed: [change-lead-time, deployment-frequency]
+    effectiveness: [ease-of-delivery]
+    quality: [change-fail-rate, rework-rate]
+    impact: [platform-toil]

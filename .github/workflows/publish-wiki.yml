@@ -1,0 +1,36 @@
+# Copies the pages in wiki/ to the repository's GitHub wiki.
+# Untested. Prerequisite: the wiki must exist, which means creating its first
+# page once by hand in the Wiki tab. Until then this job fails at the clone.
+name: publish-wiki
+
+on:
+  push:
+    branches: [main]
+    paths: ["wiki/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync wiki pages
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          git clone "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git" wiki-repo
+          cp wiki/*.md wiki-repo/
+          cd wiki-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No wiki changes"
+          else
+            git commit -m "Sync wiki from ${GITHUB_SHA}"
+            git push
+          fi
