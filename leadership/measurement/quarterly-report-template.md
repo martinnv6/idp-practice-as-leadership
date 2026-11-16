@@ -1,4 +1,4 @@
-# SEO quarterly report · Q_ 20__
+# DPG quarterly report · Q_ 20__
 
 One page for the executive committee. Outcomes first. Tools only in the appendix.
 

@@ -1,6 +1,6 @@
 # Study notes
 
-Theory in your own words, filled in as you read. Keep each answer short enough to say aloud. General theory and Forja Norte material only; anything personal goes in `notes/private/`, which Git ignores.
+Theory in your own words, filled in as you read. Keep each answer short enough to say aloud. General theory and Kestrel Parcel material only; anything personal goes in `notes/private/`, which Git ignores.
 
 ## 1. The platform
 
@@ -83,7 +83,7 @@ Theory in your own words, filled in as you read. Keep each answer short enough t
 
 | Prompt | My words |
 | --- | --- |
-| Platform Engineer versus Hub Leader | |
+| Platform Engineer versus Guild Lead | |
 | Leading without authority | |
 | Hiring order | |
 

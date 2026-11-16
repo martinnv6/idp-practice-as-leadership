@@ -1,0 +1,37 @@
+# Enforces DPG-DIR-002 and DPG-DIR-060. Untested starter (Phase 5).
+# Written in the classic ClusterPolicy format. Newer Kyverno releases also
+# offer CEL-based ValidatingPolicy; check which one your version recommends.
+# Start in Audit, read the policy reports, then switch to Enforce for prod.
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-ownership-labels
+  annotations:
+    policies.kyverno.io/title: Require ownership and allocation labels
+    policies.kyverno.io/category: Governance
+    policies.kyverno.io/severity: medium
+    kestrel.example/directive: DPG-DIR-002, DPG-DIR-060
+spec:
+  background: true
+  rules:
+    - name: check-labels
+      match:
+        any:
+          - resources:
+              kinds: [Deployment, StatefulSet, CronJob]
+              namespaceSelector:
+                matchLabels:
+                  kestrel.example/managed: "true"
+      validate:
+        failureAction: Audit
+        message: >-
+          Workloads need the labels owner, cost-center, tier and
+          data-classification (directive DPG-DIR-002). The golden-path
+          templates add them for you. See the portal page "Labels".
+        pattern:
+          metadata:
+            labels:
+              kestrel.example/owner: "?*"
+              kestrel.example/cost-center: "CC-???-????"
+              kestrel.example/tier: "1 | 2 | 3"
+              kestrel.example/data-classification: "public | internal | confidential | restricted"

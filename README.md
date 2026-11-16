@@ -1,55 +1,96 @@
 # IDP practice as leadership
 
-A practice repository for **leading** an Internal Developer Platform (IDP): setting its strategy, governing it, measuring adoption, managing its money and vendors, and reporting it to executives. A second, smaller area explains how an IDP works technically, so the leader can discuss it with engineers.
+A hands-on practice for **leading** an Internal Developer Platform (IDP). You play the newly appointed head of a platform group at a fictional company. A local app gives you the situations the job would bring, tracks the documents you produce, and shows reviews of your work. An AI tool of your choice plays the people around you and examines you at checkpoints.
 
-The company in it, **Forja Norte**, is fictional. Every number marked `ASSUMPTION` is a placeholder.
+The focus is leadership: strategy, adoption, measurement, governance, budget, vendors, AI and people. There is no platform to install. The platform's data is mocked, so the work is reading numbers, deciding, writing and defending.
 
-**New here? Open [`START-HERE.md`](START-HERE.md).** It gives you the brief from the fictional CIO and the missions that follow it.
+The company, **Kestrel Parcel**, is fictional and every figure is a practice figure.
 
-## Two areas
+## Quick start
 
-| Area | Question it answers | Start here |
+Requires Python 3.10 or later.
+
+```bash
+# 1. Fork this repository on GitHub, then clone your fork
+git clone https://github.com/<you>/idp-practice-as-leadership.git
+cd idp-practice-as-leadership
+
+# 2. Install the one dependency
+pip install -r requirements.txt
+
+# 3. Run the app
+python3 app/server.py
+```
+
+Your browser opens at `http://127.0.0.1:8765`. Choose a pace and the app opens your brief from the CTO.
+
+Then open the repository folder in an AI coding tool (Claude Code, Antigravity, Cursor, Copilot or similar) and say:
+
+> Run mission s1 with me.
+
+The tool reads `AGENTS.md`, plays the cast and challenges your answers. It will not write your documents.
+
+## How the practice works
+
+| Step | What you do | Where |
 | --- | --- | --- |
-| [`leadership/`](leadership/) | What does the head of a platform office decide, produce and report? | [`leadership/README.md`](leadership/README.md) |
-| [`technical/`](technical/) | What are the parts of an IDP and how do they fit together? | [`technical/01-idp-anatomy.md`](technical/01-idp-anatomy.md) |
+| Read | The theory for the mission | Documents the mission lists |
+| Note | Write it in your own words | `notes/study-notes.md` |
+| Decide | Make the leadership decision and write the document | `leadership/` |
+| See it work | Understand the mechanism behind it | `technical/` and the Data screen |
+| Say it | Answer the mission's question aloud | To an AI agent |
 
-Shared reference material (standards, glossary, sources) is in [`docs/`](docs/).
+Two paces:
 
-## The role being practised
+- **Sprint:** four sessions of about 90 minutes, for when an interview is close.
+- **Full simulation:** eleven missions that follow the first two quarters in the job, with four checkpoints and a final oral exam.
 
-Head of a Software Engineering Office: one leader, four platform engineers (SAP, Microsoft, Java, Data) and four matrix Hub Leaders, serving about 600 developers of whom about 500 are contractors. The role is an internal product leader whose customers are developers. See [`leadership/01-role-and-operating-model.md`](leadership/01-role-and-operating-model.md).
+## What the app shows
 
-## How to practise
+| Screen | Purpose |
+| --- | --- |
+| Brief and inbox | Messages from the cast, arriving as you progress |
+| Missions | Tasks to tick, tools to use, deliverables and their status |
+| Data | Mock delivery metrics, survey, scorecards, spend and adoption funnel |
+| Ledger | What your decisions cost against the budget, and your time |
+| Scoreboard | Progress and review scores by competency |
+| Checkpoints | Scored reviews with evidence quoted from your own documents |
 
-1. Read [`START-HERE.md`](START-HERE.md): your brief, the cast and how a mission works.
-2. If an interview is close, do [`journey/sprint.md`](journey/sprint.md): four sessions.
-3. Otherwise follow [`journey/missions.md`](journey/missions.md): eleven missions over the first two quarters in the job. Each pairs a leadership decision with the technical piece that makes it real.
-4. Write the theory in your own words in [`notes/study-notes.md`](notes/study-notes.md) as you go.
-
-Work is tracked as GitHub issues: epics, stories and defects, labelled `area:leadership` or `area:technical`.
+The app detects whether each deliverable exists and is filled in. Quality is judged at checkpoints: ask your AI tool to "run the review-checkpoint skill for cp1" and reload the Checkpoints screen.
 
 ## Repository map
 
 ```
-journey/         the missions and the sprint
-notes/           study notes (notes/private/ is ignored by Git)
-leadership/      strategy, governance, measurement, finops, vendors, ai, people
-technical/       anatomy, architecture, tooling options, build plan, golden-path design, starter config
-docs/            standards map, glossary, references
-wiki/            source pages for the GitHub wiki
-.github/         issue forms, pull-request template, workflows
-.claude/agents/  role-play and review agents for practice
-scripts/         validation and GitHub bootstrap
+START-HERE.md        read this after the quick start
+app/                 the practice app
+practice/            missions, rubrics, mock data
+progress/            your state and reviews (created when you start)
+leadership/          the documents you will write and the templates for them
+technical/           how an IDP works, at the depth a leader needs
+notes/               your study notes; notes/private/ is ignored by Git
+docs/                standards map, glossary, references
+.claude/             skills (tutor, examiner) and the cast
+scripts/             validation, progress check, data generator
 ```
 
-## Status
+## Keeping your work
 
-| Item | State |
-| --- | --- |
-| Leadership documents and templates | Drafted; exercises not yet done |
-| Technical starter configuration (`technical/platform/`) | Untested. Passes a YAML syntax check only |
-| CI workflow | Validates YAML, CSV, internal references and runs the TCO script |
+Your fork is your workbook. Commit your documents and `progress/` as you go so the history shows how your thinking changed. Keep anything personal (real employers, interview details, your own career numbers) in `notes/private/`, which Git ignores.
+
+## Checks
+
+```bash
+python3 scripts/validate.py         # files and references are consistent
+python3 scripts/check_progress.py   # which deliverables are ready
+python3 app/server.py --check       # the app's data loads
+```
 
 ## Foundations
 
-CNCF TAG App Delivery *Platforms White Paper* and *Platform Engineering Maturity Model* (the base of the CNPA and CNPE certifications), DORA, SPACE, DevEx and DX Core 4 for measurement, and the FinOps Framework for cost. See [`docs/standards-map.md`](docs/standards-map.md).
+CNCF TAG App Delivery *Platforms White Paper* and *Platform Engineering Maturity Model*, DORA, SPACE, DevEx and DX Core 4 for measurement, and the FinOps Framework for cost. See [`docs/standards-map.md`](docs/standards-map.md) and [`docs/references.md`](docs/references.md).
+
+## Limits
+
+- The dataset is invented and small. It teaches how to read platform data, not what real numbers look like.
+- AI reviews are a study aid. They follow the rubrics in `practice/rubrics.yaml` and can be wrong; argue with them.
+- `technical/appendix/` holds an optional hands-on build plan and starter configuration that has never been run.

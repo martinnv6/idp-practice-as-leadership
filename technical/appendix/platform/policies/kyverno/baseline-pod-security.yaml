@@ -1,0 +1,49 @@
+# Enforces part of DPG-DIR-034. Untested starter (Phase 5).
+# In a real cluster, prefer the maintained Kyverno "pod-security" policy set
+# or Kubernetes Pod Security Admission over hand-written rules like these.
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: baseline-pod-security
+  annotations:
+    policies.kyverno.io/title: Non-root, no privilege escalation, no privileged mode
+    policies.kyverno.io/category: Pod Security
+    policies.kyverno.io/severity: high
+    kestrel.example/directive: DPG-DIR-034
+spec:
+  background: true
+  rules:
+    - name: run-as-non-root
+      match:
+        any:
+          - resources:
+              kinds: [Pod]
+              namespaceSelector:
+                matchLabels:
+                  kestrel.example/managed: "true"
+      validate:
+        failureAction: Audit
+        message: Containers must run as non-root (directive DPG-DIR-034).
+        pattern:
+          spec:
+            securityContext:
+              runAsNonRoot: true
+    - name: no-privileged-no-escalation
+      match:
+        any:
+          - resources:
+              kinds: [Pod]
+              namespaceSelector:
+                matchLabels:
+                  kestrel.example/managed: "true"
+      validate:
+        failureAction: Audit
+        message: >-
+          Privileged containers and privilege escalation are not allowed
+          (directive DPG-DIR-034).
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  allowPrivilegeEscalation: false
+                  =(privileged): false

@@ -19,10 +19,21 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install pyyaml
+        run: pip install -r requirements.txt
 
       - name: YAML, CSV and internal references
         run: python3 scripts/validate.py
+
+      - name: Practice data loads in the app
+        run: python3 app/server.py --check
+
+      - name: Mock dataset is reproducible
+        run: |
+          python3 scripts/generate_dataset.py
+          git diff --exit-code practice/data
+
+      - name: Progress report
+        run: python3 scripts/check_progress.py
 
       - name: TCO model runs
         run: python3 leadership/finops/tco.py

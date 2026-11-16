@@ -60,7 +60,6 @@ Checked on 2026-11-15 unless noted. Items marked *to read* were not opened on th
 - OpenSSF Scorecard: https://scorecard.dev
 - NIST Cybersecurity Framework 2.0
 - ISO/IEC 27001:2022, ISO/IEC 42001:2023
-- IEC 62443 series; ISA-95
 - NIST AI Risk Management Framework
 
 ## Books

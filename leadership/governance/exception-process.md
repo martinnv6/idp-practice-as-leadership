@@ -8,16 +8,16 @@ A team that cannot meet a MUST directive asks for an exception. Exceptions are n
 2. Always time-boxed: 90 days by default, 180 at most. Renewals are new requests.
 3. Always has an owner and a plan to close it.
 4. Always states the compensating control.
-5. Approved by the Hub Leader of the stack and Security. Tier 1 or SOX-scope exceptions also need the Head of SEO.
+5. Approved by the Guild Lead of the stack and Security. Tier 1 or PCI-scope exceptions also need the Head of Developer Platform.
 6. Enforced technically: the policy exclusion is scoped to the named workload and expires on the same date.
 
 ## Request template
 
 ```yaml
 id: EXC-2027-001
-directive: SEO-DIR-031
-service: yard-management-legacy
-team: scm-yard
+directive: DPG-DIR-031
+service: route-planning-legacy
+team: route-planning
 vendor: Altos Delivery
 tier: 2
 reason: >

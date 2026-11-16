@@ -1,6 +1,6 @@
 # Golden-path plan
 
-How a leader chooses, launches and grows golden paths. The technical design of one is in `technical/05-golden-path-design.md`.
+How a leader chooses, launches and grows golden paths. The technical design of one is in `technical/04-golden-path-design.md`.
 
 ## What it is
 
@@ -29,7 +29,7 @@ All three satisfy the mandatory directives. Teams outside all three need an exce
 
 Score each candidate stack.
 
-| Criterion | Question | SAP | Microsoft | Java | Data |
+| Criterion | Question | Java | TypeScript | Python and Data | Mobile |
 | --- | --- | --- | --- | --- | --- |
 | Reach | How many teams and new services per year? | | | | |
 | Pain | How much time is lost today in setup and deployment? | | | | |
@@ -38,7 +38,7 @@ Score each candidate stack.
 | Credibility | Does the platform team know this stack deeply? | | | | |
 | Total | | | | | |
 
-Default choice for Forja Norte: Microsoft (.NET on Azure), because of reach and platform-team credibility. Confirm with the scoring in exercise L4.
+Default choice for Kestrel Parcel: Java services, because of reach and platform-team credibility. Confirm with the scoring in exercise L4.
 
 ## Scope of version 0.1
 
@@ -58,13 +58,13 @@ Rule: version 0.1 must take one real team to a running service. Anything not nee
 
 | Step | Who | Output |
 | --- | --- | --- |
-| Pick one or two pilot teams with a real, non-critical service | Head of SEO, Hub Leader | Signed-up teams |
+| Pick one or two pilot teams with a real, non-critical service | Head of Developer Platform, Guild Lead | Signed-up teams |
 | Build 0.1 with the pilot team in the room | Platform Engineer | Working path |
 | Write the tutorial as the pilot follows it | Platform Engineer, pilot team | Tutorial tested by a real user |
-| Measure time to first deploy and collect friction | Hub Leader | First numbers |
+| Measure time to first deploy and collect friction | Guild Lead | First numbers |
 | Fix the top three frictions | Platform Engineer | 0.2 |
 | Demo by the pilot team, not by the platform team | Pilot tech lead | New volunteers |
-| New joiners do the tutorial in onboarding | Hub Leaders | Steady feedback |
+| New joiners do the tutorial in onboarding | Guild Leads | Steady feedback |
 
 Using new joiners as the tutorial's audience is Spotify's practice: every new engineer walks the path, so feedback never stops.
 

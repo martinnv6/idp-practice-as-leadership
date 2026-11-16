@@ -2,7 +2,7 @@
 
 Fourteen exercises. Each one ends with an artefact a platform leader really produces and a spoken answer of about five minutes. They can be done in order or picked by interview topic.
 
-Each exercise is also a GitHub issue labelled `area:leadership`. Close the issue when both the artefact is committed and the answer has been rehearsed aloud.
+The practice app (`python3 app/server.py`) presents these exercises as missions, in the order the job would bring them, and tracks them. An exercise is done when the artefact is committed and the answer has been rehearsed aloud.
 
 The agents in `.claude/agents/` play the counterpart (executive, developer, vendor, finance) so an answer can be challenged.
 
@@ -29,7 +29,7 @@ The agents in `.claude/agents/` play the counterpart (executive, developer, vend
 
 ## L1 · Define the platform and its charter
 
-**Situation.** First week. The CIO asks: "In one sentence, what is this platform and what is it not?"
+**Situation.** First week. The CTO asks: "In one sentence, what is this platform and what is it not?"
 
 **Do**
 
@@ -48,7 +48,7 @@ The agents in `.claude/agents/` play the counterpart (executive, developer, vend
 **Do**
 
 1. Write an interview guide: eight questions for developers, five for tech leads, five for vendor leads.
-2. Run it with the `developer-customer` agent as three personas: employee .NET developer, vendor Java developer, SAP developer. Log the friction points in a table: friction, who, how often, time lost, evidence.
+2. Run it with the `developer-customer` agent as three personas: employee Java developer, vendor TypeScript developer, mobile developer. Log the friction points in a table: friction, who, how often, time lost, evidence.
 3. Draw the value stream of one change from ticket to production with wait times (invented, but plausible).
 4. Fill the "minimum viable baseline" in `leadership/measurement/metrics-and-adoption.md`: which numbers exist, which do not, how to get each.
 
@@ -93,13 +93,13 @@ The agents in `.claude/agents/` play the counterpart (executive, developer, vend
 
 1. Set funnel targets per quarter: aware, onboarded, activated, active, retained.
 2. Segment teams: volunteers, pragmatists, sceptics, cannot-move-yet. Name the tactic for each.
-3. Write the role of Hub Leaders and champions in adoption.
+3. Write the role of Guild Leads and champions in adoption.
 4. Role-play with `developer-customer` as a sceptical senior tech lead from a long-established team, and as a vendor lead who is paid by the hour.
 5. Decide what, if anything, becomes mandatory and when.
 
 **Done when.** `leadership/strategy/adoption-plan.md` is committed.
 
-**Question it answers.** "How would you get 500 contractors and established teams to adopt standards?"
+**Question it answers.** "How would you get contractors and established teams to adopt standards?"
 
 ## L6 · Measurement with DX Core 4
 
@@ -112,7 +112,7 @@ The agents in `.claude/agents/` play the counterpart (executive, developer, vend
 3. Translate one of your own past results into this vocabulary and mark which data you had and which you did not.
 4. Write which counter-metric you would show next to each number.
 
-**Done when.** The scorecard table in `leadership/measurement/dx-core-4.md` is filled for Forja Norte.
+**Done when.** The scorecard table in `leadership/measurement/dx-core-4.md` is filled for Kestrel Parcel.
 
 **Question it answers.** "How do you measure adoption and impact?" and "Have you used DORA, SPACE or DevEx?"
 
@@ -148,7 +148,7 @@ The agents in `.claude/agents/` play the counterpart (executive, developer, vend
 
 ## L9 · Delivery vendors
 
-**Situation.** One of three delivery vendors has twice the change fail rate of the others.
+**Situation.** One of the two delivery vendors has a change fail rate well above the other teams'.
 
 **Do**
 
@@ -163,7 +163,7 @@ The agents in `.claude/agents/` play the counterpart (executive, developer, vend
 
 ## L10 · AI programme
 
-**Situation.** Three AI assistants are in use without rules. The CIO wants productivity gains reported next quarter.
+**Situation.** Three AI assistants are in use without rules. The CTO wants productivity gains reported next quarter.
 
 **Do**
 
@@ -178,14 +178,14 @@ The agents in `.claude/agents/` play the counterpart (executive, developer, vend
 
 ## L11 · Team and hiring
 
-**Situation.** Eight positions to fill or confirm; four are matrix roles with no reporting line.
+**Situation.** Nine positions to fill or confirm; three are matrix roles with no reporting line.
 
 **Do**
 
 1. Read `leadership/people/team-and-hiring.md`.
-2. Write a role scorecard for one Platform Engineer and one Hub Leader: outcomes, competencies, interview signals.
+2. Write a role scorecard for one Platform Engineer and one Guild Lead: outcomes, competencies, interview signals.
 3. Order the hires and explain the order.
-4. Describe how you lead Hub Leaders who do not report to you.
+4. Describe how you lead Guild Leads who do not report to you.
 
 **Done when.** Two role scorecards are committed.
 
@@ -193,7 +193,7 @@ The agents in `.claude/agents/` play the counterpart (executive, developer, vend
 
 ## L12 · Incident and continuity
 
-**Situation.** A platform pipeline change blocked all deployments for three hours during a plant maintenance window.
+**Situation.** A platform pipeline change blocked all deployments for three hours on the first night of peak season.
 
 **Do**
 
@@ -211,7 +211,7 @@ The agents in `.claude/agents/` play the counterpart (executive, developer, vend
 
 **Do**
 
-1. Fill `leadership/measurement/quarterly-report-template.md` with Forja Norte numbers from the earlier exercises.
+1. Fill `leadership/measurement/quarterly-report-template.md` with Kestrel Parcel numbers from the earlier exercises.
 2. Rehearse it aloud in ten minutes. Outcomes first, tools never.
 3. Take questions from the `exec-committee` agent.
 

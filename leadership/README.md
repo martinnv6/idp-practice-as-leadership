@@ -10,9 +10,9 @@ A platform leader's output is mostly documents, spreadsheets, backlogs and dashb
 | --- | --- | --- |
 | Charter, vision, policies, directives | Word or Confluence | `leadership/strategy/`, `leadership/governance/` |
 | Decision records | Confluence | `leadership/governance/adr/` |
-| Roadmap and backlog | Jira, Jira Product Discovery, Azure Boards | `leadership/strategy/roadmap.md` plus GitHub issues and project |
+| Roadmap and backlog | Jira, Jira Product Discovery, Linear | `leadership/strategy/roadmap.md` |
 | Budget, licence register, TCO model | Excel | `leadership/finops/` (CSV plus a script) |
-| Productivity and adoption dashboards | DX (Core 4), DevLake or Power BI | `leadership/measurement/` |
+| Productivity and adoption dashboards | DX (Core 4), DevLake or Power BI | `leadership/measurement/`, fed by the mock data in `practice/data/` |
 | Developer survey | DX snapshots, Forms | `leadership/measurement/devex-survey.md` |
 | Quarterly executive report, vendor QBR | PowerPoint | `leadership/measurement/quarterly-report-template.md`, `leadership/vendors/vendor-scorecard.md` |
 | Team structure, hiring, rituals | Word, HR system | `leadership/people/team-and-hiring.md` |

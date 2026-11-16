@@ -16,9 +16,9 @@ The base text. It defines a platform, its attributes, the attributes of platform
 | User experience | One portal, consistent templates and docs |
 | Documentation and onboarding | TechDocs in every template; time to first deploy as a metric |
 | Self-service | Git-driven requests; self-service rate as a metric |
-| Reduced cognitive load | One workload spec (`technical/platform/score/score.yaml`) |
+| Reduced cognitive load | One workload spec (`technical/appendix/platform/score/score.yaml`) |
 | Optional and composable | Design rule 5 in `technical/02-reference-architecture.md` |
-| Secure by default | Policies in `technical/platform/policies/`, enforced on the golden path |
+| Secure by default | Policies in `technical/appendix/platform/policies/`, enforced on the golden path |
 
 ### CNCF Platform Engineering Maturity Model
 
@@ -36,7 +36,7 @@ Level names are from the CNCF model. Read the full descriptions in the source be
 
 Self-assessment for the lab scenario:
 
-| Aspect | Forja Norte today (assumed) | Target in 12 months | Phase that moves it |
+| Aspect | Kestrel Parcel today (assumed) | Target in 12 months | Phase that moves it |
 | --- | --- | --- | --- |
 | Investment | Provisional | Scalable | 0, 8, 12 |
 | Adoption | Provisional | Operational to Scalable | 3, 7, 11 |
@@ -84,7 +84,7 @@ Related CNCF certifications that map to lab tools: Certified Backstage Associate
 | FinOps Framework | Inform, optimise, operate | `leadership/finops/finops-and-vendors.md` |
 | FOCUS specification | Common schema for cloud, SaaS and AI billing data | `leadership/finops/cost-allocation-tags.yaml` |
 
-## Security and compliance (Scenario A)
+## Security and compliance (Kestrel Parcel)
 
 | Standard | Why it applies | Enforced by |
 | --- | --- | --- |
@@ -95,10 +95,8 @@ Related CNCF certifications that map to lab tools: Certified Backstage Associate
 | CIS Benchmarks, Kubernetes Pod Security Standards | Hardened runtime configuration | Kyverno policies |
 | ISO/IEC 27001 | Information security management system | Directives map to Annex A controls |
 | NIST Cybersecurity Framework 2.0 | Risk language for executives, includes Govern function | Quarterly report |
-| IEC 62443 | Industrial automation security: zones and conduits between IT and plant | Environment model, `plant-edge` rules |
-| ISA-95 | Layering between enterprise and plant systems | Domain model in the catalog |
-| SOX IT general controls | Change management, access, segregation of duties for financial systems | GitOps promotion with second approver, evidence in Git |
-| Data protection law (for example Mexico's LFPDPPP, GDPR where relevant) | Personal data in systems and test data | Data classification label, policy |
+| PCI DSS | Change control, access and separation of duties for systems that handle card payments | GitOps promotion with second approver, evidence in Git |
+| Data protection law (GDPR and national equivalents) | Personal data in systems and test data | Data classification label, policy |
 | NIST AI RMF, ISO/IEC 42001 | Governing AI use | `leadership/governance/ai-usage-policy.md` |
 
 This table is a study aid. It is not legal or audit advice; scoping a real compliance programme is done with the company's security, legal and audit functions.
@@ -107,6 +105,6 @@ This table is a study aid. It is not legal or audit advice; scoping a real compl
 
 The chain to be able to show for any control:
 
-`standard clause → directive (leadership/governance/directives.md) → policy or pipeline check (technical/platform/policies/) → evidence (policy report, Git history, scorecard) → metric (pass rate)`
+`standard clause → directive (leadership/governance/directives.md) → policy or pipeline check (technical/appendix/platform/policies/) → evidence (policy report, Git history, scorecard) → metric (pass rate)`
 
 Phase 5 fills this chain for five controls end to end.

@@ -1,0 +1,129 @@
+# Rubrics for the review skill. Each criterion is scored 0 to 3:
+#   0 missing · 1 present but generic or unsupported · 2 solid · 3 strong and specific to Kestrel Parcel
+# A deliverable passes when its average is 2.0 or more and no criterion is 0.
+# A checkpoint passes when every deliverable in it passes.
+
+scale:
+  0: Missing
+  1: Present but generic, vague or unsupported
+  2: "Solid: specific, consistent with the scenario and the data"
+  3: "Strong: would survive questioning by the person it is written for"
+
+common:
+  - {id: specific, text: "Specific to Kestrel Parcel: uses the scenario's teams, constraints and data, not generic statements"}
+  - {id: measurable, text: "Claims and targets are measurable, with a baseline or a source"}
+  - {id: honest, text: "States limits, assumptions and what is not known"}
+  - {id: plain, text: "Written for its reader in plain business language; tools appear only where needed"}
+
+rubrics:
+  charter:
+    - {id: mission, text: "Mission says who the customers are and what changes for them, in the learner's own words"}
+    - {id: scope, text: "Scope and out-of-scope are concrete enough to refuse a request with"}
+    - {id: principles, text: "Principles include earned adoption and one bar for employees and contractors"}
+  discovery:
+    - {id: guide, text: "Interview guide uses open questions about real work, for developers, tech leads and vendor leads"}
+    - {id: friction, text: "Friction log has who, how often, time lost and evidence for each item"}
+    - {id: baseline, text: "Baseline uses Q1 data, names each source, and says which numbers are missing or unreliable"}
+    - {id: flow, text: "Value stream of one change shows wait times, not only steps"}
+  roadmap:
+    - {id: outcomes, text: "One outcome per quarter with a measure; bets sit under outcomes"}
+    - {id: notnow, text: "A not-now list with a reason and a revisit date for each item"}
+    - {id: scoring, text: "Priorities follow from reach, friction, risk and effort"}
+    - {id: peak, text: "Plan respects the peak-season freeze"}
+  golden-path-plan:
+    - {id: choice, text: "First stack chosen from the scoring table, with reach and a volunteer team named"}
+    - {id: thin, text: "Version 0.1 scope is the smallest that takes one real team to a running service"}
+    - {id: exit, text: "Support model and an exit for teams that cannot use the path are defined"}
+    - {id: measures, text: "Measures from day one are named, including time to first deploy"}
+  adr:
+    - {id: context, text: "Context states the problem and constraints"}
+    - {id: options, text: "At least two real options with trade-offs, including cost with people"}
+    - {id: consequences, text: "Consequences name what becomes harder, not only what improves"}
+  launch-plan:
+    - {id: pilot, text: "Pilot team, service and timeline are concrete"}
+    - {id: tutorial, text: "Tutorial is tested by a real user; support channel and response target defined"}
+    - {id: scope, text: "Scope decision is consistent with the pilot's deadline and security's request, with the trade-off stated"}
+    - {id: measures, text: "Measures and who collects them"}
+  adoption-plan:
+    - {id: funnel, text: "Funnel targets per quarter for each stage"}
+    - {id: segments, text: "Teams are segmented, with a different tactic for sceptics and for vendor teams"}
+    - {id: bias, text: "Recognises that early adopters were already the stronger teams, so their results flatter the platform"}
+    - {id: mandate, text: "Says what becomes mandatory, when and why, and how satisfaction is tracked once it is"}
+    - {id: contract, text: "Deals with the vendor's request to tie adoption to the statement of work"}
+  governance-decision:
+    - {id: timing, text: "Enforcement date is tied to a measured pass rate, with audit mode first"}
+    - {id: risk, text: "Security's concern is treated as real and given a dated answer"}
+    - {id: reporting, text: "Explains how exceptions are reported and who sees them"}
+  exception:
+    - {id: timebox, text: "Time-boxed with an owner and a closing plan"}
+    - {id: control, text: "Compensating control is concrete"}
+    - {id: fair, text: "Same terms would apply to an internal team"}
+  core4:
+    - {id: filled, text: "All four dimensions have metric, source, baseline and target taken from the dataset"}
+    - {id: segments, text: "Compared on and off the golden path and by workforce type"}
+    - {id: counter, text: "A counter-metric beside every speed number"}
+    - {id: teamlevel, text: "No per-person reporting; throughput used with care"}
+  findings:
+    - {id: three, text: "Three findings that are true in the dataset"}
+    - {id: limits, text: "Each finding says what it cannot prove (selection bias, small samples, missing baseline)"}
+    - {id: action, text: "Each finding leads to an action or a question"}
+  budget:
+    - {id: complete, text: "People, licences, infrastructure, training and contingency all have figures"}
+    - {id: basis, text: "Each line has a basis; assumptions are marked"}
+    - {id: within, text: "Total is reconciled with the discretionary budget and the decisions taken in the app"}
+  memo:
+    - {id: tco, text: "Three-year cost with people included, and cost per developer"}
+    - {id: breakeven, text: "States the break-even point and what would change the answer"}
+    - {id: nonfinancial, text: "Weighs exit cost, speed to value and team capacity"}
+    - {id: recommendation, text: "Ends with one clear recommendation"}
+  vendor-scorecard:
+    - {id: data, text: "Scorecard figures come from the dataset and are compared with the internal average"}
+    - {id: fair, text: "Accounts for what the vendor inherited (legacy systems, off the golden path) before concluding"}
+    - {id: plan, text: "Improvement plan has measures, owners and dates"}
+    - {id: ladder, text: "Remedy ladder is stated, and the vendor's legitimate complaint about the platform is recorded"}
+  ai-plan:
+    - {id: rules, text: "Approved tools, data rules and human accountability are explicit"}
+    - {id: cohorts, text: "Measurement uses a baseline and a comparison group, with speed and quality together"}
+    - {id: cost, text: "Seat and usage cost is budgeted; idle seats are addressed"}
+    - {id: honest, text: "Says what can and cannot be claimed after one quarter"}
+  postmortem:
+    - {id: blameless, text: "Blameless: explains how the system allowed it"}
+    - {id: timeline, text: "Timeline with time to detect and time to recover"}
+    - {id: actions, text: "Actions have owners and dates and reduce the blast radius of pipeline changes"}
+    - {id: business, text: "Impact stated in parcels, hubs or customers, not in technical terms"}
+  quarterly-report:
+    - {id: outcomes, text: "Opens with a business outcome; tools are absent from the first page"}
+    - {id: numbers, text: "Baseline, current and target for each measure, consistent with the dataset"}
+    - {id: risks, text: "Names real risks, including bad news"}
+    - {id: asks, text: "Three asks at most, each with a cost and an expected result"}
+  role-scorecards:
+    - {id: outcomes, text: "Each role has measurable 12-month outcomes"}
+    - {id: signals, text: "Interview evidence and signs of a poor fit are concrete"}
+    - {id: order, text: "Hiring order is justified by the roadmap"}
+    - {id: matrix, text: "Explains how Guild Leads are led without a reporting line"}
+
+oral:
+  # Used for "say it" answers and the final exam.
+  - {id: structure, text: "Answer has a clear order and finishes inside the time"}
+  - {id: outcome-first, text: "Starts from the business outcome, not from tools"}
+  - {id: evidence, text: "Uses numbers with their source and their limits"}
+  - {id: honesty, text: "Separates what was done, what would be done and what is not known"}
+  - {id: listening, text: "Answers the question that was asked, including the follow-ups"}
+
+# What a careful reader should find in practice/data/. The review skill checks
+# whether the learner noticed them. Reading this first spoils the exercise.
+planted_findings:
+  - id: selection-bias
+    text: The teams that adopted the golden path first already had the best delivery numbers in Q1, so on-path versus off-path comparisons flatter the platform. Compare each team with its own Q1.
+  - id: speed-quality
+    text: One team (billing-core) got much faster after adopting the path while its change fail rate rose. Speed alone would have looked like a success.
+  - id: vendor-gap
+    text: Altos Delivery teams have a change fail rate about 1.7 times that of employee teams, but most of them are off the golden path and own older systems.
+  - id: survey-coverage
+    text: Contractor response rate to the survey is far lower than employees', so the satisfaction score mostly reflects employees.
+  - id: unallocated
+    text: Around a fifth of spend has no owner.
+  - id: idle-ai
+    text: About a third of paid AI seats show no use.
+  - id: no-frequency-baseline
+    text: Several off-path teams report no deployment frequency at all in Q1, so the baseline is incomplete.

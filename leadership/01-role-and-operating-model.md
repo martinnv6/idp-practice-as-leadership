@@ -2,7 +2,7 @@
 
 ## The role in one paragraph
 
-The head of the Software Engineering Office is the product leader of the internal developer platform. The customers are developers. The job is to decide what the platform offers, get teams to adopt it by making it the easiest way to work, prove the effect with data, keep it within budget, and explain all of that to executives in business terms. It is not a project-management or delivery-lead role, and it is not the person who writes the pipelines.
+The head of the Developer Platform Group is the product leader of the internal developer platform. The customers are developers. The job is to decide what the platform offers, get teams to adopt it by making it the easiest way to work, prove the effect with data, keep it within budget, and explain all of that to executives in business terms. It is not a project-management or delivery-lead role, and it is not the person who writes the pipelines.
 
 ## What the leader owns
 
@@ -26,8 +26,8 @@ How the portal, templates, pipelines, policies and metrics pipelines work. Enoug
 
 | Cadence | Activity | Output |
 | --- | --- | --- |
-| Weekly | One-to-ones with the eight direct and matrix reports | Notes, unblocked items |
-| Weekly | Hub Leaders sync: adoption blockers per stack | Updated adoption board |
+| Weekly | One-to-ones with the nine direct and matrix reports | Notes, unblocked items |
+| Weekly | Guild Leads sync: adoption blockers per stack | Updated adoption board |
 | Weekly | Review of adoption funnel, incidents, top friction | Backlog adjustments |
 | Every two weeks | Platform planning with the engineers | Prioritised backlog |
 | Monthly | Platform demo or town hall | Feedback, new adopters |
@@ -43,8 +43,8 @@ How the portal, templates, pipelines, policies and metrics pipelines work. Enoug
 
 | Stakeholder | What they want | How the leader serves it |
 | --- | --- | --- |
-| CIO and executive committee | Faster, safer delivery at visible cost | Quarterly report in time, cost and risk |
-| IT directors of business domains | Their teams deliver without disruption | Voluntary pilots, migration support, no surprise mandates |
+| CTO and executive committee | Faster, safer delivery at visible cost | Quarterly report in time, cost and risk |
+| Engineering directors of business domains | Their teams deliver without disruption | Voluntary pilots, migration support, no surprise mandates |
 | Developers and tech leads | Less friction | Golden paths, office hours, acting on survey results |
 | Security and audit | Controls and evidence | Controls built into templates, evidence from Git |
 | Finance and procurement | Predictable, allocated spend | Budget, showback, renewal calendar |

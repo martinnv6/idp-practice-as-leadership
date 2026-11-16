@@ -8,7 +8,7 @@ How the platform's money is modelled, allocated and defended, and how suppliers 
 | --- | --- | --- |
 | Licences and subscriptions | Source control seats, AI assistant seats and credits, portal SaaS, observability, security scanning | `leadership/finops/licenses.csv` |
 | Infrastructure | Clusters, CI runners, registries, storage, network | `leadership/finops/cost-allocation-tags.yaml` plus OpenCost |
-| People | Platform engineers, Hub Leaders' time, vendor delivery staff | `leadership/finops/scenarios.csv` |
+| People | Platform engineers, Guild Leads' time, vendor delivery staff | `leadership/finops/scenarios.csv` |
 
 People are usually the largest line and the one most often left out. A "free" open-source portal that needs two engineers is not free. The TCO script always includes people.
 
@@ -31,7 +31,7 @@ Outputs to quote: three-year TCO, cost per developer per month, and the break-ev
 For each tool category, fill one row per candidate in `leadership/finops/licenses.csv`:
 
 1. **Pricing unit.** Per user, per committer, per host, per GB, per credit. Different units are the main source of surprises.
-2. **Who counts as a user.** With 500 contractors, ask whether external collaborators need full seats.
+2. **Who counts as a user.** With many contractors, ask whether external collaborators need full seats.
 3. **What is metered on top of the seat.** AI assistants moved to seat-plus-usage models in 2026; budget the overage, not only the seat.
 4. **Prerequisites.** Some products require another paid tier underneath.
 5. **Term and exit.** Annual prepay discount, minimum seats, data export, notice period.
@@ -41,7 +41,7 @@ Then compute cost at three sizes (pilot of 50, half the organisation, everyone) 
 
 ## Showback before chargeback
 
-1. **Tag everything.** Mandatory labels are in `leadership/finops/cost-allocation-tags.yaml` and enforced by policy (`technical/platform/policies/kyverno/require-ownership-labels.yaml`).
+1. **Tag everything.** Mandatory labels are in `leadership/finops/cost-allocation-tags.yaml` and enforced by policy (`technical/appendix/platform/policies/kyverno/require-ownership-labels.yaml`).
 2. **Showback.** Publish cost per team and environment monthly. No invoices, only visibility.
 3. **Unit economics.** Cost per deployment, per active developer, per environment.
 4. **Budgets and alerts.** Per team, with anomaly alerts.
@@ -63,7 +63,7 @@ Use the FOCUS column names (FinOps Open Cost and Usage Specification) for the co
 
 | Category | Typical lines |
 | --- | --- |
-| CapEx | Initial implementation services, migration projects, hardware for plant edge |
+| CapEx | Initial implementation services, migration projects, hardware for hub edge |
 | OpEx: people | Platform team, training, certifications |
 | OpEx: infrastructure | Cloud consumption for platform services and CI |
 | OpEx: licences | Per-seat and usage-based subscriptions |
@@ -86,12 +86,12 @@ Two kinds of supplier, managed differently.
 
 ### Tool vendors (source control, cloud, ERP, observability, AI)
 
-- One owner per vendor inside the SEO.
+- One owner per vendor inside the DPG.
 - Renewal calendar with notice dates, twelve months ahead.
 - Usage reviewed before every renewal: seats assigned vs. active.
 - Exit plan written at signing, not at renewal.
 
-### Delivery vendors (the 500 contractors)
+### Delivery vendors (the contractors)
 
 Contract for outcomes that the platform can measure:
 

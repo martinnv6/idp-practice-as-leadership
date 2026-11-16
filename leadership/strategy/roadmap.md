@@ -1,4 +1,4 @@
-# Platform roadmap · Forja Norte SEO
+# Platform roadmap · Kestrel Parcel DPG
 
 Fictional. Draft to be edited in exercise L3. One outcome per quarter; items under it are bets, not promises.
 
@@ -12,10 +12,10 @@ Fictional. Draft to be edited in exercise L3. One outcome per quarter; items und
 
 | Quarter | Outcome | Bets | Measure | Maturity aspect moved |
 | --- | --- | --- | --- | --- |
-| Q1 | We know where we stand and one team ships on a golden path | Discovery interviews; baseline of delivery and experience; catalog of services with owners; golden path 0.1 for .NET with one volunteer team | Catalog coverage 50%; baseline published; 1 team active | Investment, Measurement |
-| Q2 | Five teams choose the platform and deliver faster than their baseline | Golden path 1.0 for .NET; standard pipeline with quality and security gates; scorecards; Hub Leader rhythm; first developer survey | 5 teams active; lead time down against own baseline; survey response above 50% | Adoption, Interfaces |
-| Q3 | Second stack live; vendors measured with the same bar; spend visible | Golden path for Java or Data; vendor scorecards and first QBRs; showback by team; AI pilot with rules and measurement | 15 teams active; scorecard gap between employees and vendors under 15 points; 80% of spend allocated | Adoption, Measurement, Operations |
-| Q4 | The platform is the default for new services and its value is reported in business terms | Third golden path or SAP extension pattern; policy enforcement in production for mandatory controls; AI capability catalog; year-two budget | 60% of new services on a golden path; quarterly report with DX Core 4; budget approved | Investment, Adoption |
+| Q1 | We know where we stand and one team ships on a golden path | Discovery interviews; baseline of delivery and experience; catalog of services with owners; golden path 0.1 for Java with one volunteer team | Catalog coverage 50%; baseline published; 1 team active | Investment, Measurement |
+| Q2 | Five teams choose the platform and deliver faster than their baseline | Golden path 1.0 for Java; standard pipeline with quality and security gates; scorecards; Guild Lead rhythm; first developer survey | 5 teams active; lead time down against own baseline; survey response above 50% | Adoption, Interfaces |
+| Q3 | Second stack live; vendors measured with the same bar; spend visible | Golden path for TypeScript or Data; vendor scorecards and first QBRs; showback by team; AI pilot with rules and measurement | 15 teams active; scorecard gap between employees and vendors under 15 points; 80% of spend allocated | Adoption, Measurement, Operations |
+| Q4 | The platform is the default for new services and its value is reported in business terms | Third golden path or mobile release pattern; policy enforcement in production for mandatory controls; AI capability catalog; year-two budget | 60% of new services on a golden path; quarterly report with DX Core 4; budget approved | Investment, Adoption |
 
 ## Not now
 
@@ -40,6 +40,6 @@ Score each candidate 1 to 5 and sort by (reach × friction × risk reduced) / ef
 | Risk | Signal | Response |
 | --- | --- | --- |
 | No volunteer team | Nobody signs up after two demos | Go to the team with the worst deployment pain and solve that first |
-| Hub Leaders have no time | Adoption stalls in one stack | Agree an explicit time allocation with their directors |
+| Guild Leads have no time | Adoption stalls in one stack | Agree an explicit time allocation with their directors |
 | Security asks for mandates early | New MUST directives proposed before the path satisfies them | SHOULD for one quarter, publish pass rates |
 | Budget cut mid-year | Finance review | Protect the golden path and measurement; drop breadth |

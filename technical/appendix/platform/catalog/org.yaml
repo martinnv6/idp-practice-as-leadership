@@ -1,0 +1,118 @@
+# Organisation model for Kestrel Parcel (fictional).
+# In a real setup, groups and users come from the identity provider through
+# an org-data provider, not from a hand-written file.
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: kestrel-parcel-it
+  description: Corporate IT
+spec:
+  type: organization
+  children: [dpg, delivery]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: dpg
+  title: Developer Platform Group
+  description: Owns the internal developer platform as a product
+spec:
+  type: department
+  parent: kestrel-parcel-it
+  children: [dpg-platform, dpg-guild-leads]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: dpg-platform
+  title: DPG Platform Engineers
+spec:
+  type: team
+  parent: dpg
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: dpg-guild-leads
+  title: DPG Guild Leads
+  description: Matrix leads, one per guild (backend, web and mobile, data)
+spec:
+  type: team
+  parent: dpg
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: delivery
+  title: Delivery teams
+spec:
+  type: department
+  parent: kestrel-parcel-it
+  children: [team-hub-sortation, team-route-planning]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-hub-sortation
+  title: Hub Operations · Sortation
+  annotations:
+    kestrel.example/workforce: employee
+spec:
+  type: team
+  parent: delivery
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-route-planning
+  title: Last Mile · Route Planning
+  annotations:
+    kestrel.example/workforce: vendor
+    kestrel.example/vendor: altos-delivery
+spec:
+  type: team
+  parent: delivery
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: ana.employee
+spec:
+  profile:
+    displayName: Ana (employee developer)
+    email: ana.employee@example.invalid
+  memberOf: [team-hub-sortation]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: victor.vendor
+spec:
+  profile:
+    displayName: Victor (vendor developer)
+    email: victor.vendor@example.invalid
+  memberOf: [team-route-planning]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: paula.platform
+spec:
+  profile:
+    displayName: Paula (platform engineer)
+    email: paula.platform@example.invalid
+  memberOf: [dpg-platform]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: hugo.guildlead
+spec:
+  profile:
+    displayName: Hugo (Guild Lead, backend)
+    email: hugo.guildlead@example.invalid
+  memberOf: [dpg-guild-leads]

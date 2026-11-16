@@ -1,10 +1,10 @@
-# Platform charter · Forja Norte SEO
+# Platform charter · Kestrel Parcel DPG
 
 Fictional. Version 0.1, practice draft.
 
 ## Mission
 
-Make it fast, safe and routine for any engineer at Forja Norte, employee or contractor, to deliver software that the business can rely on.
+Make it fast, safe and routine for any engineer at Kestrel Parcel, employee or contractor, to deliver software that the business can rely on.
 
 ## Users
 
@@ -12,7 +12,7 @@ Make it fast, safe and routine for any engineer at Forja Norte, employee or cont
 | --- | --- |
 | Developer (employee or contractor) | Start a service in minutes, deploy without tickets, find docs and owners, know the rules up front |
 | Tech lead | See the health and compliance of the team's services, onboard people quickly |
-| Hub Leader | Adoption and quality by team and vendor, a channel to raise friction |
+| Guild Lead | Adoption and quality by team and vendor, a channel to raise friction |
 | Security and audit | Controls enforced by default and evidence without chasing teams |
 | Finance | Spend by owner, forecast, licence utilisation |
 | Executives | Delivery speed, stability, risk and cost, in one page per quarter |
@@ -20,7 +20,7 @@ Make it fast, safe and routine for any engineer at Forja Norte, employee or cont
 ## What the platform offers (scope)
 
 1. Portal and software catalog.
-2. One golden path per stack: SAP extensions, Microsoft (.NET and Azure), Java, Data.
+2. One golden path per stack: Java, TypeScript, Python and Data, Mobile.
 3. Standard pipelines, environments and deployment.
 4. Identity, secrets and policy guardrails.
 5. Observability defaults and production-readiness scorecards.
@@ -29,9 +29,9 @@ Make it fast, safe and routine for any engineer at Forja Norte, employee or cont
 
 ## Out of scope
 
-- Business applications themselves (ERP, shop-floor systems, customer portals). The platform helps build them.
+- Business applications themselves (parcel tracking, route planning, customer apps). The platform helps build them.
 - Deploying on behalf of teams through tickets.
-- Plant control systems below the IT/OT boundary.
+- Conveyor and sorter control systems inside the hubs.
 
 ## Principles
 
@@ -47,7 +47,7 @@ Make it fast, safe and routine for any engineer at Forja Norte, employee or cont
 | Ritual | Cadence | Purpose |
 | --- | --- | --- |
 | Platform planning | Every two weeks | Backlog priorities from user feedback and metrics |
-| Hub Leaders sync | Weekly | Adoption blockers per stack |
+| Guild Leads sync | Weekly | Adoption blockers per stack |
 | Office hours | Weekly | Open help for any team |
 | Platform demo | Monthly | Show what shipped, hear reactions |
 | Developer survey | Quarterly | Experience trend |

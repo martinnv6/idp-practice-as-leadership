@@ -7,7 +7,7 @@ AI in the software lifecycle is treated here as one more capability of the platf
 | Element | What it is | Where it lives |
 | --- | --- | --- |
 | Approved tools | The coding assistants and agents teams may use, with the plan and data terms of each | Catalog, `leadership/governance/ai-usage-policy.md` |
-| MCP server catalog | Approved Model Context Protocol servers (issue tracker, source control, docs, design, observability) with owner and data classification | `technical/platform/catalog/ai-capabilities.yaml` |
+| MCP server catalog | Approved Model Context Protocol servers (issue tracker, source control, docs, design, observability) with owner and data classification | `technical/appendix/platform/catalog/ai-capabilities.yaml` |
 | Skills and instructions | Shared, versioned skills and agent instruction files. Each golden-path skeleton ships with one | Skills repository, template skeleton |
 | Guardrails | Data rules, human approval points, logging | Policy, pipeline checks |
 | Gateway and budgets | Optional proxy that enforces model allow-list, per-team budget and logging | Platform service |
@@ -27,7 +27,7 @@ Move a level only when the previous one is measured and stable.
 ## Rules (summary of `leadership/governance/ai-usage-policy.md`)
 
 1. A human author is accountable for every change. Agents open pull requests; people approve and merge.
-2. Data classification decides what may be sent to which tool. Restricted data (credentials, personal data, plant process parameters, financial data in SOX scope) never leaves approved boundaries.
+2. Data classification decides what may be sent to which tool. Restricted data (credentials, personal data, customer addresses, payment data in PCI scope) never leaves approved boundaries.
 3. Agents act with their own least-privilege identity, never a person's token.
 4. Every MCP server is registered, owned and reviewed before use. Unregistered servers are blocked in managed environments.
 5. Agent actions are logged with enough detail to reconstruct what happened.

@@ -154,7 +154,7 @@ Collect with the least effort that gives a usable signal. Improve the instrument
 | Audience | Cadence | Content |
 | --- | --- | --- |
 | Platform team | Weekly | Funnel movement, incidents, top friction |
-| Hub Leaders | Monthly | Adoption and scorecards by team and vendor, exceptions |
+| Guild Leads | Monthly | Adoption and scorecards by team and vendor, exceptions |
 | Finance | Monthly | Spend vs. budget, allocation, licence utilisation |
 | Executive committee | Quarterly | One page: outcomes, risks, investment, asks (`leadership/measurement/quarterly-report-template.md`) |
 | Vendors | Quarterly (QBR) | Scorecard pass rate, delivery metrics of their teams, SLA results |

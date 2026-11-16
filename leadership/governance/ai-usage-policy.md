@@ -6,7 +6,7 @@ Fictional. Version 0.1, practice draft. Applies to employees and contractors.
 
 Only tools listed in the portal under "AI capabilities" may be used with company code or data. Each entry states the plan, the data-handling terms, the owner and the allowed data classification.
 
-Adding a tool: open a request, Security and the SEO review data terms, cost and overlap, and the result is recorded as an ADR.
+Adding a tool: open a request, Security and the DPG review data terms, cost and overlap, and the result is recorded as an ADR.
 
 ## 2. Data
 
@@ -15,7 +15,7 @@ Adding a tool: open a request, Security and the SEO review data terms, cost and 
 | Public | Yes |
 | Internal | Yes, with tools approved for internal data |
 | Confidential | Only with tools whose terms exclude training on customer data and that are approved for this class |
-| Restricted (credentials, personal data, plant process parameters, SOX-scope financial data) | No, unless a specific approved boundary exists |
+| Restricted (credentials, personal data, customer addresses, PCI-scope payment data) | No, unless a specific approved boundary exists |
 
 Never paste secrets into a prompt. Secret scanning applies to prompts routed through the gateway.
 
@@ -34,7 +34,7 @@ Never paste secrets into a prompt. Secret scanning applies to prompts routed thr
 
 ## 5. Skills and instructions
 
-- Shared skills live in a versioned repository owned by the SEO and the Hub Leaders. Changes go through pull requests.
+- Shared skills live in a versioned repository owned by the DPG and the Guild Leads. Changes go through pull requests.
 - Each golden-path repository includes an agent instructions file describing build, test and conventions.
 
 ## 6. Cost

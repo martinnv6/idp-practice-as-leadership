@@ -1,6 +1,6 @@
 # 02 · Reference architecture
 
-The CNCF *Platforms White Paper* defines a platform as an integrated collection of capabilities presented according to the needs of its users, and lists 13 capability domains. This lab implements each one with an open-source tool that runs on a laptop, and names the enterprise equivalent for Scenario A (Azure and GitHub).
+The CNCF *Platforms White Paper* defines a platform as an integrated collection of capabilities presented according to the needs of its users, and lists 13 capability domains. This lab implements each one with an open-source tool that runs on a laptop, and names a typical enterprise equivalent.
 
 ## The picture
 
@@ -8,8 +8,8 @@ The CNCF *Platforms White Paper* defines a platform as an integrated collection 
 flowchart TB
   subgraph Users
     dev[Developers: employees and contractors]
-    lead[Hub Leaders]
-    exec[Head of SEO and executives]
+    lead[Guild Leads]
+    exec[Head of Developer Platform and executives]
   end
 
   subgraph Interfaces["Interfaces (what users touch)"]
@@ -55,21 +55,21 @@ flowchart TB
 
 ## Capability map
 
-| # | CNCF capability | Lab tool | Enterprise equivalent (Scenario A) | Built in phase |
+| # | CNCF capability | Lab tool | Enterprise equivalent | Built in phase |
 | --- | --- | --- | --- | --- |
 | 1 | Web portals | Backstage | Backstage, or a commercial portal (see `technical/03-tooling-options.md`) | 2 |
-| 2 | APIs and CLIs for provisioning | Kubernetes API with Crossplane or kro; Score for the workload spec | Same, plus Azure Resource Manager through Crossplane or Terraform | 3, 10 |
+| 2 | APIs and CLIs for provisioning | Kubernetes API with Crossplane or kro; Score for the workload spec | Same, plus the cloud provider's resources through Crossplane or Terraform | 3, 10 |
 | 3 | Golden path templates | Backstage Software Templates | Same, one per stack | 3, 11 |
-| 4 | Build and test automation | Workflows in Gitea Actions or Argo Workflows | GitHub Actions or Azure Pipelines with reusable workflows | 3 |
+| 4 | Build and test automation | Workflows in Gitea Actions or Argo Workflows | GitHub Actions or GitLab CI with reusable pipelines | 3 |
 | 5 | Delivery and verification | Argo CD, Argo Rollouts | Same | 3, 5 |
-| 6 | Development environments | Dev containers, preview namespaces | Codespaces or Dev Box, preview environments | 3 |
-| 7 | Observability | OpenTelemetry, Prometheus, Grafana, Loki | Azure Monitor, or the existing commercial APM | 6 |
-| 8 | Infrastructure | kind cluster | AKS, plant edge clusters | 1 |
-| 9 | Data services | CloudNativePG operator | Azure SQL, PostgreSQL Flexible Server | 10 |
+| 6 | Development environments | Dev containers, preview namespaces | Cloud development environments, preview environments | 3 |
+| 7 | Observability | OpenTelemetry, Prometheus, Grafana, Loki | The cloud provider's monitoring, or the existing commercial APM | 6 |
+| 8 | Infrastructure | kind cluster | AKS, hub edge clusters | 1 |
+| 9 | Data services | CloudNativePG operator | Managed PostgreSQL | 10 |
 | 10 | Messaging | NATS or Strimzi (Kafka) | Event Hubs, Service Bus | 10 |
-| 11 | Identity and secrets | Dex, External Secrets Operator | Entra ID as upstream IdP, Key Vault | 4 |
+| 11 | Identity and secrets | Dex, External Secrets Operator | Corporate identity provider, cloud secret store | 4 |
 | 12 | Security services | Kyverno, Trivy, cosign, Syft | Same, plus the corporate code-scanning product | 5 |
-| 13 | Artifact storage | Gitea registry or Harbor | Azure Container Registry, GitHub Packages | 3 |
+| 13 | Artifact storage | Gitea registry or Harbor | Cloud container registry, GitHub Packages | 3 |
 
 Two layers that the white paper does not list separately but the role needs:
 
@@ -82,8 +82,8 @@ Two layers that the white paper does not list separately but the role needs:
 ## Design rules
 
 1. **Thin platform.** Own the interfaces (portal, templates, APIs, docs). Reuse providers for everything behind them. This is the white paper's guidance on platform teams.
-2. **Git is the source of truth.** Everything a developer asks for becomes a commit. Argo CD applies it. This gives the audit trail that SOX and change control need without a separate ticket.
-3. **One workload spec.** A developer describes the service once (`technical/platform/score/score.yaml`). The platform decides how that becomes Kubernetes, a database and a dashboard in each environment.
+2. **Git is the source of truth.** Everything a developer asks for becomes a commit. Argo CD applies it. This gives the audit trail that PCI DSS and change control need without a separate ticket.
+3. **One workload spec.** A developer describes the service once (`technical/appendix/platform/score/score.yaml`). The platform decides how that becomes Kubernetes, a database and a dashboard in each environment.
 4. **Secure by default, strict only where it must be.** Policies start in audit mode, are measured, and are enforced once the golden path already satisfies them.
 5. **Optional and composable.** A team can adopt the catalog without the pipeline, or the pipeline without the runtime. Mandatory items are only the security and compliance controls in `leadership/governance/directives.md`.
 6. **Every capability has an owner, an SLO and a usage metric.** If nobody uses it after two quarters, it is removed.
@@ -95,7 +95,7 @@ Two layers that the white paper does not list separately but the role needs:
 | `dev` | Fast feedback | Any team member, automatically on merge | None |
 | `staging` | Integration and performance | Automatic promotion after checks | Checks must pass |
 | `prod` | Corporate production | Promotion by pull request, approved by someone other than the author | Segregation of duties, evidence retained |
-| `plant-edge` | Tier 1 plant workloads | Promotion in agreed windows, progressive rollout | Same as prod, plus window and tested rollback |
+| `hub-edge` | Tier 1 workloads running inside sorting hubs | Promotion in agreed windows, progressive rollout | Same as prod, plus window and tested rollback |
 
 Tenancy is a namespace per team per environment, with quotas, default-deny network policy and cost labels. The lab simulates the four environments as namespaces in one kind cluster.
 

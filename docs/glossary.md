@@ -15,7 +15,6 @@ In this repo "DX" means two related things:
 | Backstage | Open-source framework for developer portals, created at Spotify, now a CNCF project |
 | Buildpack | Tool that turns source code into a runnable image without a Dockerfile. Popularised by Heroku; standardised as Cloud Native Buildpacks |
 | Catalog | Inventory of software, owners, APIs and resources in the portal |
-| Clean core | Keeping an ERP as standard as possible and placing extensions outside it, connected through APIs |
 | CNCF | Cloud Native Computing Foundation |
 | CNOE | Cloud Native Operational Excellence. Open project with a reference IDP and the `idpbuilder` tool |
 | CNPA / CNPE | CNCF platform engineering certifications, associate and professional level |
@@ -28,7 +27,7 @@ In this repo "DX" means two related things:
 | FOCUS | FinOps Open Cost and Usage Specification: a common schema for billing data |
 | GitOps | Operating model where the desired state is declared in Git and reconciled automatically |
 | Golden path | The supported, opinionated way to build and run a kind of software. Also "paved road" |
-| Hub Leader | Matrix lead for one stack who drives adoption and governance without direct reports |
+| Guild Lead | Matrix lead for one stack who drives adoption and governance without direct reports |
 | IDP | Internal Developer Platform: the whole system. The Internal Developer **Portal** is only its front door |
 | MCP | Model Context Protocol. A standard for connecting AI agents to tools and data |
 | MONK | Platform metrics shorthand: Market share, Onboarding time, NPS, Key customer metrics |

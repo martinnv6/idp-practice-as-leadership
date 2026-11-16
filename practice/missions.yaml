@@ -1,0 +1,481 @@
+# The practice, as data. The app (app/), the progress checker
+# (scripts/check_progress.py) and the review skill all read this file.
+#
+# step: read | note | decide | understand | say
+# deliverable kind: edit (a template that ships with the repo and must be
+# changed) or create (a new file the learner writes).
+# All money is in fictional USD and is a practice figure.
+
+company: Kestrel Parcel
+role: Head of Developer Platform
+
+budget:
+  discretionary_usd: 900000
+  note: Year-one discretionary budget on top of the existing team's salaries. Practice figure.
+
+competencies:
+  strategy: Strategy and product
+  adoption: Adoption
+  measurement: Measurement
+  governance: Governance
+  money: Budget and cost
+  vendors: Vendors
+  ai: AI programme
+  people: People
+  technical: Technical understanding
+
+cast:
+  - {name: Elena Ríos, role: "CTO. Came up through operations and finance; thinks in flow, cost and risk", agent: exec-committee}
+  - {name: Tomás Leal, role: "VP of Engineering, your manager", agent: exec-committee}
+  - {name: Paula, role: "Platform engineer, pipelines and runtime", agent: platform-engineer}
+  - {name: Hugo, role: "Guild Lead, backend", agent: developer-customer}
+  - {name: Ana, role: "Employee developer, hub sortation team", agent: developer-customer}
+  - {name: Victor, role: "Contractor developer, route planning team", agent: developer-customer}
+  - {name: Marcela Ibarra, role: "Account manager, Altos Delivery (vendor)", agent: vendor-account-manager}
+  - {name: Lucía Montes, role: "Finance business partner", agent: finops-partner}
+  - {name: Iván Cano, role: "Head of information security", agent: platform-engineer}
+
+tracks:
+  sprint:
+    title: Sprint
+    description: Four sessions of about 90 minutes. Use it when an interview is close.
+    missions: [s1, s2, s3, s4]
+  full:
+    title: Full simulation
+    description: Eleven missions that follow the first two quarters in the job.
+    missions: [m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10]
+
+checkpoints:
+  - id: cp1
+    title: Day 30 review
+    after: [m0, m1, m2]
+    question: Do you know what hurts, and have you chosen what to do first?
+  - id: cp2
+    title: Day 60 review
+    after: [m3, m4, m5]
+    question: Is one team working differently, and is there a credible way to grow?
+  - id: cp3
+    title: Day 90 review
+    after: [m6, m7]
+    question: Can you show results, cost and a plan in business terms?
+  - id: cp4
+    title: Final exam
+    after: [m8, m9, m10]
+    question: Ten-minute report to the executive committee, then twenty minutes of questions.
+    exam: true
+  - id: cps
+    title: Sprint review
+    after: [s1, s2, s3, s4]
+    question: Can you answer the core interview questions from practice, not from memory?
+
+missions:
+  # ====================== FULL SIMULATION ======================
+  - id: m0
+    title: Take the brief
+    when: Day 1
+    competencies: [strategy, technical]
+    situation: You have the CTO's message and a first meeting with your manager tomorrow. He will ask what you understand the job to be.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Welcome, and what I need from you
+        body: |
+          Welcome. Here is the situation as I see it.
+
+          We have about 420 people writing software for us: around 240 employees and 180 contractors from two delivery vendors. They work in four stacks and, after three acquisitions, every team builds, tests and deploys in its own way. New people take weeks to become productive. I cannot tell you how often we deploy, how often it fails or what our tooling costs per developer.
+
+          Peak season is five months away. Last year two failed releases during peak cost us a week of delayed parcels. I need delivery to be faster, safer and predictable before then.
+
+          Your group owns the internal developer platform. You have six platform engineers and three Guild Leads who sit in the delivery areas and do not report to you. I do not want a tools project. I want teams to choose the platform because it makes their work easier, and I want numbers I can take to the executive committee.
+
+          In 30 days tell me what hurts most and how you will measure it. In 60 days show me one team working differently. In 90 days bring me a roadmap, a budget and the first results.
+    read:
+      - leadership/01-role-and-operating-model.md
+      - leadership/02-scenario.md
+      - technical/01-idp-anatomy.md
+    tasks:
+      - {id: m0-read, step: read, minutes: 40, tool: Editor, text: "Read the three documents and the platform definition in your own study material"}
+      - {id: m0-note, step: note, minutes: 15, tool: Editor, text: "In notes/study-notes.md, fill sections 1 and 2: the definition, what it is not, the parts of an IDP"}
+      - {id: m0-decide, step: decide, minutes: 25, tool: Editor, text: "Rewrite the mission, scope and out-of-scope sections of the charter in your own words (exercise L1)"}
+      - {id: m0-understand, step: understand, minutes: 15, tool: Paper, text: "Draw the 'how a request travels' flow from memory, then check it against the anatomy page"}
+      - {id: m0-say, step: say, minutes: 10, tool: "AI agent: exec-committee", text: "Answer aloud, then to the agent"}
+    deliverables:
+      - {id: charter, title: Platform charter in your words, path: leadership/strategy/platform-charter.md, kind: edit, rubric: charter}
+    say_it: {question: "What is this group for, and what will it not do?", agent: exec-committee}
+
+  - id: m1
+    title: Listen and take the baseline
+    when: Weeks 1 to 4
+    competencies: [strategy, measurement]
+    situation: Every director has a different opinion about what is broken. Hugo offers to introduce you to developers.
+    inbox:
+      - from: Hugo, Guild Lead
+        subject: Who to talk to
+        body: Talk to Ana in hub sortation and to Victor at Altos. You will hear two different companies. And look at the numbers before you believe either of them.
+    read:
+      - leadership/strategy/first-90-days.md
+      - leadership/measurement/metrics-and-adoption.md
+      - practice/data/README.md
+    tasks:
+      - {id: m1-read, step: read, minutes: 30, tool: Editor, text: "Read the first 90 days and the 'Baseline first' section of the metrics model"}
+      - {id: m1-note, step: note, minutes: 10, tool: Editor, text: "Note which questions reveal friction and which numbers a baseline needs"}
+      - {id: m1-interviews, step: decide, minutes: 45, tool: "AI agent: developer-customer", text: "Write an interview guide and run three interviews: Ana, Victor and a mobile developer"}
+      - {id: m1-data, step: understand, minutes: 30, tool: "App: Data", text: "Open the Data screen. From Q1 only, write down the baseline: deployment frequency, lead time, change fail rate, survey score, allocated spend. Note what is missing or unreliable"}
+      - {id: m1-write, step: decide, minutes: 40, tool: Editor, text: "Write the discovery notes: guide, friction log, value stream of one change, baseline table (exercise L2)"}
+      - {id: m1-say, step: say, minutes: 10, tool: "AI agent: exec-committee", text: "Answer aloud, then to the agent"}
+    deliverables:
+      - {id: discovery, title: Discovery notes and baseline, path: leadership/strategy/discovery-notes.md, kind: create, min_words: 350, rubric: discovery}
+    say_it: {question: "What did you learn in your first 30 days and how do you know it is true?", agent: exec-committee}
+
+  - id: m2
+    title: Choose what to do first
+    when: Week 5
+    competencies: [strategy, governance]
+    situation: Your friction log has forty items. Four stacks each want the first golden path. Iván from security wants image signing made mandatory this quarter.
+    inbox:
+      - from: Iván Cano, Security
+        subject: Signing must be mandatory this quarter
+        body: The last assessment found production images we could not trace to a build. I want signing enforced everywhere before peak. Can your platform do that by next month?
+    read:
+      - leadership/strategy/golden-path-plan.md
+      - leadership/strategy/roadmap.md
+      - technical/04-golden-path-design.md
+    tasks:
+      - {id: m2-read, step: read, minutes: 35, tool: Editor, text: "Read the golden-path plan, the roadmap and the golden-path design"}
+      - {id: m2-note, step: note, minutes: 10, tool: Editor, text: "Note: scoring by reach and friction; what 'opinionated and supported' means; why a not-now list matters"}
+      - {id: m2-roadmap, step: decide, minutes: 40, tool: Editor, text: "Score the backlog and edit the roadmap, including the not-now list (exercise L3)"}
+      - {id: m2-path, step: decide, minutes: 30, tool: Editor, text: "Fill the stack scoring table, choose the first stack and pilot team, define version 0.1 (exercise L4)"}
+      - {id: m2-adr, step: decide, minutes: 15, tool: Editor, text: "Record the choice as an ADR from the template"}
+      - {id: m2-understand, step: understand, minutes: 15, tool: Editor, text: "List what the template form should ask a developer and what the platform should already know"}
+      - {id: m2-say, step: say, minutes: 10, tool: "AI agent: exec-committee", text: "Answer aloud, then to the agent"}
+    deliverables:
+      - {id: roadmap, title: Roadmap with a not-now list, path: leadership/strategy/roadmap.md, kind: edit, rubric: roadmap}
+      - {id: golden-path-plan, title: Golden-path plan with the scoring filled, path: leadership/strategy/golden-path-plan.md, kind: edit, rubric: golden-path-plan}
+      - {id: adr-first-path, title: ADR for the first golden path, path: leadership/governance/adr/0003-first-golden-path.md, kind: create, min_words: 120, rubric: adr}
+    say_it: {question: "Why this stack first, and what are you saying no to?", agent: exec-committee}
+
+  - id: m3
+    title: Ship golden path 0.1 with one team
+    when: Weeks 6 to 8
+    competencies: [strategy, technical, adoption]
+    situation: Ana's team agrees to be the pilot, with a new internal service due in six weeks.
+    inbox:
+      - from: Paula, Platform engineer
+        subject: Scope for 0.1
+        body: I can have a template and pipeline in three weeks if we cut dashboards, signing and production deploys. Otherwise eight. Your call.
+    read:
+      - technical/04-golden-path-design.md
+      - leadership/strategy/golden-path-plan.md
+    decisions:
+      - id: d-scope
+        question: What goes into version 0.1?
+        options:
+          - {id: thin, label: "Thin: template, pipeline, deploy to dev and staging (3 weeks)", cost_usd: 15000, consequence: "Pilot ships in time. Security will ask when signing arrives."}
+          - {id: full, label: "Full: add dashboards, signing and production deploys (8 weeks)", cost_usd: 40000, consequence: "Pilot team's deadline is missed. They build their own pipeline meanwhile."}
+    tasks:
+      - {id: m3-read, step: read, minutes: 20, tool: Editor, text: "Reread the golden-path design and the launch plan"}
+      - {id: m3-note, step: note, minutes: 10, tool: Editor, text: "Note: what 'done' means for 0.1; how improvements reach older services; who is on call for the standard pipeline"}
+      - {id: m3-scope, step: decide, minutes: 25, tool: "AI agent: platform-engineer", text: "Agree the 0.1 scope with Paula in Challenge mode, then record your decision in the app"}
+      - {id: m3-launch, step: decide, minutes: 35, tool: Editor, text: "Write the launch plan: pilot, tutorial, support channel, measures from day one"}
+      - {id: m3-understand, step: understand, minutes: 20, tool: Editor, text: "Read the pipeline stages in the golden-path design and name the directive each gate enforces"}
+      - {id: m3-say, step: say, minutes: 10, tool: "AI agent: exec-committee", text: "Answer aloud, then to the agent"}
+    deliverables:
+      - {id: launch-plan, title: Launch plan for golden path 0.1, path: leadership/strategy/launch-plan.md, kind: create, min_words: 250, rubric: launch-plan}
+    say_it: {question: "How did you get the first team onto the platform, and what did it cost them?", agent: exec-committee}
+
+  - id: m4
+    title: Win the next five teams
+    when: Weeks 9 to 10
+    competencies: [adoption, people]
+    situation: Ana's team is live and the demo went well. A senior tech lead from an acquired team says his pipeline has worked for eight years. Marcela says Altos teams will adopt when it is in the contract.
+    inbox:
+      - from: Marcela Ibarra, Altos Delivery
+        subject: Platform adoption
+        body: Our teams are happy to use the new platform. As it changes how they work, we would expect it to be reflected in the statement of work before we start.
+    read:
+      - leadership/measurement/metrics-and-adoption.md
+      - leadership/people/team-and-hiring.md
+    decisions:
+      - id: d-adoption
+        question: How do you support the next teams?
+        options:
+          - {id: embed, label: "Embed a platform engineer with each new team for two weeks", cost_usd: 30000, consequence: "Slower platform roadmap, faster and happier adoption."}
+          - {id: selfserve, label: "Tutorial, office hours and a chat channel", cost_usd: 5000, consequence: "Cheap. Sceptical teams wait and watch."}
+          - {id: mandate, label: "Make the golden path mandatory for all new services now", cost_usd: 0, consequence: "Usage rises fast. Usage no longer tells you whether teams value it."}
+    tasks:
+      - {id: m4-read, step: read, minutes: 20, tool: Editor, text: "Read 'Adoption and usage' in the metrics model"}
+      - {id: m4-note, step: note, minutes: 10, tool: Editor, text: "Note the five funnel stages, MONK and what Guild Leads do"}
+      - {id: m4-data, step: understand, minutes: 20, tool: "App: Data", text: "Read the funnel and teams data. Which teams adopted first, and what do they have in common?"}
+      - {id: m4-roleplay, step: decide, minutes: 30, tool: "AI agent: developer-customer", text: "Role-play the sceptical tech lead and the vendor delivery lead"}
+      - {id: m4-plan, step: decide, minutes: 40, tool: Editor, text: "Write the adoption plan: funnel targets, team segments with a tactic each, what becomes mandatory and when (exercise L5)"}
+      - {id: m4-say, step: say, minutes: 10, tool: "AI agent: exec-committee", text: "Answer aloud, then to the agent"}
+    deliverables:
+      - {id: adoption-plan, title: Adoption plan, path: leadership/strategy/adoption-plan.md, kind: create, min_words: 300, rubric: adoption-plan}
+    say_it: {question: "How do you get established teams and contractors to adopt a standard?", agent: exec-committee}
+
+  - id: m5
+    title: Set the rules
+    when: Weeks 11 to 12
+    competencies: [governance, vendors]
+    situation: Iván is back. He wants enforcement now. One Altos team cannot comply for a quarter because its images are built by a vendor pipeline.
+    inbox:
+      - from: Iván Cano, Security
+        subject: Decision needed on signing
+        body: I need a date for enforcement in production. And Altos has asked for an exception for the route-planning legacy service. I am inclined to refuse.
+    read:
+      - leadership/governance/directives.md
+      - leadership/governance/exception-process.md
+      - docs/standards-map.md
+    tasks:
+      - {id: m5-read, step: read, minutes: 30, tool: Editor, text: "Read the directives, the exception process and 'Control traceability' in the standards map"}
+      - {id: m5-note, step: note, minutes: 10, tool: Editor, text: "Note: MUST versus SHOULD; audit before enforce; compensating control"}
+      - {id: m5-data, step: understand, minutes: 15, tool: "App: Data", text: "Read scorecard pass rates by team and vendor. How many teams would fail if signing were enforced today?"}
+      - {id: m5-decide, step: decide, minutes: 30, tool: Editor, text: "Write the decision memo: timing of enforcement, and how exceptions are reported (exercise L7)"}
+      - {id: m5-exception, step: decide, minutes: 20, tool: Editor, text: "Write the exception record for the Altos team: approve, reject or change the terms"}
+      - {id: m5-say, step: say, minutes: 10, tool: "AI agent: platform-engineer", text: "Answer aloud, then to the agent playing Iván"}
+    deliverables:
+      - {id: governance-decision, title: Decision memo on enforcement, path: leadership/governance/decision-signing.md, kind: create, min_words: 200, rubric: governance-decision}
+      - {id: exception, title: Exception record, path: leadership/governance/exceptions/EXC-001.md, kind: create, min_words: 80, rubric: exception}
+    say_it: {question: "How do you balance mandate and autonomy?", agent: platform-engineer}
+
+  - id: m6
+    title: Show the first results
+    when: Day 90
+    competencies: [measurement]
+    situation: Elena has twenty minutes and wants to know whether the platform is working.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Thursday, 20 minutes
+        body: Bring me numbers, not screenshots. I want to know whether the teams on your platform are doing better, and whether I should believe it.
+    read:
+      - leadership/measurement/dx-core-4.md
+      - leadership/measurement/metrics-catalog.yaml
+    decisions:
+      - id: d-metrics-tool
+        question: How will the numbers be produced from now on?
+        options:
+          - {id: buy, label: "Buy a developer-productivity product", cost_usd: 75600, consequence: "Dashboards and surveys in a quarter. A per-developer cost every year."}
+          - {id: oss, label: "Open-source delivery metrics plus a survey form, half an engineer to run it", cost_usd: 45000, consequence: "Cheaper. Takes longer and depends on one person."}
+          - {id: sheets, label: "Spreadsheets filled by Guild Leads", cost_usd: 5000, consequence: "Works this quarter. Stops when people get busy."}
+    tasks:
+      - {id: m6-read, step: read, minutes: 30, tool: Editor, text: "Read the DX Core 4 page"}
+      - {id: m6-note, step: note, minutes: 10, tool: Editor, text: "Note the four dimensions, their key metrics and three counter-metrics"}
+      - {id: m6-data, step: understand, minutes: 40, tool: "App: Data", text: "Compare teams on and off the golden path across quarters. Write three findings and, for each, what the data cannot prove"}
+      - {id: m6-scorecard, step: decide, minutes: 40, tool: Editor, text: "Fill the Kestrel Parcel scorecard in the DX Core 4 page from the dataset (exercise L6)"}
+      - {id: m6-say, step: say, minutes: 15, tool: "AI agent: exec-committee", text: "Present to Elena and take questions"}
+    deliverables:
+      - {id: core4, title: DX Core 4 scorecard filled from the data, path: leadership/measurement/dx-core-4.md, kind: edit, rubric: core4}
+      - {id: findings, title: Three findings and their limits, path: leadership/measurement/findings-day-90.md, kind: create, min_words: 200, rubric: findings}
+    say_it: {question: "Is the platform working? How do you know?", agent: exec-committee}
+
+  - id: m7
+    title: Budget and vendors
+    when: Month 4
+    competencies: [money, vendors]
+    situation: Lucía needs next year's budget in two weeks and asks whether to buy a commercial portal. The data shows Altos teams with a change fail rate well above everyone else's.
+    inbox:
+      - from: Lucía Montes, Finance
+        subject: Budget submission
+        body: I need your numbers by the 15th, with people included and a view on build versus buy for the portal. Please separate one-off from recurring.
+    read:
+      - leadership/finops/finops-and-vendors.md
+      - leadership/vendors/vendor-scorecard.md
+    decisions:
+      - id: d-portal
+        question: Portal for year one?
+        options:
+          - {id: build, label: "Build on open source, operated in-house", cost_usd: 192000, consequence: "No seat cost. Two of your six engineers are tied up running it."}
+          - {id: buy, label: "Buy a commercial portal", cost_usd: 279600, consequence: "Fast start. Seat cost grows with every developer, contractors included."}
+          - {id: blend, label: "Managed open-source portal", cost_usd: 182480, consequence: "Lower upkeep, open formats. Less freedom with plugins."}
+    tasks:
+      - {id: m7-read, step: read, minutes: 30, tool: Editor, text: "Read the FinOps and vendor method and the vendor scorecard"}
+      - {id: m7-note, step: note, minutes: 10, tool: Editor, text: "Note: three kinds of cost; unit costs; outcome-based SLA clauses; the remedy ladder"}
+      - {id: m7-tco, step: understand, minutes: 20, tool: Terminal, text: "Run python3 leadership/finops/tco.py, change two assumptions in scenarios.csv, run it again and note what moved"}
+      - {id: m7-budget, step: decide, minutes: 40, tool: Editor, text: "Fill the budget template and write a one-page build-or-buy memo (exercise L8)"}
+      - {id: m7-finance, step: decide, minutes: 20, tool: "AI agent: finops-partner", text: "Defend the budget and memo to Lucía"}
+      - {id: m7-vendor, step: decide, minutes: 45, tool: "AI agent: vendor-account-manager", text: "Fill the vendor scorecard from the data, run the QBR with Marcela, write the improvement plan (exercise L9)"}
+      - {id: m7-say, step: say, minutes: 10, tool: "AI agent: exec-committee", text: "Answer aloud, then to the agent"}
+    deliverables:
+      - {id: budget, title: Year-one budget, path: leadership/finops/budget-template.csv, kind: edit, rubric: budget}
+      - {id: memo, title: Build-or-buy memo, path: leadership/finops/build-or-buy-memo.md, kind: create, min_words: 250, rubric: memo}
+      - {id: vendor-scorecard, title: Vendor scorecard and improvement plan, path: leadership/vendors/vendor-scorecard.md, kind: edit, rubric: vendor-scorecard}
+    say_it: {question: "How would you justify this investment, and what do you do with a vendor that underperforms?", agent: exec-committee}
+
+  - id: m8
+    title: Bring order to AI
+    when: Month 5
+    competencies: [ai, governance, measurement]
+    situation: Three AI assistants are in use with no rules. A contractor pasted production configuration into one of them. Elena wants productivity gains reported next quarter.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: AI
+        body: The board keeps asking what we are getting from AI. I hear half the engineers use something. Tell me what we allow, what it costs and what it gives us.
+    read:
+      - leadership/ai/ai-capability.md
+      - leadership/governance/ai-usage-policy.md
+    decisions:
+      - id: d-ai-seats
+        question: Who gets a paid AI assistant seat in the first quarter?
+        options:
+          - {id: all, label: "All 420 developers", cost_usd: 196560, consequence: "No baseline, no comparison group. The data shows many seats go unused."}
+          - {id: pilot, label: "A pilot cohort of 60 with a comparison group", cost_usd: 28080, consequence: "You can measure. Some teams complain about waiting."}
+          - {id: none, label: "No paid seats until the policy is approved", cost_usd: 0, consequence: "Unapproved use continues without rules."}
+    tasks:
+      - {id: m8-read, step: read, minutes: 25, tool: Editor, text: "Read the AI capability page and the AI usage policy"}
+      - {id: m8-note, step: note, minutes: 10, tool: Editor, text: "Note: four levels of use; AI as an amplifier; speed and quality together"}
+      - {id: m8-data, step: understand, minutes: 15, tool: "App: Data", text: "Read AI seat usage in the spend data. How many paid seats are idle?"}
+      - {id: m8-plan, step: decide, minutes: 45, tool: Editor, text: "Write the rollout and measurement plan (exercise L10)"}
+      - {id: m8-say, step: say, minutes: 10, tool: "AI agent: exec-committee", text: "Answer aloud, then to the agent"}
+    deliverables:
+      - {id: ai-plan, title: AI rollout and measurement plan, path: leadership/ai/rollout-plan.md, kind: create, min_words: 300, rubric: ai-plan}
+    say_it: {question: "How do you take AI beyond individual assistants, and how do you measure it?", agent: exec-committee}
+
+  - id: m9
+    title: The platform breaks
+    when: Month 5
+    competencies: [governance, technical, people]
+    situation: A change to the standard pipeline blocks every deployment for three hours on the first night of peak season. A hub fix could not go out.
+    inbox:
+      - from: Tomás Leal, VP of Engineering
+        subject: Last night
+        body: The hub operations director wants to know why a platform that was supposed to make us safer stopped a fix from going out. I need a postmortem by Friday and something I can tell him today.
+    read:
+      - leadership/governance/postmortem-template.md
+      - technical/04-golden-path-design.md
+    decisions:
+      - id: d-reliability
+        question: What do you fund after the incident?
+        options:
+          - {id: invest, label: "Staged rollout for pipeline changes, an SLO and an on-call rota", cost_usd: 25000, consequence: "Roadmap slips three weeks. The same failure would now reach one team, not all."}
+          - {id: process, label: "A manual approval step for pipeline changes", cost_usd: 0, consequence: "Feels safer. Slows every improvement and would not have caught this."}
+    tasks:
+      - {id: m9-read, step: read, minutes: 15, tool: Editor, text: "Read the postmortem template and the pipeline design choices"}
+      - {id: m9-note, step: note, minutes: 10, tool: Editor, text: "Note: what blameless means; why the standard pipeline needs an SLO"}
+      - {id: m9-understand, step: understand, minutes: 15, tool: "AI agent: platform-engineer", text: "Ask Paula what would have limited the damage, and why"}
+      - {id: m9-postmortem, step: decide, minutes: 40, tool: Editor, text: "Write the postmortem and a half-page continuity outline (exercise L12)"}
+      - {id: m9-say, step: say, minutes: 10, tool: "AI agent: exec-committee", text: "Say what you would tell the hub operations director today"}
+    deliverables:
+      - {id: postmortem, title: Postmortem and continuity outline, path: leadership/governance/postmortem-peak-outage.md, kind: create, min_words: 300, rubric: postmortem}
+    say_it: {question: "Tell me about a failure of your platform and what changed afterwards.", agent: exec-committee}
+
+  - id: m10
+    title: Report to the committee and build the team
+    when: Month 6
+    competencies: [measurement, people, strategy, technical]
+    situation: End of the second quarter. Ten minutes with the executive committee, and approval to fill the remaining positions.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Committee, the 28th
+        body: Ten minutes, one page. Start with what changed for the business. Finish with what you need from us.
+    read:
+      - leadership/measurement/quarterly-report-template.md
+      - leadership/people/team-and-hiring.md
+      - docs/standards-map.md
+    tasks:
+      - {id: m10-read, step: read, minutes: 25, tool: Editor, text: "Read the report template, team and hiring, and the maturity model"}
+      - {id: m10-note, step: note, minutes: 10, tool: Editor, text: "Note: outcomes before tools; three asks with a cost each; leading without authority"}
+      - {id: m10-report, step: decide, minutes: 50, tool: Editor, text: "Write the one-page quarterly report from your earlier deliverables and the data (exercise L13)"}
+      - {id: m10-people, step: decide, minutes: 35, tool: Editor, text: "Write two role scorecards and the hiring order (exercise L11)"}
+      - {id: m10-understand, step: understand, minutes: 10, tool: Paper, text: "Explain the whole platform in five minutes without product names (exercise L14)"}
+      - {id: m10-say, step: say, minutes: 20, tool: "AI agent: exec-committee", text: "Give the ten-minute report and take questions"}
+    deliverables:
+      - {id: quarterly-report, title: Quarterly executive report, path: leadership/measurement/quarterly-report-q2.md, kind: create, min_words: 300, rubric: quarterly-report}
+      - {id: role-scorecards, title: Two role scorecards and hiring order, path: leadership/people/role-scorecards.md, kind: create, min_words: 250, rubric: role-scorecards}
+    say_it: {question: "What have you achieved in six months and what do you need from us?", agent: exec-committee}
+
+  # ====================== SPRINT ======================
+  - id: s1
+    title: What a platform is and how it works
+    when: Session 1
+    competencies: [strategy, technical]
+    situation: You have the CTO's brief. Tomorrow someone asks you to explain what an internal developer platform is and what your group would do.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Welcome, and what I need from you
+        body: |
+          We have about 420 people writing software: around 240 employees and 180 contractors from two vendors, in four stacks, and every team builds and deploys in its own way. I cannot tell you how often we deploy, how often it fails or what our tooling costs per developer.
+
+          Your group owns the internal developer platform. I do not want a tools project. I want teams to choose the platform because it makes their work easier, and I want numbers I can take to the executive committee.
+
+          In 30 days tell me what hurts most and how you will measure it. In 60 days show me one team working differently. In 90 days bring me a roadmap, a budget and the first results.
+    read:
+      - leadership/01-role-and-operating-model.md
+      - leadership/02-scenario.md
+      - technical/01-idp-anatomy.md
+    tasks:
+      - {id: s1-read, step: read, minutes: 30, tool: Editor, text: "Read the role, the scenario and the anatomy page"}
+      - {id: s1-note, step: note, minutes: 15, tool: Editor, text: "In notes/study-notes.md: the definition in one sentence, the parts of an IDP, portal versus platform"}
+      - {id: s1-decide, step: decide, minutes: 20, tool: Editor, text: "Rewrite the mission and out-of-scope list of the charter in your own words"}
+      - {id: s1-understand, step: understand, minutes: 15, tool: Paper, text: "Draw the request flow from memory, then check it"}
+      - {id: s1-say, step: say, minutes: 10, tool: "AI agent: platform-engineer", text: "Explain what happens when a developer uses the platform; then tell exec-committee what the group is for"}
+    deliverables:
+      - {id: charter, title: Platform charter in your words, path: leadership/strategy/platform-charter.md, kind: edit, rubric: charter}
+    say_it: {question: "If you had this role, how would you start the creation, implementation and control of the platform?", agent: exec-committee}
+
+  - id: s2
+    title: Proving it works
+    when: Session 2
+    competencies: [measurement, adoption, ai]
+    situation: The committee asks whether the platform is working and what AI is giving the company.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Numbers
+        body: Bring me numbers, not screenshots. Are the teams on your platform doing better, and should I believe it?
+    read:
+      - leadership/measurement/dx-core-4.md
+      - leadership/measurement/metrics-and-adoption.md
+      - practice/data/README.md
+    tasks:
+      - {id: s2-read, step: read, minutes: 30, tool: Editor, text: "Read the DX Core 4 page and the adoption section of the metrics model"}
+      - {id: s2-note, step: note, minutes: 15, tool: Editor, text: "One sentence per framework; the five funnel stages; three counter-metrics"}
+      - {id: s2-data, step: understand, minutes: 25, tool: "App: Data", text: "Compare teams on and off the golden path. Write three findings and what each cannot prove"}
+      - {id: s2-decide, step: decide, minutes: 25, tool: Editor, text: "Fill the Kestrel Parcel scorecard in the DX Core 4 page from the dataset"}
+      - {id: s2-say, step: say, minutes: 10, tool: "AI agent: exec-committee", text: "Answer both questions aloud, then to the agent"}
+    deliverables:
+      - {id: core4, title: DX Core 4 scorecard filled from the data, path: leadership/measurement/dx-core-4.md, kind: edit, rubric: core4}
+    say_it: {question: "How will you know the platform is working, and how do you measure the impact of AI?", agent: exec-committee}
+
+  - id: s3
+    title: Money, vendors and hard questions
+    when: Session 3
+    competencies: [money, vendors]
+    situation: Finance wants a view on build versus buy. One vendor's teams have a change fail rate well above everyone else's.
+    inbox:
+      - from: Lucía Montes, Finance
+        subject: Build or buy
+        body: Before I put this in the budget I need to see the three-year cost with people included, and the point at which the answer changes.
+    read:
+      - leadership/finops/finops-and-vendors.md
+      - leadership/vendors/vendor-scorecard.md
+    tasks:
+      - {id: s3-read, step: read, minutes: 25, tool: Editor, text: "Read the FinOps and vendor method and the vendor scorecard"}
+      - {id: s3-note, step: note, minutes: 15, tool: Editor, text: "SOW, SLA, QBR; three kinds of cost; showback versus chargeback; five outcome-based SLA clauses"}
+      - {id: s3-tco, step: understand, minutes: 15, tool: Terminal, text: "Run the TCO script, change two assumptions, run it again, note what moved"}
+      - {id: s3-vendor, step: decide, minutes: 30, tool: "AI agent: vendor-account-manager", text: "Fill the vendor scorecard for Altos Delivery from the data and run the QBR"}
+      - {id: s3-finance, step: decide, minutes: 15, tool: "AI agent: finops-partner", text: "Let Lucía attack your TCO"}
+      - {id: s3-gaps, step: say, minutes: 15, tool: Editor, text: "In notes/private/, write an honest answer for each gap in your own experience, each ending with how you would close it in 90 days"}
+    deliverables:
+      - {id: vendor-scorecard, title: Vendor scorecard and improvement plan, path: leadership/vendors/vendor-scorecard.md, kind: edit, rubric: vendor-scorecard}
+    say_it: {question: "What do you do with a vendor that underperforms, and how would you justify the platform's cost?", agent: exec-committee}
+
+  - id: s4
+    title: Telling the whole story
+    when: Session 4
+    competencies: [strategy, measurement, technical]
+    situation: Ten minutes with the executive committee.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Committee
+        body: Ten minutes, one page. Start with what changed for the business. Finish with what you need from us.
+    read:
+      - leadership/strategy/first-90-days.md
+      - leadership/strategy/golden-path-plan.md
+      - leadership/measurement/quarterly-report-template.md
+    tasks:
+      - {id: s4-read, step: read, minutes: 20, tool: Editor, text: "Read the first 90 days and the golden-path plan"}
+      - {id: s4-note, step: note, minutes: 10, tool: Editor, text: "The seven-step method in your own words; what a golden path is"}
+      - {id: s4-decide, step: decide, minutes: 30, tool: Editor, text: "Write the one-page quarterly report for Kestrel Parcel from sessions 2 and 3"}
+      - {id: s4-understand, step: understand, minutes: 10, tool: Paper, text: "Explain the platform end to end in five minutes with no product names"}
+      - {id: s4-say, step: say, minutes: 20, tool: "AI agent: exec-committee", text: "Ten-minute report, then ten minutes of questions"}
+    deliverables:
+      - {id: quarterly-report, title: Quarterly executive report, path: leadership/measurement/quarterly-report-q2.md, kind: create, min_words: 300, rubric: quarterly-report}
+    say_it: {question: "What would you show me in twelve months?", agent: exec-committee}

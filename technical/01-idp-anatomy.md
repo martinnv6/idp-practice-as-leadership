@@ -30,14 +30,14 @@ Backstage describes itself as an open source framework for building developer po
 
 ### 2. The golden paths
 
-A golden path is a template plus a pipeline plus documentation plus support for one kind of software. It is where the parts are wired together for the developer. See `technical/05-golden-path-design.md`.
+A golden path is a template plus a pipeline plus documentation plus support for one kind of software. It is where the parts are wired together for the developer. See `technical/04-golden-path-design.md`.
 
 ### 3. The delivery machinery
 
 | Part | What it does | Example |
 | --- | --- | --- |
 | Source control | Where code and configuration live | GitHub, GitLab |
-| CI (build and test) | Builds, tests, scans and packages every change | GitHub Actions, Azure Pipelines, Tekton |
+| CI (build and test) | Builds, tests, scans and packages every change | GitHub Actions, GitLab CI, Tekton |
 | Artifact registry | Stores built images and packages | Container registry |
 | CD (deployment) | Puts a version into an environment and promotes it | Argo CD, Flux |
 
@@ -75,7 +75,7 @@ A widely used model lists five functions an IDP must cover behind the interface:
 
 ### 7. Runtime
 
-Where workloads run: Kubernetes clusters, a managed PaaS, serverless, and for Forja Norte also plant-edge clusters. The platform hides most of this from the developer.
+Where workloads run: Kubernetes clusters, a managed PaaS, serverless, and for Kestrel Parcel also hub-edge clusters. The platform hides most of this from the developer.
 
 ## How a request travels
 
@@ -91,7 +91,7 @@ sequenceDiagram
   participant Run as Runtime
   participant Ins as Insight
 
-  Dev->>Portal: Choose ".NET service", fill owner, tier, cost centre
+  Dev->>Portal: Choose "Java service", fill owner, tier, cost centre
   Portal->>Git: Create repository from the template
   Portal->>Portal: Register the service in the catalog
   Git->>CI: First commit triggers the pipeline
@@ -133,12 +133,12 @@ No ticket was opened and no platform engineer was involved. That is self-service
 
 | Part | Starter file |
 | --- | --- |
-| Catalog entities | `technical/platform/catalog/` |
-| Software template | `technical/platform/templates/dotnet-service/template.yaml` |
-| Standard pipeline example | `technical/platform/pipelines/golden-path-ci.yml` |
-| Workload spec | `technical/platform/score/score.yaml` |
-| Policies | `technical/platform/policies/kyverno/` |
-| Identity | `technical/platform/identity/dex/config.yaml` |
-| AI capabilities in the catalog | `technical/platform/catalog/ai-capabilities.yaml` |
+| Catalog entities | `technical/appendix/platform/catalog/` |
+| Software template | `technical/appendix/platform/templates/java-service/template.yaml` |
+| Standard pipeline example | `technical/appendix/platform/pipelines/golden-path-ci.yml` |
+| Workload spec | `technical/appendix/platform/score/score.yaml` |
+| Policies | `technical/appendix/platform/policies/kyverno/` |
+| Identity | `technical/appendix/platform/identity/dex/config.yaml` |
+| AI capabilities in the catalog | `technical/appendix/platform/catalog/ai-capabilities.yaml` |
 
 All untested starters.

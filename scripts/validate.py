@@ -16,18 +16,15 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 SKIP_DIRS = {".git", "node_modules", ".venv"}
-TOP_LEVEL = ("leadership", "technical", "docs", "wiki", "scripts", "journey", "notes", ".github", ".claude")
+TOP_LEVEL = ("leadership", "technical", "docs", "wiki", "scripts", "practice", "app", "progress", "notes", ".github", ".claude")
 
-# Files that exercises ask the practitioner to create later.
-PLANNED = {
-    "leadership/strategy/discovery-notes.md",
-    "leadership/strategy/adoption-plan.md",
-    "leadership/ai/rollout-plan.md",
-    "leadership/governance/exceptions",
-    "technical/lab/log/phase-N.md",
-    "technical/lab/log",
-    "notes/private",
-}
+# Paths the learner creates during the practice, so they may not exist yet.
+PLANNED = {"notes/private", "progress/state.json", "progress/reviews", "progress/exam-transcript.md",
+           "leadership/governance/exceptions", "technical/appendix/lab/log", "technical/appendix/lab/log/phase-N.md"}
+_missions = ROOT / "practice" / "missions.yaml"
+if _missions.exists():
+    for _mission in yaml.safe_load(_missions.read_text(encoding="utf-8"))["missions"]:
+        PLANNED.update(d["path"] for d in _mission.get("deliverables", []) if d["kind"] == "create")
 
 BACKTICK_PATH = re.compile(r"`((?:%s)/[^`\s*<>]+)`" % "|".join(re.escape(t) for t in TOP_LEVEL))
 MD_LINK = re.compile(r"\]\(([^)#]+?)(?:#[^)]*)?\)")
@@ -59,7 +56,7 @@ def main() -> int:
         rel = path.relative_to(ROOT)
         for match in BACKTICK_PATH.finditer(text):
             ref = match.group(1).rstrip("/.,")
-            if ref in PLANNED:
+            if ref in PLANNED or any(ref.startswith(p + "/") for p in ("progress/reviews", "notes/private")):
                 continue
             if not (ROOT / ref).exists():
                 errors.append(f"REF   {rel}: `{ref}` does not exist")

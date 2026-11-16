@@ -3,7 +3,6 @@ source-control,GitHub Enterprise Cloud,Enterprise,GitHub,user,21,,,scm,https://w
 ai-assistant,GitHub Copilot,Business,GitHub,user,19,"Includes 1,900 AI Credits per user per month (USD 0.01 each), pooled; overage metered",,ai,https://upperedge.com/microsoft/github-copilot-licensing-has-changed-what-enterprise-buyers-need-to-know/,2026-11-15,Seat plus usage model since 2026-06-01; confirm on docs.github.com/en/copilot/get-started/plans
 ai-assistant,GitHub Copilot,Enterprise,GitHub,user,39,"Includes 3,900 AI Credits per user per month, pooled; overage metered",GitHub Enterprise Cloud,ai,https://www.cloudzero.com/blog/github-copilot-enterprise-pricing/,2026-11-15,Requires GitHub Enterprise Cloud underneath; fully loaded about USD 60 per user
 ai-assistant,Claude Code,,Anthropic,user,,,,ai,,,Fill from vendor quote
-ai-assistant,SAP Joule for Developers,,SAP,,,,,ai,,,Fill from vendor quote; licensing unit differs from per-seat tools
 security,GitHub Advanced Security,,GitHub,active committer,,,GitHub Enterprise Cloud,security,,,Fill from github.com/pricing; product was split into separate secret and code security SKUs
 portal,Backstage,Open source,CNCF,none,0,,,portal,https://backstage.io,2026-11-15,No licence fee; people cost is in scenarios.csv
 portal,Managed Backstage,,Roadie,developer,,,,portal,,,Fill from vendor quote

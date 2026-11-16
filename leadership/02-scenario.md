@@ -1,86 +1,74 @@
-# 01 · Scenario options
+# 02 · The scenario: Kestrel Parcel
 
-An IDP is shaped by who it serves and what rules they live under. Pick one scenario and keep it for the whole lab, so that every policy and metric has a reason.
+Kestrel Parcel is fictional. It was designed for this practice and does not describe any real company. Every figure is a practice figure.
 
-All four companies are fictional.
+## The company
 
-## Comparison
+- Parcel delivery and e-commerce fulfilment, operating in several countries.
+- A network of sorting hubs. Parcels are scanned at every step; if scanning or sortation software stops, parcels stop.
+- Customers pay by card online, so part of the estate is in PCI DSS scope.
+- Peak season (the last eight weeks of the year) carries a large share of annual volume. Changes are restricted during peak.
+- Growth has come through acquisitions, so teams inherited different tools, pipelines and habits.
 
-| | A. Steel manufacturing (default) | B. Retail bank / fintech | C. Healthcare provider network | D. Global e-commerce |
-| --- | --- | --- | --- | --- |
-| Company | Forja Norte | Banco Sierra | Red Salud Altiplano | Mercado Boreal |
-| What breaks if software fails | A production line stops; safety systems lose data | Payments fail; regulator reporting is late | Clinical systems unavailable; patient data exposed | Checkout down; revenue lost per minute |
-| Engineering population | ~100 employees, ~500 contractors | ~400 employees, ~200 contractors | ~80 employees, ~150 contractors | ~1,500 employees |
-| Dominant stacks | SAP, .NET/Azure, Java, Data | Java, .NET, mainframe integration, Data | .NET, Java, HL7/FHIR integration | Java, Node, Go, Data |
-| Runtime | Azure + on-premises plant data centres | Private cloud + one public cloud | Public cloud with strict tenancy | Multi-region public cloud |
-| Main regulations | SOX ITGC, ISO/IEC 27001, IEC 62443, NIST CSF | PCI DSS, banking regulator rules, SOX | HIPAA or local health-data law, ISO 27001 | PCI DSS, GDPR/LFPDPPP, SOC 2 |
-| Hardest platform problem | Contractors delivering to one standard; IT/OT boundary; SAP extensions | Change control evidence and segregation of duties | PHI handling in every environment | Scale, release frequency, cost per request |
-| Platform emphasis | Golden paths per stack, vendor quality metrics, plant-safe deployments | Auditable pipelines, policy as code, evidence export | Data classification, masked test data, access reviews | Self-service speed, progressive delivery, FinOps |
+## The department: Developer Platform Group (DPG)
 
-Choose A if you want the scenario that matches a manufacturing interview. Choose D if you want the one closest to large-scale consumer engineering. B and C are useful to practise heavier compliance.
-
-## Scenario A in detail: Forja Norte
-
-### The company
-
-- Integrated steel producer, headquartered in Monterrey, with plants in three countries.
-- Listed on a US exchange, so financial systems fall under SOX IT general controls.
-- One global SAP S/4HANA landscape with a "clean core" policy: extensions live outside the ERP and talk to it through APIs.
-- Plants run manufacturing execution and quality systems that must keep working when the corporate network does not.
-
-### The department: Software Engineering Office (SEO)
-
-The SEO owns the IDP as an internal product. Its customers are the people who build software.
+The DPG owns the internal developer platform as a product. Its customers are the people who build software.
 
 | Role | Count | Responsibility |
 | --- | --- | --- |
-| Head of SEO | 1 | Vision, roadmap, budget, vendors, quarterly report to the executive committee |
-| Platform Engineer, SAP | 1 | Golden path for ABAP Cloud and BTP extensions, transport and API standards |
-| Platform Engineer, Microsoft | 1 | Golden path for .NET on Azure, GitHub, pipelines, Copilot policies |
-| Platform Engineer, Java | 1 | Golden path for Java services, build and runtime standards |
-| Platform Engineer, Data | 1 | Golden path for data pipelines and data products |
-| Hub Leader (one per stack) | 4 | Matrix role, no direct reports. Drives adoption and governance inside the delivery teams |
+| Head of Developer Platform | 1 | Vision, roadmap, budget, vendors, quarterly report to the executive committee |
+| Platform Engineer | 6 | Build and run the golden paths and shared capabilities: two on delivery pipelines and runtime, one each on portal and catalog, security and policy, data, and developer tooling including AI |
+| Guild Lead | 3 | Matrix role, no reporting line to the head. One each for backend, web and mobile, and data. Drives adoption and brings friction back |
 
-Reach: about 600 developers (about 100 employees and 500 contractors from several delivery vendors).
+Reach: about 420 developers. About 240 are employees and about 180 are contractors from two delivery vendors.
 
-### Delivery teams the platform serves
+## Stacks
 
-| Domain | Typical systems | Stack | Criticality |
-| --- | --- | --- | --- |
-| Manufacturing | Shop-floor execution, production tracking, quality | .NET, Java | Tier 1 (plant) |
-| Supply chain | Order promising, logistics, yard management | Java, SAP extensions | Tier 1 |
-| Commercial | Customer portal, pricing, order entry | .NET, SAP extensions | Tier 2 |
-| Finance | Reporting, consolidation, treasury integrations | SAP, Data | Tier 2, SOX scope |
-| Data and AI | Data platform, predictive maintenance, video analytics | Data, Python | Tier 2 |
-| Corporate | HR, safety, internal tools | .NET, low-code | Tier 3 |
+| Stack | Used for | Share of teams (practice figure) |
+| --- | --- | --- |
+| Java | Backend services: parcel tracking, sortation, billing | 40% |
+| TypeScript | Customer web, internal tools, some services | 25% |
+| Python and Data | Route optimisation, forecasting, data pipelines | 20% |
+| Mobile (Kotlin, Swift) | Courier and customer apps | 15% |
 
-### Constraints that drive the design
+## Delivery teams the platform serves
 
-1. **Contractors are most of the workforce.** Standards have to be built into templates and pipelines, because training and goodwill do not scale across vendors with turnover.
-2. **IT/OT boundary.** Plant systems sit behind a controlled zone (IEC 62443 zones and conduits). The platform can deploy *to* the plant edge through an approved conduit, never from the plant network outward.
-3. **Plant deployments need maintenance windows.** Tier 1 services deploy with progressive rollout and a tested rollback; some only in agreed windows.
-4. **SOX scope.** Financial systems need segregation of duties, approved changes and retained evidence. The platform should produce that evidence automatically.
-5. **Four stacks, one platform.** One portal, one catalog, one set of policies; one golden path per stack; a documented exit for teams that cannot use the path.
-6. **AI is a capability inside the platform**, with a catalog of approved agents, skills and MCP servers, and rules for data and human review.
+| Domain | Typical systems | Criticality |
+| --- | --- | --- |
+| Hub operations | Parcel scanning, sortation, hub capacity | Tier 1 |
+| Last mile | Route planning, dispatch, proof of delivery | Tier 1 |
+| Customer | Tracking portal, checkout, notifications | Tier 1 for checkout, otherwise Tier 2 |
+| Billing and payments | Invoicing, card payments | Tier 2, PCI scope |
+| Data and AI | Forecasting, route optimisation, data platform | Tier 2 |
+| Corporate | Internal tools | Tier 3 |
 
-### What "good" looks like after 12 months (targets to practise with)
+## Constraints that drive the design
 
-These are practice targets, not benchmarks from a real company.
+1. **A large contractor population with turnover.** Standards have to be built into templates and pipelines, because training alone does not scale across vendors.
+2. **Hubs must keep working.** Some software runs inside the hubs and must survive a network outage. Deployments to hubs use agreed windows and a tested rollback.
+3. **Peak season.** A change freeze for Tier 1 during peak; everything risky lands before it.
+4. **PCI scope.** Payment systems need separation of duties, controlled changes and retained evidence. The platform should produce that evidence automatically.
+5. **Several stacks, one platform.** One portal, one catalog, one set of policies; one golden path per stack; a documented exit for teams that cannot use the path.
+6. **Acquired teams.** Some teams have pipelines that work and no wish to change. Adoption has to be earned.
+7. **AI is a capability inside the platform**, with a catalog of approved agents, skills and MCP servers, and rules for data and human review.
+
+## What "good" looks like after 12 months
+
+Practice targets.
 
 | Outcome | Measure | Target |
 | --- | --- | --- |
 | New service is productive fast | Time from "create" in the portal to first deploy in a dev environment | Under 1 hour |
 | Teams choose the platform | Share of production deployments that go through a golden path | 60% of new services, 30% of all services |
-| Delivery improves for adopters | Change lead time and failed-deployment recovery time, adopters vs. their own baseline | Both improve; change fail rate does not get worse |
-| Developers feel the difference | Quarterly developer survey (satisfaction with tooling) | +15 points over baseline |
-| Contractors meet the same bar | Scorecard pass rate, employees vs. each vendor | Gap under 10 points |
+| Delivery improves for adopters | Change lead time and failed-deployment recovery time, adopters against their own baseline | Both improve; change fail rate does not get worse |
+| Developers feel the difference | Quarterly developer survey | +15 points over baseline |
+| Contractors meet the same bar | Scorecard pass rate, employees against each vendor | Gap under 10 points |
 | Spend is visible | Share of cloud and licence cost allocated to an owner | 90% |
 
-## Scenario switches
+## The data
 
-If you change scenario, these files change with it:
+A mock dataset for Kestrel Parcel is in `practice/data/`: teams, delivery metrics by quarter, survey results, scorecards, spend and the adoption funnel. The missions ask you to read it, decide and defend the decision. It is generated by `scripts/generate_dataset.py` and contains a few deliberate problems to find.
 
-- `leadership/governance/directives.md`: the regulation column and the tiering rules.
-- `technical/platform/policies/kyverno/`: which labels are mandatory and what is blocked.
-- `technical/platform/catalog/org.yaml` and `domains.yaml`: the organisation and systems.
-- `leadership/finops/scenarios.csv`: developer count and cost assumptions.
+## Other industries
+
+The same practice works for a bank (heavier audit evidence), a healthcare provider (patient data in every environment) or a retailer (scale and cost per request). To switch, rewrite this file, the tiers in `leadership/governance/directives.md` and the generator's team list.

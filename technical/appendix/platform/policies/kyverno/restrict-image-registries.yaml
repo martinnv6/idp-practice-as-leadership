@@ -1,0 +1,37 @@
+# Enforces DPG-DIR-031 (approved registry). Untested starter (Phase 5).
+# Signature verification is a second policy added in Phase 5 once cosign keys
+# exist (Kyverno verifyImages rule or ImageValidatingPolicy).
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-image-registries
+  annotations:
+    policies.kyverno.io/title: Images must come from the approved registry
+    policies.kyverno.io/category: Supply Chain
+    policies.kyverno.io/severity: high
+    kestrel.example/directive: DPG-DIR-031
+spec:
+  background: true
+  rules:
+    - name: approved-registry-only
+      match:
+        any:
+          - resources:
+              kinds: [Pod]
+              namespaceSelector:
+                matchLabels:
+                  kestrel.example/environment: prod
+          - resources:
+              kinds: [Pod]
+              namespaceSelector:
+                matchLabels:
+                  kestrel.example/environment: hub-edge
+      validate:
+        failureAction: Audit
+        message: >-
+          Production images must come from the approved registry and be built
+          by the standard pipeline (directive DPG-DIR-031).
+        pattern:
+          spec:
+            containers:
+              - image: "gitea.cnoe.localtest.me:8443/*"

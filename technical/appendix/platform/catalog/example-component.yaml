@@ -1,0 +1,57 @@
+# What a compliant service looks like in the catalog.
+# The golden-path template generates this file; legacy services add it by hand.
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: parcel-scan-api
+  title: Parcel Scan API
+  description: Records and exposes parcel scan events from the sorting hubs
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    kestrel.example/tier: "1"
+    kestrel.example/data-classification: internal
+    kestrel.example/cost-center: CC-HUB-0420
+    kestrel.example/golden-path: java-service
+    kestrel.example/golden-path-version: "0.1.0"
+    kestrel.example/pci-scope: "false"
+  tags: [java, api]
+  links:
+    - title: Dashboard
+      url: https://grafana.example.invalid/d/parcel-scan-api
+    - title: Runbook
+      url: https://portal.example.invalid/docs/default/component/parcel-scan-api/runbook
+spec:
+  type: service
+  lifecycle: production
+  owner: team-hub-sortation
+  system: parcel-tracking
+  providesApis: [parcel-scan]
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: parcel-scan
+  description: REST API for parcel scan events
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-hub-sortation
+  system: parcel-tracking
+  definition: |
+    openapi: 3.0.3
+    info:
+      title: Parcel Scan
+      version: 0.1.0
+    paths:
+      /parcels/{id}/scans:
+        get:
+          summary: List the scans of a parcel
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: The scans

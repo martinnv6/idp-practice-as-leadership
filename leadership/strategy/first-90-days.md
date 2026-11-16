@@ -6,12 +6,12 @@ An entry plan for the head of the office. A proposal of how to think about the s
 
 | Do | Output |
 | --- | --- |
-| Meet the CIO and each IT director: what would make this office a success in a year? | Success criteria in their words |
-| Interview 15 to 20 developers and tech leads across the four stacks, employees and vendors | Friction log |
+| Meet the CTO and each engineering director: what would make this office a success in a year? | Success criteria in their words |
+| Interview 15 to 20 developers and tech leads across the stacks, employees and vendors | Friction log |
 | Meet Security, Finance and Procurement | Constraints, budget status, renewal calendar |
 | Inventory pipelines, tools, licences and their cost | Tooling and cost baseline |
 | Baseline delivery for five to ten services from existing logs | First delivery numbers |
-| Meet each of the eight team members one to one | Strengths, gaps, concerns |
+| Meet each of the nine team members one to one | Strengths, gaps, concerns |
 | Find out what platform pieces already exist | Reuse list |
 
 Avoid in this period: announcing tools, standards or reorganisations.
@@ -23,7 +23,7 @@ Avoid in this period: announcing tools, standards or reorganisations.
 | Publish the charter and the baseline | Shared understanding |
 | Choose the first golden path and pilot team | ADR |
 | Ship golden path 0.1 with the pilot | One team delivering on the path |
-| Start the Hub Leader weekly rhythm | Adoption board |
+| Start the Guild Lead weekly rhythm | Adoption board |
 | Run the first developer survey | Experience baseline |
 | Agree with Security which controls are mandatory and how they will be phased | Directive draft |
 
@@ -31,7 +31,7 @@ Avoid in this period: announcing tools, standards or reorganisations.
 
 | Do | Output |
 | --- | --- |
-| First report to the CIO: before and after for the pilot, with honest limits | One-page report |
+| First report to the CTO: before and after for the pilot, with honest limits | One-page report |
 | Roadmap for the next three quarters with a "not now" list | Roadmap |
 | Budget view and first build-or-buy recommendation | Memo |
 | Hiring and development plan for the team | Plan |

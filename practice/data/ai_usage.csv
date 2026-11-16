@@ -1,0 +1,4 @@
+quarter,paid_seats,weekly_active_users,idle_seats,seat_usd_per_month,seat_cost_usd_quarter,metered_overage_usd_quarter
+Q2,180,113,67,39,21060,2430
+Q3,240,158,82,39,28080,6480
+Q4,300,207,93,39,35100,12150

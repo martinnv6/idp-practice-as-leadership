@@ -1,0 +1,31 @@
+{
+  "checkpoint": "example",
+  "date": "2026-01-15",
+  "reviewer": "Example only: shows the format the app reads",
+  "verdict": "revise",
+  "overall": 1.8,
+  "deliverables": [
+    {
+      "id": "charter",
+      "average": 2.0,
+      "passed": true,
+      "scores": [
+        {"criterion": "mission", "score": 2, "evidence": "Developers at Kestrel Parcel ship a change without waiting on another team", "advice": "Add who the customers are: employees and contractors alike."},
+        {"criterion": "scope", "score": 2, "evidence": "We do not deploy on behalf of teams", "advice": "Add one request you would refuse and why."},
+        {"criterion": "principles", "score": 2, "evidence": "Only security and compliance controls are mandatory", "advice": "State the single bar for employees and vendors."}
+      ]
+    },
+    {
+      "id": "discovery",
+      "average": 1.5,
+      "passed": false,
+      "scores": [
+        {"criterion": "guide", "score": 2, "evidence": "Tell me about the last change you shipped, step by step", "advice": "Add questions for vendor leads about onboarding."},
+        {"criterion": "baseline", "score": 1, "evidence": "", "advice": "The baseline lists no source and does not say which teams record no deployment data. Check Q1 in the delivery metrics."}
+      ]
+    }
+  ],
+  "strengths": ["Charter is written for developers, not for the platform team"],
+  "gaps": ["Baseline has numbers without sources", "Friction log has no time lost per item"],
+  "next": ["Rebuild the baseline table from Q1 data, naming the file each number comes from"]
+}

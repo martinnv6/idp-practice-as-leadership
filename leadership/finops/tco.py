@@ -92,7 +92,7 @@ def licence_cost_at_sizes(path: Path, sizes: list[int]) -> list[tuple]:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--developers", type=int, default=600)
+    ap.add_argument("--developers", type=int, default=420)
     ap.add_argument("--years", type=int, default=3)
     args = ap.parse_args()
 

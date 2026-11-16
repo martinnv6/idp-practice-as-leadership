@@ -15,7 +15,7 @@ metrics:
     definition: Services with valid owner, tier and lifecycle / all known services
     unit: percent
     source: portal catalog
-    owner: seo-platform
+    owner: dpg-platform
     cadence: weekly
     target: ">= 90"
     counter_metric: null
@@ -26,7 +26,7 @@ metrics:
     definition: Teams with at least one portal visit or demo attendance in the last 90 days / all teams
     unit: percent
     source: portal analytics, demo attendance
-    owner: seo-hub-leaders
+    owner: dpg-guild-leads
     cadence: monthly
 
   - id: funnel-onboarded
@@ -35,7 +35,7 @@ metrics:
     definition: Teams with at least one owned service in the catalog / all teams
     unit: percent
     source: portal catalog
-    owner: seo-hub-leaders
+    owner: dpg-guild-leads
     cadence: monthly
 
   - id: funnel-activated
@@ -44,7 +44,7 @@ metrics:
     definition: Teams that created or migrated at least one service with a golden path / all teams
     unit: percent
     source: scaffolder task history, golden-path annotation
-    owner: seo-hub-leaders
+    owner: dpg-guild-leads
     cadence: monthly
 
   - id: funnel-active
@@ -53,7 +53,7 @@ metrics:
     definition: Teams with at least one golden-path deployment in the last 7 days / all teams
     unit: percent
     source: deployment events
-    owner: seo-hub-leaders
+    owner: dpg-guild-leads
     cadence: weekly
 
   - id: funnel-retained
@@ -62,7 +62,7 @@ metrics:
     definition: Teams still weekly-active 90 days after activation / teams activated at least 90 days ago
     unit: percent
     source: deployment events
-    owner: seo-hub-leaders
+    owner: dpg-guild-leads
     cadence: quarterly
 
   - id: golden-path-share
@@ -71,7 +71,7 @@ metrics:
     definition: Production deployments through a golden path / all production deployments
     unit: percent
     source: deployment events
-    owner: seo-platform
+    owner: dpg-platform
     cadence: weekly
     target: ">= 30 (all services), >= 60 (new services)"
     counter_metric: platform-satisfaction
@@ -82,7 +82,7 @@ metrics:
     definition: Template run to first successful deployment in dev, median
     unit: minutes
     source: scaffolder task history, deployment events
-    owner: seo-platform
+    owner: dpg-platform
     cadence: weekly
     target: "<= 60"
     counter_metric: scorecard-pass-rate
@@ -93,7 +93,7 @@ metrics:
     definition: Days from first access to tenth merged pull request for a new engineer, median, split employee and vendor
     unit: days
     source: source control
-    owner: seo-hub-leaders
+    owner: dpg-guild-leads
     cadence: quarterly
 
   - id: self-service-rate
@@ -102,7 +102,7 @@ metrics:
     definition: Requests fulfilled with no platform-team action / all requests
     unit: percent
     source: portal actions, support tickets
-    owner: seo-platform
+    owner: dpg-platform
     cadence: monthly
 
   # ---- Layer 2: satisfaction and productivity (SPACE, DevEx) ------------
@@ -112,7 +112,7 @@ metrics:
     definition: Share of respondents satisfied or very satisfied with the platform
     unit: percent
     source: quarterly developer survey
-    owner: head-of-seo
+    owner: head-of-dpg
     cadence: quarterly
     frameworks: [SPACE satisfaction]
 
@@ -122,7 +122,7 @@ metrics:
     definition: Mean score for "how easy is it to ship a change to production?"
     unit: score 1-5
     source: quarterly developer survey
-    owner: head-of-seo
+    owner: head-of-dpg
     cadence: quarterly
     frameworks: [DevEx flow, DX Core 4 effectiveness]
 
@@ -132,7 +132,7 @@ metrics:
     definition: Mean score for "how much do tools and process get in the way of the problem you are solving?"
     unit: score 1-5 (lower is better)
     source: quarterly developer survey
-    owner: head-of-seo
+    owner: head-of-dpg
     cadence: quarterly
     frameworks: [DevEx cognitive load]
 
@@ -142,7 +142,7 @@ metrics:
     definition: Pipeline duration from push to result, p50 and p90
     unit: minutes
     source: CI system
-    owner: seo-platform
+    owner: dpg-platform
     cadence: weekly
     frameworks: [DevEx feedback loops, SPACE efficiency]
 
@@ -163,7 +163,7 @@ metrics:
     definition: Time from request to a usable environment, database or access, median
     unit: hours
     source: portal actions, tickets
-    owner: seo-platform
+    owner: dpg-platform
     cadence: monthly
 
   - id: time-to-production-new-service
@@ -172,7 +172,7 @@ metrics:
     definition: Template run to first production deployment, median
     unit: days
     source: scaffolder, deployment events
-    owner: seo-hub-leaders
+    owner: dpg-guild-leads
     cadence: quarterly
 
   - id: platform-toil
@@ -181,7 +181,7 @@ metrics:
     definition: Platform-team time spent on tickets and manual operations / total time
     unit: percent
     source: team time allocation
-    owner: head-of-seo
+    owner: head-of-dpg
     cadence: monthly
 
   # ---- Layer 4: delivery (DORA) ----------------------------------------
@@ -244,7 +244,7 @@ metrics:
     definition: (licences + infrastructure + platform-team cost) / developers active in the month
     unit: USD/developer/month
     source: finance, OpenCost, licence register
-    owner: head-of-seo
+    owner: head-of-dpg
     cadence: monthly
     counter_metric: platform-satisfaction
 
@@ -254,7 +254,7 @@ metrics:
     definition: Platform run cost / production deployments
     unit: USD
     source: OpenCost, deployment events
-    owner: seo-platform
+    owner: dpg-platform
     cadence: monthly
 
   - id: allocated-spend
@@ -263,7 +263,7 @@ metrics:
     definition: Cloud and licence cost mapped to an owner / total
     unit: percent
     source: OpenCost, cloud billing in FOCUS format
-    owner: seo-platform
+    owner: dpg-platform
     cadence: monthly
     target: ">= 90"
 
@@ -273,7 +273,7 @@ metrics:
     definition: Paid seats with no activity in 30 days / paid seats
     unit: percent
     source: vendor admin reports
-    owner: head-of-seo
+    owner: head-of-dpg
     cadence: monthly
 
   - id: scorecard-pass-rate
@@ -282,7 +282,7 @@ metrics:
     definition: Services at or above the minimum level for their tier / all services, by team and by vendor
     unit: percent
     source: scorecards
-    owner: seo-hub-leaders
+    owner: dpg-guild-leads
     cadence: weekly
 
   - id: open-exceptions
@@ -291,7 +291,7 @@ metrics:
     definition: Count of unexpired exceptions and age of the oldest
     unit: count, days
     source: leadership/governance/exceptions
-    owner: seo-hub-leaders
+    owner: dpg-guild-leads
     cadence: monthly
 
   - id: vulns-past-sla
@@ -310,7 +310,7 @@ metrics:
     definition: Developers using an approved AI tool in the last 7 days / licensed developers
     unit: percent
     source: vendor admin reports, gateway
-    owner: seo-platform
+    owner: dpg-platform
     cadence: weekly
 
   - id: ai-ticket-to-first-pr
@@ -319,7 +319,7 @@ metrics:
     definition: Time from ticket started to first pull request, median, AI-assisted vs. not
     unit: hours
     source: issue tracker, source control
-    owner: seo-hub-leaders
+    owner: dpg-guild-leads
     cadence: monthly
     counter_metric: rework-rate
 
@@ -329,7 +329,7 @@ metrics:
     definition: Seats plus metered usage / weekly active AI users
     unit: USD/user/month
     source: vendor billing
-    owner: head-of-seo
+    owner: head-of-dpg
     cadence: monthly
 
 summaries:

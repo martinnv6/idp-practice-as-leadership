@@ -1,0 +1,57 @@
+# Business domains and systems of Kestrel Parcel (fictional).
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: hub-operations
+  description: Parcel scanning, sortation and hub capacity
+spec:
+  owner: delivery
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: last-mile
+  description: Route planning, dispatch and proof of delivery
+spec:
+  owner: delivery
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: developer-platform
+  description: The internal developer platform itself
+spec:
+  owner: dpg
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: parcel-tracking
+  description: Tracks every parcel scan from collection to delivery
+  annotations:
+    kestrel.example/tier: "1"
+spec:
+  owner: team-hub-sortation
+  domain: hub-operations
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: route-planning
+  description: Daily route planning for delivery vans
+  annotations:
+    kestrel.example/tier: "2"
+spec:
+  owner: team-route-planning
+  domain: last-mile
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: idp
+  description: Portal, golden paths, pipelines, policy and metrics
+  annotations:
+    kestrel.example/tier: "2"
+spec:
+  owner: dpg-platform
+  domain: developer-platform

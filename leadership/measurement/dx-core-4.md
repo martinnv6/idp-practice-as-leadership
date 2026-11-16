@@ -44,7 +44,7 @@ A company can buy the DX product to do this, or assemble it from a delivery-metr
 5. **No rewards tied to the metrics.** They guide investment; they are not performance reviews.
 6. **Say what the data cannot show.** Especially with small samples or self-selected early adopters.
 
-## Scorecard for Forja Norte (fill in exercise L6)
+## Scorecard for Kestrel Parcel (fill in exercise L6)
 
 | Dimension | Metric | Source | Baseline | Target in 12 months | Counter-metric shown beside it |
 | --- | --- | --- | --- | --- | --- |

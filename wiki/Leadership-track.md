@@ -1,6 +1,6 @@
 # Leadership track
 
-Fourteen exercises. Full instructions: [practice plan](https://github.com/martinnv6/idp-practice-as-leadership/blob/main/leadership/03-practice-plan.md). Each is a GitHub issue labelled `area:leadership`.
+Fourteen exercises. Full instructions: [practice plan](https://github.com/martinnv6/idp-practice-as-leadership/blob/main/leadership/03-practice-plan.md). The practice app presents them as missions and tracks them.
 
 | # | Exercise | Interview question it prepares |
 | --- | --- | --- |
@@ -21,4 +21,4 @@ Fourteen exercises. Full instructions: [practice plan](https://github.com/martin
 
 ## Counterpart agents
 
-Role-play partners in `.claude/agents/`: executive committee, developer customer, vendor account manager, finance partner, platform engineer.
+Role-play partners in `.claude/agents/`: executive committee, developer customer, vendor account manager, finance partner, platform engineer. The `run-mission` skill runs a mission with you; the `review-checkpoint` skill scores your work.
