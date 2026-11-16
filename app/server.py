@@ -19,6 +19,7 @@ import webbrowser
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.parse import parse_qs
 
 import yaml
 
@@ -73,6 +74,19 @@ def load_dataset(name: str) -> list[dict]:
         return list(csv.DictReader(fh))
 
 
+DOC_SUFFIXES = {".md", ".yaml", ".yml", ".csv", ".json", ".txt", ".py"}
+
+
+def load_doc(rel: str) -> dict:
+    """Text of a repository file, for the in-app reader. Repository files only."""
+    target = (ROOT / rel).resolve()
+    inside = ROOT in target.parents
+    hidden = ".git" in target.relative_to(ROOT).parts if inside else True
+    if not inside or hidden or target.suffix not in DOC_SUFFIXES or not target.is_file():
+        raise FileNotFoundError(rel)
+    return {"path": str(target.relative_to(ROOT)), "text": target.read_text(encoding="utf-8", errors="replace")}
+
+
 def bootstrap() -> dict:
     practice = yaml.safe_load((ROOT / "practice" / "missions.yaml").read_text(encoding="utf-8"))
     rubrics = yaml.safe_load((ROOT / "practice" / "rubrics.yaml").read_text(encoding="utf-8"))
@@ -84,6 +98,7 @@ def bootstrap() -> dict:
         "deliverables": check_progress.evaluate(),
         "reviews": load_reviews(),
         "datasets": sorted(p.name for p in DATA.glob("*.csv")),
+        "root": str(ROOT),
     }
 
 
@@ -124,8 +139,10 @@ class Handler(BaseHTTPRequestHandler):
         self.send(status, json.dumps(payload, ensure_ascii=False).encode("utf-8"), "application/json")
 
     def do_GET(self) -> None:
-        path = self.path.split("?")[0]
+        path, _, query = self.path.partition("?")
         try:
+            if path == "/api/doc":
+                return self.json(load_doc(parse_qs(query).get("path", [""])[0]))
             if path == "/api/bootstrap":
                 return self.json(bootstrap())
             if path.startswith("/api/data/"):

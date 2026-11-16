@@ -7,6 +7,7 @@ const STEP_NAMES = { read: "Read", note: "Note", decide: "Decide", understand: "
 
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const money = (n) => "$" + Math.round(n).toLocaleString("en-US");
+const docLink = (p, label) => `<a class="path" href="#/doc/${esc(p)}">${esc(label || p)}</a>`;
 const paras = (text) => esc(text).trim().split(/\n\s*\n/).map((p) => `<p>${p}</p>`).join("");
 
 async function api(path, body) {
@@ -115,13 +116,13 @@ function viewMission(id) {
       <label for="${t.id}" class="${done ? "done-text" : ""}">${esc(t.text)}</label>
       <span class="meta">${esc(t.tool)} · ${t.minutes} min</span></li>`;
   }).join("");
-  const reads = (m.read || []).map((p) => `<li><span class="path">${esc(p)}</span></li>`).join("");
+  const reads = (m.read || []).map((p) => `<li>${docLink(p)}</li>`).join("");
   const dels = (m.deliverables || []).map((d) => {
     const info = S.deliverables[d.id];
     const tag = info.status === "ready" ? '<span class="tag good">Ready</span>' : info.status === "started" ? '<span class="tag warn">Started</span>' : '<span class="tag plain">Not started</span>';
     const criteria = (S.rubrics.rubrics[d.rubric] || []).map((c) => `<li>${esc(c.text)}</li>`).join("");
     return `<div class="card"><div class="row"><b>${esc(d.title)}</b>${tag}</div>
-      <div class="meta">${d.kind === "edit" ? "Edit" : "Create"} <span class="path">${esc(d.path)}</span>${info.why ? " · " + esc(info.why) : ""}</div>
+      <div class="meta">${d.kind === "edit" ? "Edit" : "Create"} ${info.exists ? docLink(d.path) : `<span class="path">${esc(d.path)}</span>`}${info.why ? " · " + esc(info.why) : ""}</div>
       <details><summary class="meta">How it will be reviewed</summary><ul class="clean">${criteria}</ul></details></div>`;
   }).join("");
   const decisions = (m.decisions || []).map((d) => {
@@ -139,11 +140,11 @@ function viewMission(id) {
     <h2>Tasks</h2><div class="card"><ul class="steps">${tasks}</ul></div>
     ${decisions ? "<h2>Decision</h2>" + decisions : ""}
     <h2>Deliverables</h2>${dels}
-    <p class="meta">The app checks whether each file exists and is filled in. Quality is judged at the checkpoint review.</p>
+    <p class="meta">Write these in your editor: the files are in <span class="path">${esc(S.root)}</span>. The app checks whether each one exists and is filled in; reload to refresh. Quality is judged at the checkpoint review.</p>
     <h2>Say it</h2>
     <div class="card"><p><b>“${esc(m.say_it.question)}”</b></p>
       <p class="meta">Answer aloud in about five minutes, then to the <code>${esc(m.say_it.agent)}</code> agent. In your AI tool: “Run mission ${esc(m.id)} with me.”</p>
-      <label class="option"><input type="checkbox" id="said" ${st.said ? "checked" : ""}><span>I have said it aloud and noted the feedback in <span class="path">notes/study-notes.md</span></span></label></div>
+      <label class="option"><input type="checkbox" id="said" ${st.said ? "checked" : ""}><span>I have said it aloud and noted the feedback in ${docLink("notes/study-notes.md")}</span></label></div>
     <h2>Time</h2>
     <div class="card form-row"><label for="mins">Minutes spent so far</label>
       <input type="number" id="mins" min="0" step="5" value="${S.state.minutes[m.id] || 0}" style="width:100px">
@@ -277,17 +278,89 @@ function viewCheckpoints() {
   $view.innerHTML = `<h1>Checkpoints</h1><p class="lede">A checkpoint is a review of your documents against the rubrics, by an AI reviewer that quotes your own text as evidence. Scores run from 0 to 3; a deliverable passes at an average of 2 with no zeros.</p>${cards}`;
 }
 
+// ---------- document reader ----------
+const PATH_ROOTS = "leadership|technical|docs|practice|notes|scripts|app|wiki|\\.claude|\\.github";
+function inline(text, base) {
+  const codes = [];
+  let s = esc(text).replace(/`([^`]+)`/g, (_, c) => { codes.push(c); return `\u0000${codes.length - 1}\u0000`; });
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/(^|[\s(])\*([^*\s][^*]*)\*/g, "$1<i>$2</i>");
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, label, url) => {
+    if (/^[a-z]+:/i.test(url)) return `<a href="${url}" target="_blank" rel="noopener">${label}</a>`;
+    if (url.startsWith("#")) return label;
+    const parts = (base ? base.split("/").slice(0, -1) : []).concat(url.split("#")[0].split("/"));
+    const out = [];
+    parts.forEach((p) => { if (p === "..") out.pop(); else if (p && p !== ".") out.push(p); });
+    return `<a href="#/doc/${out.join("/")}">${label}</a>`;
+  });
+  return s.replace(/\u0000(\d+)\u0000/g, (_, i) => {
+    const c = codes[Number(i)];
+    return new RegExp(`^(${PATH_ROOTS})/[\\w./-]+\\.(md|yaml|yml|csv|json|py)$`).test(c.replace(/&[a-z]+;/g, "")) || /^[A-Z-]+\.md$/.test(c)
+      ? `<a class="path" href="#/doc/${c}">${c}</a>` : `<code>${c}</code>`;
+  });
+}
+function markdown(src, base) {
+  const lines = src.replace(/\r/g, "").split("\n");
+  const out = [];
+  let i = 0;
+  if (lines[0] === "---") { const end = lines.indexOf("---", 1); if (end > 0) i = end + 1; } // skip front matter
+  const cells = (l) => l.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+  while (i < lines.length) {
+    const line = lines[i];
+    if (/^```/.test(line)) {
+      const lang = line.slice(3).trim(), buf = [];
+      for (i++; i < lines.length && !/^```/.test(lines[i]); i++) buf.push(lines[i]);
+      i++;
+      out.push(`${lang === "mermaid" ? '<p class="meta">Diagram source (renders as a diagram on GitHub):</p>' : ""}<pre><code>${esc(buf.join("\n"))}</code></pre>`);
+    } else if (/^#{1,6}\s/.test(line)) {
+      const level = line.match(/^#+/)[0].length;
+      out.push(`<h${Math.min(level + 1, 4)} class="doc-h${level}">${inline(line.replace(/^#+\s*/, ""), base)}</h${Math.min(level + 1, 4)}>`);
+      i++;
+    } else if (/^\s*\|/.test(line) && i + 1 < lines.length && /^\s*\|[\s:|-]+\|?\s*$/.test(lines[i + 1])) {
+      const head = cells(line); const rows = [];
+      for (i += 2; i < lines.length && /^\s*\|/.test(lines[i]); i++) rows.push(cells(lines[i]));
+      out.push(`<div class="scroll doc-table"><table><thead><tr>${head.map((c) => `<th>${inline(c, base)}</th>`).join("")}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${inline(c, base)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`);
+    } else if (/^\s*([-*]|\d+\.)\s/.test(line)) {
+      const ordered = /^\s*\d+\./.test(line), items = [];
+      for (; i < lines.length && (/^\s*([-*]|\d+\.)\s/.test(lines[i]) || (/^\s{2,}\S/.test(lines[i]) && items.length)); i++) {
+        if (/^\s*([-*]|\d+\.)\s/.test(lines[i])) items.push(lines[i].replace(/^\s*([-*]|\d+\.)\s+/, "").replace(/^\[( |x)\]\s*/, (_, x) => (x === "x" ? "☑ " : "☐ ")));
+        else items[items.length - 1] += " " + lines[i].trim();
+      }
+      out.push(`<${ordered ? "ol" : "ul"} class="clean">${items.map((it) => `<li>${inline(it, base)}</li>`).join("")}</${ordered ? "ol" : "ul"}>`);
+    } else if (/^>\s?/.test(line)) {
+      const buf = [];
+      for (; i < lines.length && /^>\s?/.test(lines[i]); i++) buf.push(lines[i].replace(/^>\s?/, ""));
+      out.push(`<blockquote>${markdown(buf.join("\n"), base)}</blockquote>`);
+    } else if (!line.trim()) { i++; } else {
+      const buf = [];
+      for (; i < lines.length && lines[i].trim() && !/^(#{1,6}\s|```|>|\s*\||\s*([-*]|\d+\.)\s)/.test(lines[i]); i++) buf.push(lines[i]);
+      out.push(`<p>${inline(buf.join(" "), base)}</p>`);
+    }
+  }
+  return out.join("\n");
+}
+async function viewDoc(path) {
+  let doc;
+  try { doc = await api("/api/doc?path=" + encodeURIComponent(path)); }
+  catch (err) {
+    $view.innerHTML = `<p class="meta"><a href="javascript:history.back()">Back</a></p><h1>Not found</h1><p><span class="path">${esc(path)}</span> does not exist yet. If it is one of your deliverables, create it in your editor.</p>`;
+    return;
+  }
+  const body = doc.path.endsWith(".md") ? markdown(doc.text, doc.path) : `<pre><code>${esc(doc.text)}</code></pre>`;
+  $view.innerHTML = `<p class="meta"><a href="javascript:history.back()">Back</a> · <span class="path">${esc(doc.path)}</span> · to edit, open this file in your editor</p><article class="doc">${body}</article>`;
+}
+
 // ---------- router ----------
 function render() {
   const hash = location.hash.replace(/^#\/?/, "");
-  const [name, arg] = hash.split("/");
+  const [name, ...rest] = hash.split("/");
+  const arg = rest.join("/");
   const viewName = !S.state.profile.track ? "home" : name || "home";
   document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("active", a.dataset.view === (viewName === "mission" ? "missions" : viewName)));
   const foot = document.getElementById("nav-foot");
   foot.innerHTML = S.state.profile.track ? `${esc(track().title)}<br><button class="ghost" id="switch">Switch pace</button>` : "";
   const sw = document.getElementById("switch");
   if (sw) sw.onclick = () => act({ op: "profile", name: S.state.profile.name, track: trackId() === "sprint" ? "full" : "sprint" });
-  ({ home: viewHome, missions: viewMissions, mission: () => viewMission(arg), data: viewData, ledger: viewLedger, score: viewScore, checkpoints: viewCheckpoints }[viewName] || viewHome)();
+  ({ home: viewHome, missions: viewMissions, mission: () => viewMission(arg), doc: () => viewDoc(arg), data: viewData, ledger: viewLedger, score: viewScore, checkpoints: viewCheckpoints }[viewName] || viewHome)();
 }
 
 async function start() {
