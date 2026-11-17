@@ -6,6 +6,8 @@ The focus is leadership: strategy, adoption, measurement, governance, budget, ve
 
 The company, **Kestrel Parcel**, is fictional and every figure is a practice figure.
 
+**Español:** la app tiene un menú de idioma (English / Español) arriba a la izquierda; ver [`README.es.md`](README.es.md). / The app has a language menu (English / Español) at the top left.
+
 ## Quick start
 
 Requires Python 3.10 or later.
@@ -63,7 +65,7 @@ The app detects whether each deliverable exists and is filled in. Quality is jud
 ```
 START-HERE.md        read this after the quick start
 app/                 the practice app
-practice/            missions, rubrics, mock data
+practice/            missions, rubrics, mock data, i18n/ (translations)
 progress/            your state and reviews (created when you start)
 leadership/          the documents you will write and the templates for them
 technical/           how an IDP works, at the depth a leader needs

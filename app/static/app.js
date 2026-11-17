@@ -3,20 +3,25 @@
 
 let S = null; // bootstrap payload from the server
 const $view = document.getElementById("view");
-const STEP_NAMES = { read: "Read", note: "Note", decide: "Decide", understand: "See it work", say: "Say it" };
 
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const money = (n) => "$" + Math.round(n).toLocaleString("en-US");
+const money = (n) => "$" + Math.round(n).toLocaleString(LANG === "es" ? "es-MX" : "en-US");
+const toolName = (x) => {
+  const m = /^(App|AI agent): (.+)$/.exec(x);
+  if (m) return t(m[1] === "App" ? "tool.app" : "tool.agent", { x: m[1] === "App" ? t("tool." + m[2]) === "tool." + m[2] ? m[2] : t("tool." + m[2]) : m[2] });
+  return t("tool." + x) === "tool." + x ? x : t("tool." + x);
+};
 const docLink = (p, label) => `<a class="path" href="#/doc/${esc(p)}">${esc(label || p)}</a>`;
 const paras = (text) => esc(text).trim().split(/\n\s*\n/).map((p) => `<p>${p}</p>`).join("");
 
+const withLang = (path) => path + (path.includes("?") ? "&" : "?") + "lang=" + LANG;
 async function api(path, body) {
   const res = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : undefined);
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || res.statusText);
   return data;
 }
-async function act(op) { S = await api("/api/state", op); render(); }
+async function act(op) { S = await api("/api/state", op); setLang(S.lang); render(); }
 
 // ---------- derived state ----------
 const practice = () => S.practice;
@@ -39,9 +44,9 @@ function missionStatus(m) {
 }
 function currentMission() { return trackMissions().find((m) => !missionStatus(m).complete) || null; }
 function statusTag(st) {
-  if (st.complete) return '<span class="tag good">Complete</span>';
-  if (st.started) return `<span class="tag warn">In progress · ${st.done}/${st.total}</span>`;
-  return '<span class="tag plain">Not started</span>';
+  if (st.complete) return `<span class="tag good">${t("status.complete")}</span>`;
+  if (st.started) return `<span class="tag warn">${t("status.progress", { done: st.done, total: st.total })}</span>`;
+  return `<span class="tag plain">${t("status.none")}</span>`;
 }
 function checkpointsForTrack() {
   const ids = new Set(track().missions);
@@ -55,13 +60,13 @@ function viewOnboarding() {
     <label class="option"><input type="radio" name="track" value="${id}" ${i === 0 ? "checked" : ""}>
       <span><b>${esc(t.title)}</b><br><span class="meta">${esc(t.description)}</span></span></label>`).join("");
   $view.innerHTML = `
-    <h1>You have been appointed ${esc(practice().role)}</h1>
-    <p class="lede">${esc(practice().company)} is a fictional company. This app gives you the situations the job would bring, tracks what you produce, and shows the reviews of your work. Your documents live in the repository; the app only watches them.</p>
+    <h1>${t("onb.title", { role: esc(practice().role) })}</h1>
+    <p class="lede">${t("onb.lede", { company: esc(practice().company) })}</p>
     <div class="card">
-      <h2 style="margin-top:0">Before you start</h2>
-      <div class="form-row"><label for="name">Your name</label><input type="text" id="name" placeholder="Optional" autocomplete="off"></div>
-      <h3>Pace</h3>${tracks}
-      <div class="form-row"><button class="primary" id="start">Open the brief</button></div>
+      <h2 style="margin-top:0">${t("onb.before")}</h2>
+      <div class="form-row"><label for="name">${t("onb.name")}</label><input type="text" id="name" placeholder="${t("onb.optional")}" autocomplete="off"></div>
+      <h3>${t("onb.pace")}</h3>${tracks}
+      <div class="form-row"><button class="primary" id="start">${t("onb.open")}</button></div>
     </div>`;
   document.getElementById("start").onclick = () => act({
     op: "profile", name: document.getElementById("name").value,
@@ -77,19 +82,19 @@ function viewHome() {
   const letters = missions.map((m, i) => (m.inbox || []).map((msg) => `
     <div class="card letter ${i > reached ? "locked" : ""}">
       <div class="meta"><b>${esc(msg.from)}</b> · ${esc(m.when)} · ${esc(msg.subject)}</div>
-      ${i > reached ? '<p class="meta">Arrives when you finish the mission before it.</p>' : paras(msg.body)}
+      ${i > reached ? '<p class="meta">${t("home.arrives")}</p>' : paras(msg.body)}
     </div>`).join("")).slice(0, reached + 2).reverse().join("");
   const cast = practice().cast.map((c) => `<tr><td><b>${esc(c.name)}</b></td><td>${esc(c.role)}</td><td><code>${esc(c.agent)}</code></td></tr>`).join("");
   const next = current
-    ? `<a class="cardlink" href="#/mission/${current.id}"><div class="card"><div class="row"><div><div class="meta">Next · ${esc(current.when)}</div><b>${esc(current.title)}</b></div>${statusTag(missionStatus(current))}</div><p style="margin:8px 0 0">${esc(current.situation)}</p></div></a>`
-    : `<div class="card"><b>All missions in this track are complete.</b> Go to <a href="#/checkpoints">Checkpoints</a> for the review.</div>`;
+    ? `<a class="cardlink" href="#/mission/${current.id}"><div class="card"><div class="row"><div><div class="meta">${t("home.next", { when: esc(current.when) })}</div><b>${esc(current.title)}</b></div>${statusTag(missionStatus(current))}</div><p style="margin:8px 0 0">${esc(current.situation)}</p></div></a>`
+    : `<div class="card"><b>${t("home.alldone")}</b> ${t("home.goto", { link: `<a href="#/checkpoints">${t("nav.checkpoints")}</a>` })}</div>`;
   $view.innerHTML = `
     <h1>${S.state.profile.name ? esc(S.state.profile.name) + ", " : ""}${esc(practice().role)}</h1>
     <p class="lede">${esc(track().title)} · ${esc(track().description)}</p>
     ${next}
-    <h2>Inbox</h2>${letters}
-    <h2>People</h2>
-    <div class="scroll"><table><thead><tr><th>Person</th><th>Role</th><th>Played by agent</th></tr></thead><tbody>${cast}</tbody></table></div>`;
+    <h2>${t("home.inbox")}</h2>${letters}
+    <h2>${t("home.people")}</h2>
+    <div class="scroll"><table><thead><tr><th>${t("home.person")}</th><th>${t("home.role")}</th><th>${t("home.agent")}</th></tr></thead><tbody>${cast}</tbody></table></div>`;
 }
 
 function viewMissions() {
@@ -102,53 +107,53 @@ function viewMissions() {
       <div class="bar" style="margin:10px 0"><span style="width:${(st.done / st.total) * 100}%"></span></div>
       <div>${comps}</div></div></a>`;
   }).join("");
-  $view.innerHTML = `<h1>Missions</h1><p class="lede">${esc(track().description)} A mission is complete when its tasks are ticked, its deliverables are ready, its decision is recorded and the answer has been said aloud.</p><div class="grid">${cards}</div>`;
+  $view.innerHTML = `<h1>${t("missions.title")}</h1><p class="lede">${esc(track().description)} ${t("missions.lede")}</p><div class="grid">${cards}</div>`;
 }
 
 function viewMission(id) {
   const m = missionById(id);
   if (!m) return viewMissions();
   const st = missionStatus(m);
-  const tasks = m.tasks.map((t) => {
-    const done = !!S.state.tasks[t.id];
-    return `<li><input type="checkbox" id="${t.id}" data-task="${t.id}" ${done ? "checked" : ""}>
-      <span class="step-name">${STEP_NAMES[t.step]}</span>
-      <label for="${t.id}" class="${done ? "done-text" : ""}">${esc(t.text)}</label>
-      <span class="meta">${esc(t.tool)} · ${t.minutes} min</span></li>`;
+  const tasks = m.tasks.map((task) => {
+    const done = !!S.state.tasks[task.id];
+    return `<li><input type="checkbox" id="${task.id}" data-task="${task.id}" ${done ? "checked" : ""}>
+      <span class="step-name">${t("step." + task.step)}</span>
+      <label for="${task.id}" class="${done ? "done-text" : ""}">${esc(task.text)}</label>
+      <span class="meta">${esc(toolName(task.tool))} · ${task.minutes} ${t("mission.min")}</span></li>`;
   }).join("");
   const reads = (m.read || []).map((p) => `<li>${docLink(p)}</li>`).join("");
   const dels = (m.deliverables || []).map((d) => {
     const info = S.deliverables[d.id];
-    const tag = info.status === "ready" ? '<span class="tag good">Ready</span>' : info.status === "started" ? '<span class="tag warn">Started</span>' : '<span class="tag plain">Not started</span>';
+    const tag = info.status === "ready" ? `<span class="tag good">${t("status.ready")}</span>` : info.status === "started" ? `<span class="tag warn">${t("status.started")}</span>` : `<span class="tag plain">${t("status.none")}</span>`;
     const criteria = (S.rubrics.rubrics[d.rubric] || []).map((c) => `<li>${esc(c.text)}</li>`).join("");
     return `<div class="card"><div class="row"><b>${esc(d.title)}</b>${tag}</div>
-      <div class="meta">${d.kind === "edit" ? "Edit" : "Create"} ${info.exists ? docLink(d.path) : `<span class="path">${esc(d.path)}</span>`}${info.why ? " · " + esc(info.why) : ""}</div>
-      <details><summary class="meta">How it will be reviewed</summary><ul class="clean">${criteria}</ul></details></div>`;
+      <div class="meta">${d.kind === "edit" ? t("mission.edit") : t("mission.create")} ${info.exists ? docLink(d.path) : `<span class="path">${esc(d.path)}</span>`}${info.why ? " · " + esc(info.why) : ""}</div>
+      <details><summary class="meta">${t("mission.review")}</summary><ul class="clean">${criteria}</ul></details></div>`;
   }).join("");
   const decisions = (m.decisions || []).map((d) => {
     const chosen = S.state.decisions[d.id];
     const opts = d.options.map((o) => `<label class="option"><input type="radio" name="${d.id}" data-decision="${d.id}" value="${o.id}" ${chosen === o.id ? "checked" : ""}>
-      <span><b>${esc(o.label)}</b> · ${money(o.cost_usd)}${chosen === o.id ? `<br><span class="meta">Consequence: ${esc(o.consequence)}</span>` : ""}</span></label>`).join("");
-    return `<div class="card"><b>${esc(d.question)}</b><div class="meta">The cost goes to your ledger. You see the consequence after you choose.</div>${opts}</div>`;
+      <span><b>${esc(o.label)}</b> · ${money(o.cost_usd)}${chosen === o.id ? `<br><span class="meta">${t("mission.consequence", { x: esc(o.consequence) })}</span>` : ""}</span></label>`).join("");
+    return `<div class="card"><b>${esc(d.question)}</b><div class="meta">${t("mission.cost")}</div>${opts}</div>`;
   }).join("");
-  const estimate = m.tasks.reduce((sum, t) => sum + t.minutes, 0);
+  const estimate = m.tasks.reduce((sum, x) => sum + x.minutes, 0);
   $view.innerHTML = `
-    <p class="meta"><a href="#/missions">Missions</a> · ${esc(m.when)}</p>
+    <p class="meta"><a href="#/missions">${t("missions.title")}</a> · ${esc(m.when)}</p>
     <div class="row"><h1>${esc(m.title)}</h1>${statusTag(st)}</div>
     <p class="lede">${esc(m.situation)}</p>
-    <h2>Read first</h2><ul class="clean">${reads}</ul>
-    <h2>Tasks</h2><div class="card"><ul class="steps">${tasks}</ul></div>
-    ${decisions ? "<h2>Decision</h2>" + decisions : ""}
-    <h2>Deliverables</h2>${dels}
-    <p class="meta">Write these in your editor: the files are in <span class="path">${esc(S.root)}</span>. The app checks whether each one exists and is filled in; reload to refresh. Quality is judged at the checkpoint review.</p>
-    <h2>Say it</h2>
+    <h2>${t("mission.readfirst")}</h2><ul class="clean">${reads}</ul>
+    <h2>${t("mission.tasks")}</h2><div class="card"><ul class="steps">${tasks}</ul></div>
+    ${decisions ? `<h2>${t("mission.decision")}</h2>` + decisions : ""}
+    <h2>${t("mission.deliverables")}</h2>${dels}
+    <p class="meta">${t("mission.writehere", { root: `<span class="path">${esc(S.root)}</span>` })}</p>
+    <h2>${t("mission.sayit")}</h2>
     <div class="card"><p><b>“${esc(m.say_it.question)}”</b></p>
-      <p class="meta">Answer aloud in about five minutes, then to the <code>${esc(m.say_it.agent)}</code> agent. In your AI tool: “Run mission ${esc(m.id)} with me.”</p>
-      <label class="option"><input type="checkbox" id="said" ${st.said ? "checked" : ""}><span>I have said it aloud and noted the feedback in ${docLink("notes/study-notes.md")}</span></label></div>
-    <h2>Time</h2>
-    <div class="card form-row"><label for="mins">Minutes spent so far</label>
+      <p class="meta">${t("mission.sayhelp", { agent: `<code>${esc(m.say_it.agent)}</code>`, id: esc(m.id) })}</p>
+      <label class="option"><input type="checkbox" id="said" ${st.said ? "checked" : ""}><span>${t("mission.saidlabel", { link: docLink("notes/study-notes.md") })}</span></label></div>
+    <h2>${t("mission.time")}</h2>
+    <div class="card form-row"><label for="mins">${t("mission.minutes")}</label>
       <input type="number" id="mins" min="0" step="5" value="${S.state.minutes[m.id] || 0}" style="width:100px">
-      <button id="save-mins">Save</button><span class="meta">Estimate: ${estimate} min</span></div>`;
+      <button id="save-mins">${t("mission.save")}</button><span class="meta">${t("mission.estimate", { n: estimate })}</span></div>`;
   $view.querySelectorAll("[data-task]").forEach((el) => (el.onchange = () => act({ op: "task", id: el.dataset.task, done: el.checked })));
   $view.querySelectorAll("[data-decision]").forEach((el) => (el.onchange = () => act({ op: "decision", id: el.dataset.decision, option: el.value })));
   document.getElementById("said").onchange = (e) => act({ op: "said", mission: m.id, done: e.target.checked });
@@ -171,16 +176,16 @@ function drawData() {
     const c = dataView.sort, num = numeric(c);
     rows.sort((a, b) => (num ? (Number(a[c]) || 0) - (Number(b[c]) || 0) : String(a[c]).localeCompare(String(b[c]))) * dataView.dir);
   }
-  const head = cols.map((c) => `<th data-col="${esc(c)}">${esc(c.replace(/_/g, " "))}${dataView.sort === c ? (dataView.dir > 0 ? " ↑" : " ↓") : ""}</th>`).join("");
-  const body = rows.map((r) => "<tr>" + cols.map((c) => r[c] === "" ? '<td class="empty">not recorded</td>' : `<td class="${numeric(c) ? "num" : ""}">${esc(r[c])}</td>`).join("") + "</tr>").join("");
+  const head = cols.map((c) => `<th data-col="${esc(c)}">${esc(columnName(c))}${dataView.sort === c ? (dataView.dir > 0 ? " ↑" : " ↓") : ""}</th>`).join("");
+  const body = rows.map((r) => "<tr>" + cols.map((c) => r[c] === "" ? '<td class="empty">${t("data.missing")}</td>' : `<td class="${numeric(c) ? "num" : ""}">${esc(r[c])}</td>`).join("") + "</tr>").join("");
   const quarters = hasQuarter ? [...new Set(all.map((r) => r.quarter))] : [];
   $view.innerHTML = `
-    <h1>Data</h1>
-    <p class="lede">Mock data for ${esc(practice().company)}: what you would pull from pipelines, the survey, scorecards and billing. The numbers are invented. Reading them well is part of the practice. Files are in <span class="path">practice/data/</span> if you prefer a spreadsheet.</p>
+    <h1>${t("data.title")}</h1>
+    <p class="lede">${t("data.lede", { company: esc(practice().company), path: '<span class="path">practice/data/</span>' })}</p>
     <div class="form-row">
-      <label for="ds">Dataset</label><select id="ds">${S.datasets.map((d) => `<option ${d === dataView.name ? "selected" : ""}>${esc(d)}</option>`).join("")}</select>
-      ${hasQuarter ? `<label for="q">Quarter</label><select id="q"><option value="">All</option>${quarters.map((q) => `<option ${q === dataView.quarter ? "selected" : ""}>${esc(q)}</option>`).join("")}</select>` : ""}
-      <span class="meta">${rows.length} rows · click a column to sort</span>
+      <label for="ds">${t("data.dataset")}</label><select id="ds">${S.datasets.map((d) => `<option ${d === dataView.name ? "selected" : ""}>${esc(d)}</option>`).join("")}</select>
+      ${hasQuarter ? `<label for="q">${t("data.quarter")}</label><select id="q"><option value="">${t("data.all")}</option>${quarters.map((q) => `<option ${q === dataView.quarter ? "selected" : ""}>${esc(q)}</option>`).join("")}</select>` : ""}
+      <span class="meta">${t("data.rows", { n: rows.length })}</span>
     </div>
     <div class="scroll"><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
   document.getElementById("ds").onchange = (e) => { dataView.name = e.target.value; dataView.sort = null; dataView.quarter = ""; viewData(); };
@@ -198,28 +203,28 @@ function viewLedger() {
     (m.decisions || []).forEach((d) => {
       const opt = d.options.find((o) => o.id === S.state.decisions[d.id]);
       if (opt) spent += opt.cost_usd;
-      decisionRows.push(`<tr><td>${esc(m.title)}</td><td>${esc(d.question)}</td><td>${opt ? esc(opt.label) : '<span class="meta">Not decided</span>'}</td><td class="num">${opt ? money(opt.cost_usd) : ""}</td></tr>`);
+      decisionRows.push(`<tr><td>${esc(m.title)}</td><td>${esc(d.question)}</td><td>${opt ? esc(opt.label) : '<span class="meta">${t("ledger.notdecided")}</span>'}</td><td class="num">${opt ? money(opt.cost_usd) : ""}</td></tr>`);
     });
-    const e = m.tasks.reduce((s, t) => s + t.minutes, 0), l = S.state.minutes[m.id] || 0;
+    const e = m.tasks.reduce((sum, x) => sum + x.minutes, 0), l = S.state.minutes[m.id] || 0;
     est += e; logged += l;
     timeRows.push(`<tr><td>${esc(m.title)}</td><td class="num">${e}</td><td class="num">${l}</td></tr>`);
   });
   const budget = practice().budget.discretionary_usd;
   const pct = Math.min(100, (spent / budget) * 100);
   $view.innerHTML = `
-    <h1>Ledger</h1>
-    <p class="lede">What your decisions cost Kestrel Parcel, and what the practice costs you in time. ${esc(practice().budget.note)}</p>
+    <h1>${t("ledger.title")}</h1>
+    <p class="lede">${t("ledger.lede", { company: esc(practice().company), note: esc(practice().budget.note) })}</p>
     <div class="stats">
-      <div class="stat"><b>${money(budget)}</b><span>Discretionary budget</span></div>
-      <div class="stat"><b>${money(spent)}</b><span>Committed by your decisions</span></div>
-      <div class="stat"><b>${money(budget - spent)}</b><span>Remaining</span></div>
-      <div class="stat"><b>${Math.round(logged / 6) / 10} h</b><span>Logged of ${Math.round(est / 6) / 10} h estimated</span></div>
+      <div class="stat"><b>${money(budget)}</b><span>${t("ledger.budget")}</span></div>
+      <div class="stat"><b>${money(spent)}</b><span>${t("ledger.committed")}</span></div>
+      <div class="stat"><b>${money(budget - spent)}</b><span>${t("ledger.remaining")}</span></div>
+      <div class="stat"><b>${Math.round(logged / 6) / 10} h</b><span>${t("ledger.logged", { est: Math.round(est / 6) / 10 })}</span></div>
     </div>
     <div class="bar ${spent > budget ? "over" : ""}"><span style="width:${pct}%"></span></div>
-    <h2>Decisions</h2>
-    ${decisionRows.length ? `<div class="scroll"><table><thead><tr><th>Mission</th><th>Decision</th><th>Your choice</th><th>Cost</th></tr></thead><tbody>${decisionRows.join("")}</tbody></table></div>` : '<p class="meta">This track has no budget decisions. The full simulation has six.</p>'}
-    <h2>Time</h2>
-    <div class="scroll"><table><thead><tr><th>Mission</th><th>Estimated min</th><th>Logged min</th></tr></thead><tbody>${timeRows.join("")}</tbody></table></div>`;
+    <h2>${t("ledger.decisions")}</h2>
+    ${decisionRows.length ? `<div class="scroll"><table><thead><tr><th>${t("ledger.mission")}</th><th>${t("ledger.decision")}</th><th>${t("ledger.choice")}</th><th>${t("ledger.costcol")}</th></tr></thead><tbody>${decisionRows.join("")}</tbody></table></div>` : `<p class="meta">${t("ledger.nodecisions")}</p>`}
+    <h2>${t("ledger.time")}</h2>
+    <div class="scroll"><table><thead><tr><th>${t("ledger.mission")}</th><th>${t("ledger.est")}</th><th>${t("ledger.log")}</th></tr></thead><tbody>${timeRows.join("")}</tbody></table></div>`;
 }
 
 function reviewScores() { // deliverable id -> average score from the latest review that covers it
@@ -240,18 +245,18 @@ function viewScore() {
     const avg = reviewed.length ? reviewed.reduce((a, b) => a + b, 0) / reviewed.length : null;
     return `<div class="score-row"><b>${esc(label)}</b>
       <div class="bar"><span style="width:${(complete / mine.length) * 100}%"></span></div>
-      <span class="meta">${complete}/${mine.length} missions${avg !== null ? ` · review ${avg.toFixed(1)}/3` : ""}</span></div>`;
+      <span class="meta">${t("score.nmissions", { a: complete, b: mine.length })}${avg !== null ? ` · ${t("score.review", { x: avg.toFixed(1) })}` : ""}</span></div>`;
   }).join("");
   const done = missions.filter((m) => missionStatus(m).complete).length;
   const dels = [...new Set(missions.flatMap((m) => (m.deliverables || []).map((d) => d.id)))];
   const ready = dels.filter((id) => S.deliverables[id].status === "ready").length;
   $view.innerHTML = `
-    <h1>Scoreboard</h1>
-    <p class="lede">Progress by competency. The bar shows missions completed; the review score appears once a checkpoint review covers that work.</p>
+    <h1>${t("score.title")}</h1>
+    <p class="lede">${t("score.lede")}</p>
     <div class="stats">
-      <div class="stat"><b>${done}/${missions.length}</b><span>Missions complete</span></div>
-      <div class="stat"><b>${ready}/${dels.length}</b><span>Deliverables ready</span></div>
-      <div class="stat"><b>${S.reviews.filter((r) => !r.error).length}</b><span>Reviews on file</span></div>
+      <div class="stat"><b>${done}/${missions.length}</b><span>${t("score.missions")}</span></div>
+      <div class="stat"><b>${ready}/${dels.length}</b><span>${t("score.deliverables")}</span></div>
+      <div class="stat"><b>${S.reviews.filter((r) => !r.error).length}</b><span>${t("score.reviews")}</span></div>
     </div>
     <div class="card">${rows}</div>`;
 }
@@ -262,20 +267,20 @@ function viewCheckpoints() {
     const complete = missions.filter((m) => missionStatus(m).complete).length;
     const ready = complete === missions.length;
     const r = reviewFor(cp.id);
-    let review = `<p class="meta">No review yet. ${ready ? "Ready for review." : `Finish ${missions.length - complete} more mission(s) first, or ask for an early review.`}</p>
-      <div class="note">In your AI tool, from the repository folder: <b>“Run the review-checkpoint skill for ${esc(cp.id)}.”</b> It writes <span class="path">progress/reviews/${esc(cp.id)}.json</span>; reload this page to see it.</div>`;
+    let review = `<p class="meta">${t("cp.noreview")} ${ready ? t("cp.ready") : t("cp.finish", { n: missions.length - complete })}</p>
+      <div class="note">${t("cp.how", { cmd: `<b>${t("cp.cmd", { id: esc(cp.id) })}</b>`, file: `<span class="path">progress/reviews/${esc(cp.id)}.json</span>` })}</div>`;
     if (r && r.error) review = `<div class="note">${esc(r.file)}: ${esc(r.error)}</div>`;
     else if (r) {
       const dels = (r.deliverables || []).map((d) => `<details><summary><b>${esc((S.deliverables[d.id] || {}).title || d.id)}</b> · ${(d.scores || []).map((s) => s.score).join(" ")}</summary>
         <ul class="clean">${(d.scores || []).map((s) => `<li><b>${esc(s.score)}/3 ${esc(s.criterion)}</b>${s.evidence ? ` — “${esc(s.evidence)}”` : ""}${s.advice ? `<br><span class="meta">${esc(s.advice)}</span>` : ""}</li>`).join("")}</ul></details>`).join("");
       const list = (title, items) => items && items.length ? `<h3>${title}</h3><ul class="clean">${items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>` : "";
-      review = `<div class="row"><span class="tag ${r.verdict === "pass" ? "good" : "warn"}">${esc(r.verdict || "reviewed")}</span><span class="meta">${esc(r.date || "")} · overall ${esc(r.overall ?? "")}/3 · ${esc(r.reviewer || "")}</span></div>
-        ${list("Strengths", r.strengths)}${list("Gaps", r.gaps)}${list("Do next", r.next)}<h3>Deliverables</h3>${dels}`;
+      review = `<div class="row"><span class="tag ${r.verdict === "pass" ? "good" : "warn"}">${esc(r.verdict ? (["pass", "revise"].includes(r.verdict) ? t("verdict." + r.verdict) : r.verdict) : t("cp.reviewed"))}</span><span class="meta">${esc(r.date || "")} · ${t("cp.overall", { x: esc(r.overall ?? "") })} · ${esc(r.reviewer || "")}</span></div>
+        ${list(t("cp.strengths"), r.strengths)}${list(t("cp.gaps"), r.gaps)}${list(t("cp.next"), r.next)}<h3>${t("cp.deliverables")}</h3>${dels}`;
     }
-    return `<div class="card"><div class="row"><b>${esc(cp.title)}</b><span class="tag ${ready ? "good" : "plain"}">${complete}/${missions.length} missions</span></div>
-      <p>${esc(cp.question)}</p>${cp.exam ? '<p class="meta">Includes a timed oral exam with the exec-committee agent.</p>' : ""}${review}</div>`;
+    return `<div class="card"><div class="row"><b>${esc(cp.title)}</b><span class="tag ${ready ? "good" : "plain"}">${t("cp.nmissions", { a: complete, b: missions.length })}</span></div>
+      <p>${esc(cp.question)}</p>${cp.exam ? `<p class="meta">${t("cp.exam")}</p>` : ""}${review}</div>`;
   }).join("");
-  $view.innerHTML = `<h1>Checkpoints</h1><p class="lede">A checkpoint is a review of your documents against the rubrics, by an AI reviewer that quotes your own text as evidence. Scores run from 0 to 3; a deliverable passes at an average of 2 with no zeros.</p>${cards}`;
+  $view.innerHTML = `<h1>${t("cp.title")}</h1><p class="lede">${t("cp.lede")}</p>${cards}`;
 }
 
 // ---------- document reader ----------
@@ -310,7 +315,7 @@ function markdown(src, base) {
       const lang = line.slice(3).trim(), buf = [];
       for (i++; i < lines.length && !/^```/.test(lines[i]); i++) buf.push(lines[i]);
       i++;
-      out.push(`${lang === "mermaid" ? '<p class="meta">Diagram source (renders as a diagram on GitHub):</p>' : ""}<pre><code>${esc(buf.join("\n"))}</code></pre>`);
+      out.push(`${lang === "mermaid" ? '<p class="meta">${t("doc.diagram")}</p>' : ""}<pre><code>${esc(buf.join("\n"))}</code></pre>`);
     } else if (/^#{1,6}\s/.test(line)) {
       const level = line.match(/^#+/)[0].length;
       out.push(`<h${Math.min(level + 1, 4)} class="doc-h${level}">${inline(line.replace(/^#+\s*/, ""), base)}</h${Math.min(level + 1, 4)}>`);
@@ -340,13 +345,13 @@ function markdown(src, base) {
 }
 async function viewDoc(path) {
   let doc;
-  try { doc = await api("/api/doc?path=" + encodeURIComponent(path)); }
+  try { doc = await api(withLang("/api/doc?path=" + encodeURIComponent(path))); }
   catch (err) {
-    $view.innerHTML = `<p class="meta"><a href="javascript:history.back()">Back</a></p><h1>Not found</h1><p><span class="path">${esc(path)}</span> does not exist yet. If it is one of your deliverables, create it in your editor.</p>`;
+    $view.innerHTML = `<p class="meta"><a href="javascript:history.back()">${t("doc.back")}</a></p><h1>${t("doc.notfound")}</h1><p>${t("doc.missing", { path: `<span class="path">${esc(path)}</span>` })}</p>`;
     return;
   }
   const body = doc.path.endsWith(".md") ? markdown(doc.text, doc.path) : `<pre><code>${esc(doc.text)}</code></pre>`;
-  $view.innerHTML = `<p class="meta"><a href="javascript:history.back()">Back</a> · <span class="path">${esc(doc.path)}</span> · to edit, open this file in your editor</p><article class="doc">${body}</article>`;
+  $view.innerHTML = `<p class="meta"><a href="javascript:history.back()">${t("doc.back")}</a> · <span class="path">${esc(doc.path)}</span> · ${doc.translated ? t("doc.translated") + " · " : ""}${t("doc.edit")}</p>${LANG !== "en" && !doc.translated && doc.path.endsWith(".md") ? `<p class="note">${t("doc.untranslated")}</p>` : ""}<article class="doc">${body}</article>`;
 }
 
 // ---------- router ----------
@@ -357,15 +362,19 @@ function render() {
   const viewName = !S.state.profile.track ? "home" : name || "home";
   document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("active", a.dataset.view === (viewName === "mission" ? "missions" : viewName)));
   const foot = document.getElementById("nav-foot");
-  foot.innerHTML = S.state.profile.track ? `${esc(track().title)}<br><button class="ghost" id="switch">Switch pace</button>` : "";
+  foot.innerHTML = S.state.profile.track ? `${esc(track().title)}<br><button class="ghost" id="switch">${t("foot.switch")}</button>` : "";
+  document.querySelectorAll("[data-t]").forEach((el) => (el.textContent = t(el.dataset.t)));
+  const pick = document.getElementById("lang");
+  pick.innerHTML = Object.entries(S.languages).map(([code, name]) => `<option value="${esc(code)}" ${code === LANG ? "selected" : ""}>${esc(name)}</option>`).join("");
+  pick.onchange = () => act({ op: "lang", lang: pick.value });
   const sw = document.getElementById("switch");
   if (sw) sw.onclick = () => act({ op: "profile", name: S.state.profile.name, track: trackId() === "sprint" ? "full" : "sprint" });
   ({ home: viewHome, missions: viewMissions, mission: () => viewMission(arg), doc: () => viewDoc(arg), data: viewData, ledger: viewLedger, score: viewScore, checkpoints: viewCheckpoints }[viewName] || viewHome)();
 }
 
 async function start() {
-  try { S = await api("/api/bootstrap"); render(); }
-  catch (err) { $view.innerHTML = `<h1>The app could not load</h1><div class="note">${esc(err.message)}</div><p>Run <code>python3 scripts/validate.py</code> in the repository to find the problem.</p>`; }
+  try { S = await api("/api/bootstrap"); setLang(S.lang); render(); }
+  catch (err) { $view.innerHTML = `<h1>${t("err.title")}</h1><div class="note">${esc(err.message)}</div><p>${t("err.hint", { cmd: "<code>python3 scripts/validate.py</code>" })}</p>`; }
 }
 window.addEventListener("hashchange", () => { render(); window.scrollTo(0, 0); });
 start();

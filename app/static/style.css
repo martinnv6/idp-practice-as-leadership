@@ -109,3 +109,7 @@ pre code { background: none; padding: 0; }
 blockquote { margin: 12px 0; padding: 4px 16px; border-left: 4px solid #e0a43a; background: var(--card); }
 a.path { text-decoration: none; color: var(--accent); }
 a.path:hover { text-decoration: underline; }
+
+.lang { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; margin: -6px 0 -8px; }
+.lang label { opacity: .7; }
+.lang select { background: #22403f; color: #e8efe9; border: 1px solid #3a5b59; border-radius: var(--radius); padding: 3px 6px; font: inherit; }

@@ -7,6 +7,10 @@ description: Run a practice mission or sprint session with the learner as tutor 
 
 The learner plays the head of the Developer Platform Group at Kestrel Parcel, a fictional company. You are the tutor and you play the other people. The learner does the work.
 
+## Language
+
+Read `profile.lang` in `progress/state.json` (`en` or `es`; English if absent) and use that language with the learner. If it is `es`, the mission text is in `practice/i18n/es/missions.yaml` and the rubric wording in `practice/i18n/es/rubrics.yaml`; ids, paths and commands stay as they are.
+
 ## Start
 
 1. Read `practice/missions.yaml`. If no mission was named, read `progress/state.json` and take the first incomplete mission of the learner's track (`profile.track`); if there is no state, suggest opening the app with `python3 app/server.py` and start with `s1` or `m0`.

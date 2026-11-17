@@ -35,7 +35,8 @@ If your tool does not load skills automatically, open the file and follow it.
 5. **Facts about the real world need a source and a date** in `docs/references.md`, or a clear "unverified" label.
 6. **Reference files by repo-root path in backticks.** The validator checks them.
 7. **Plain language.** Short sentences, no hype.
-8. **The technical appendix is optional and untested.** `technical/appendix/` holds a hands-on build plan and starter configuration that has never been run. The practice does not require it.
+8. **Language.** Read `profile.lang` in `progress/state.json` (`en` or `es`, English if absent). Talk to the learner, play the cast and write reviews in that language. Never translate ids, file paths, commands or agent names, and quote the learner's own words in the language they wrote them. Spanish texts of the missions are in `practice/i18n/es/`.
+9. **The technical appendix is optional and untested.** `technical/appendix/` holds a hands-on build plan and starter configuration that has never been run. The practice does not require it.
 
 ## Structure
 

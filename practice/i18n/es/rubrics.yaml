@@ -1,0 +1,108 @@
+# Traducción al español de practice/rubrics.yaml (solo los textos que ve la persona).
+# Los hallazgos plantados (planted_findings) no se traducen: el revisor los lee en inglés.
+
+scale:
+  0: Ausente
+  1: Presente pero genérico, vago o sin respaldo
+  2: "Sólido: específico, coherente con el escenario y los datos"
+  3: "Fuerte: resistiría las preguntas de la persona a quien va dirigido"
+
+common:
+  specific: "Específico de Kestrel Parcel: usa los equipos, restricciones y datos del escenario, no afirmaciones genéricas"
+  measurable: "Las afirmaciones y metas son medibles, con una línea base o una fuente"
+  honest: "Declara límites, supuestos y lo que no se sabe"
+  plain: "Escrito para su lector en lenguaje de negocio claro; las herramientas aparecen solo donde hacen falta"
+
+rubrics:
+  charter:
+    mission: "La misión dice quiénes son los clientes y qué cambia para ellos, con las palabras de quien aprende"
+    scope: "El alcance y lo que queda fuera son lo bastante concretos para rechazar una solicitud"
+    principles: "Los principios incluyen adopción ganada y un mismo estándar para empleados y contratistas"
+  discovery:
+    guide: "La guía de entrevista usa preguntas abiertas sobre trabajo real, para desarrolladores, tech leads y líderes de proveedores"
+    friction: "El registro de fricción indica quién, con qué frecuencia, tiempo perdido y evidencia de cada punto"
+    baseline: "La línea base usa datos del Q1, nombra cada fuente y dice qué números faltan o no son confiables"
+    flow: "El flujo de valor de un cambio muestra los tiempos de espera, no solo los pasos"
+  roadmap:
+    outcomes: "Un resultado por trimestre con una medida; las apuestas cuelgan de los resultados"
+    notnow: "Una lista de «no ahora» con una razón y una fecha de revisión para cada punto"
+    scoring: "Las prioridades se derivan de alcance, fricción, riesgo y esfuerzo"
+    peak: "El plan respeta el congelamiento de la temporada alta"
+  golden-path-plan:
+    choice: "El primer stack se elige con la tabla de puntuación, con su alcance y un equipo voluntario nombrado"
+    thin: "El alcance de la versión 0.1 es el más pequeño que lleva a un equipo real a un servicio en ejecución"
+    exit: "Se definen el modelo de soporte y una salida para los equipos que no pueden usar el path"
+    measures: "Se nombran las mediciones desde el primer día, incluido el tiempo al primer despliegue"
+  adr:
+    context: "El contexto plantea el problema y las restricciones"
+    options: "Al menos dos opciones reales con sus compensaciones, incluido el costo con personas"
+    consequences: "Las consecuencias nombran lo que se vuelve más difícil, no solo lo que mejora"
+  launch-plan:
+    pilot: "El equipo piloto, el servicio y el calendario son concretos"
+    tutorial: "El tutorial lo prueba un usuario real; se definen el canal de soporte y el tiempo de respuesta"
+    scope: "La decisión de alcance es coherente con la fecha del piloto y la petición de seguridad, con la compensación explicada"
+    measures: "Mediciones y quién las recoge"
+  adoption-plan:
+    funnel: "Metas del embudo por trimestre para cada etapa"
+    segments: "Los equipos están segmentados, con una táctica distinta para escépticos y para equipos de proveedores"
+    bias: "Reconoce que los primeros en adoptar ya eran los equipos más fuertes, así que sus resultados favorecen a la plataforma"
+    mandate: "Dice qué se vuelve obligatorio, cuándo y por qué, y cómo se sigue la satisfacción una vez que lo es"
+    contract: "Aborda la petición del proveedor de atar la adopción a la declaración de trabajo"
+  governance-decision:
+    timing: "La fecha de aplicación se liga a una tasa de cumplimiento medida, con modo de auditoría primero"
+    risk: "La preocupación de seguridad se trata como real y recibe una respuesta con fecha"
+    reporting: "Explica cómo se reportan las excepciones y quién las ve"
+  exception:
+    timebox: "Con plazo, responsable y plan de cierre"
+    control: "El control compensatorio es concreto"
+    fair: "Los mismos términos se aplicarían a un equipo interno"
+  core4:
+    filled: "Las cuatro dimensiones tienen métrica, fuente, línea base y meta tomadas del conjunto de datos"
+    segments: "Comparado dentro y fuera del golden path y por tipo de personal"
+    counter: "Una contramétrica junto a cada número de velocidad"
+    teamlevel: "Sin reportes por persona; el throughput se usa con cuidado"
+  findings:
+    three: "Tres hallazgos que son ciertos en el conjunto de datos"
+    limits: "Cada hallazgo dice qué no puede probar (sesgo de selección, muestras pequeñas, falta de línea base)"
+    action: "Cada hallazgo lleva a una acción o a una pregunta"
+  budget:
+    complete: "Personas, licencias, infraestructura, capacitación y contingencia tienen cifras"
+    basis: "Cada línea tiene una base; los supuestos están marcados"
+    within: "El total se concilia con el presupuesto discrecional y las decisiones tomadas en la app"
+  memo:
+    tco: "Costo a tres años con personas incluidas y costo por desarrollador"
+    breakeven: "Indica el punto de equilibrio y qué cambiaría la respuesta"
+    nonfinancial: "Pondera el costo de salida, la velocidad para dar valor y la capacidad del equipo"
+    recommendation: "Termina con una recomendación clara"
+  vendor-scorecard:
+    data: "Las cifras del scorecard vienen del conjunto de datos y se comparan con el promedio interno"
+    fair: "Considera lo que el proveedor heredó (sistemas antiguos, fuera del golden path) antes de concluir"
+    plan: "El plan de mejora tiene medidas, responsables y fechas"
+    ladder: "Se plantea la escalera de remedios y se registra la queja legítima del proveedor sobre la plataforma"
+  ai-plan:
+    rules: "Herramientas aprobadas, reglas de datos y responsabilidad humana son explícitas"
+    cohorts: "La medición usa línea base y grupo de comparación, con velocidad y calidad juntas"
+    cost: "El costo de licencias y uso está presupuestado; se atienden las licencias sin uso"
+    honest: "Dice qué se puede y qué no se puede afirmar tras un trimestre"
+  postmortem:
+    blameless: "Sin culpas: explica cómo el sistema lo permitió"
+    timeline: "Cronología con tiempo de detección y tiempo de recuperación"
+    actions: "Las acciones tienen responsables y fechas y reducen el radio de impacto de los cambios al pipeline"
+    business: "El impacto se expresa en paquetes, hubs o clientes, no en términos técnicos"
+  quarterly-report:
+    outcomes: "Abre con un resultado de negocio; las herramientas no aparecen en la primera página"
+    numbers: "Línea base, valor actual y meta para cada medida, coherentes con el conjunto de datos"
+    risks: "Nombra riesgos reales, incluidas las malas noticias"
+    asks: "A lo sumo tres peticiones, cada una con un costo y un resultado esperado"
+  role-scorecards:
+    outcomes: "Cada puesto tiene resultados medibles a 12 meses"
+    signals: "La evidencia de entrevista y las señales de mal encaje son concretas"
+    order: "El orden de contratación se justifica con el roadmap"
+    matrix: "Explica cómo se lidera a los Guild Leads sin línea de reporte"
+
+oral:
+  structure: "La respuesta tiene un orden claro y termina dentro del tiempo"
+  outcome-first: "Parte del resultado de negocio, no de las herramientas"
+  evidence: "Usa números con su fuente y sus límites"
+  honesty: "Separa lo que se hizo, lo que se haría y lo que no se sabe"
+  listening: "Responde la pregunta que se hizo, incluidas las preguntas de seguimiento"

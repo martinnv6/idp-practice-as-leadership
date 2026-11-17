@@ -1,0 +1,389 @@
+# Traducción al español de practice/missions.yaml.
+# Solo texto visible: los ids, rutas, agentes, costos y minutos viven en el archivo en inglés.
+# Lo que falte aquí se muestra en inglés. `python3 app/server.py --check` valida los ids.
+
+role: Jefe de Plataforma para Desarrolladores
+
+budget:
+  note: Presupuesto discrecional del primer año, además de los salarios del equipo actual. Cifra de práctica.
+
+competencies:
+  strategy: Estrategia y producto
+  adoption: Adopción
+  measurement: Medición
+  governance: Gobernanza
+  money: Presupuesto y costos
+  vendors: Proveedores
+  ai: Programa de IA
+  people: Personas
+  technical: Comprensión técnica
+
+cast:
+  Elena Ríos: "Directora de Tecnología (CTO). Viene de operaciones y finanzas; piensa en flujo, costo y riesgo"
+  Tomás Leal: "Vicepresidente de Ingeniería, tu jefe"
+  Paula: "Ingeniera de plataforma, pipelines y entorno de ejecución"
+  Hugo: "Guild Lead de backend"
+  Ana: "Desarrolladora de planta, equipo de clasificación en el hub"
+  Victor: "Desarrollador contratista, equipo de planeación de rutas"
+  Marcela Ibarra: "Gerente de cuenta de Altos Delivery (proveedor)"
+  Lucía Montes: "Business partner de Finanzas"
+  Iván Cano: "Jefe de seguridad de la información"
+
+tracks:
+  sprint:
+    title: Sprint
+    description: Cuatro sesiones de unos 90 minutos. Úsalo cuando una entrevista esté cerca.
+  full:
+    title: Simulación completa
+    description: Once misiones que siguen los dos primeros trimestres en el puesto.
+
+checkpoints:
+  cp1: {title: Revisión del día 30, question: "¿Sabes qué duele y has elegido qué hacer primero?"}
+  cp2: {title: Revisión del día 60, question: "¿Hay un equipo trabajando distinto y existe una forma creíble de crecer?"}
+  cp3: {title: Revisión del día 90, question: "¿Puedes mostrar resultados, costo y un plan en términos de negocio?"}
+  cp4: {title: Examen final, question: "Informe de diez minutos al comité ejecutivo y luego veinte minutos de preguntas."}
+  cps: {title: Revisión del sprint, question: "¿Puedes responder las preguntas centrales de entrevista desde la práctica y no de memoria?"}
+
+missions:
+  # ====================== SIMULACIÓN COMPLETA ======================
+  m0:
+    title: Recibe el encargo
+    when: Día 1
+    situation: Tienes el mensaje de la CTO y una primera reunión con tu jefe mañana. Te preguntará qué entiendes que es el puesto.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Bienvenido, y lo que necesito de ti
+        body: |
+          Bienvenido. Así veo yo la situación.
+
+          Tenemos unas 420 personas escribiendo software para nosotros: alrededor de 240 empleados y 180 contratistas de dos proveedores de entrega. Trabajan en cuatro stacks y, tras tres adquisiciones, cada equipo construye, prueba y despliega a su manera. A la gente nueva le toma semanas ser productiva. No sé decirte con qué frecuencia desplegamos, con qué frecuencia falla ni cuánto cuestan nuestras herramientas por desarrollador.
+
+          La temporada alta está a cinco meses. El año pasado dos lanzamientos fallidos durante esa temporada nos costaron una semana de paquetes retrasados. Necesito que la entrega sea más rápida, más segura y predecible antes de entonces.
+
+          Tu grupo es dueño de la plataforma interna para desarrolladores. Tienes seis ingenieros de plataforma y tres Guild Leads que están en las áreas de entrega y no te reportan a ti. No quiero un proyecto de herramientas. Quiero que los equipos elijan la plataforma porque les facilita el trabajo, y quiero números que pueda llevar al comité ejecutivo.
+
+          En 30 días dime qué duele más y cómo lo vas a medir. En 60 días muéstrame un equipo trabajando distinto. En 90 días tráeme un roadmap, un presupuesto y los primeros resultados.
+    tasks:
+      m0-read: "Lee los tres documentos y la definición de plataforma en tu propio material de estudio"
+      m0-note: "En notes/study-notes.md, completa las secciones 1 y 2: la definición, lo que no es, las partes de un IDP"
+      m0-decide: "Reescribe con tus palabras las secciones de misión, alcance y fuera de alcance del charter (ejercicio L1)"
+      m0-understand: "Dibuja de memoria el flujo «cómo viaja una solicitud» y compáralo con la página de anatomía"
+      m0-say: "Responde en voz alta y luego al agente"
+    deliverables:
+      charter: Charter de la plataforma en tus palabras
+    say_it: "¿Para qué sirve este grupo y qué no va a hacer?"
+
+  m1:
+    title: Escucha y toma la línea base
+    when: Semanas 1 a 4
+    situation: Cada director tiene una opinión distinta sobre qué está roto. Hugo se ofrece a presentarte con desarrolladores.
+    inbox:
+      - from: Hugo, Guild Lead
+        subject: Con quién hablar
+        body: Habla con Ana en clasificación del hub y con Victor en Altos. Vas a escuchar dos empresas distintas. Y mira los números antes de creerle a cualquiera de los dos.
+    tasks:
+      m1-read: "Lee los primeros 90 días y la sección «Primero la línea base» del modelo de métricas"
+      m1-note: "Anota qué preguntas revelan fricción y qué números necesita una línea base"
+      m1-interviews: "Escribe una guía de entrevista y haz tres entrevistas: Ana, Victor y un desarrollador móvil"
+      m1-data: "Abre la pantalla Datos. Solo con el Q1, escribe la línea base: frecuencia de despliegue, lead time, tasa de fallo de cambios, puntaje de la encuesta, gasto asignado. Anota qué falta o no es confiable"
+      m1-write: "Escribe las notas de descubrimiento: guía, registro de fricción, flujo de valor de un cambio, tabla de línea base (ejercicio L2)"
+      m1-say: "Responde en voz alta y luego al agente"
+    deliverables:
+      discovery: Notas de descubrimiento y línea base
+    say_it: "¿Qué aprendiste en tus primeros 30 días y cómo sabes que es cierto?"
+
+  m2:
+    title: Elige qué hacer primero
+    when: Semana 5
+    situation: Tu registro de fricción tiene cuarenta puntos. Cada uno de los cuatro stacks quiere el primer golden path. Iván, de seguridad, quiere que la firma de imágenes sea obligatoria este trimestre.
+    inbox:
+      - from: Iván Cano, Seguridad
+        subject: La firma debe ser obligatoria este trimestre
+        body: La última evaluación encontró imágenes en producción que no pudimos rastrear hasta una compilación. Quiero la firma exigida en todas partes antes de la temporada alta. ¿Puede tu plataforma lograrlo para el próximo mes?
+    tasks:
+      m2-read: "Lee el plan de golden path, el roadmap y el diseño del golden path"
+      m2-note: "Anota: priorizar por alcance y fricción; qué significa «opinionated y soportado»; por qué importa una lista de «no ahora»"
+      m2-roadmap: "Puntúa el backlog y edita el roadmap, incluida la lista de «no ahora» (ejercicio L3)"
+      m2-path: "Llena la tabla de puntuación de stacks, elige el primer stack y el equipo piloto, define la versión 0.1 (ejercicio L4)"
+      m2-adr: "Registra la elección como un ADR con la plantilla"
+      m2-understand: "Lista qué debe preguntarle el formulario de la plantilla a un desarrollador y qué debe saber ya la plataforma"
+      m2-say: "Responde en voz alta y luego al agente"
+    deliverables:
+      roadmap: Roadmap con lista de «no ahora»
+      golden-path-plan: Plan de golden path con la puntuación completa
+      adr-first-path: ADR del primer golden path
+    say_it: "¿Por qué este stack primero y a qué le estás diciendo que no?"
+
+  m3:
+    title: Lanza el golden path 0.1 con un equipo
+    when: Semanas 6 a 8
+    situation: El equipo de Ana acepta ser el piloto, con un servicio interno nuevo que debe entregarse en seis semanas.
+    inbox:
+      - from: Paula, Ingeniera de plataforma
+        subject: Alcance de la 0.1
+        body: Puedo tener una plantilla y un pipeline en tres semanas si recortamos dashboards, firma y despliegues a producción. Si no, ocho. Tú decides.
+    decisions:
+      d-scope:
+        question: "¿Qué entra en la versión 0.1?"
+        options:
+          thin: {label: "Delgada: plantilla, pipeline, despliegue a dev y staging (3 semanas)", consequence: "El piloto llega a tiempo. Seguridad preguntará cuándo llega la firma."}
+          full: {label: "Completa: añade dashboards, firma y despliegues a producción (8 semanas)", consequence: "Se pierde la fecha del equipo piloto. Mientras tanto construyen su propio pipeline."}
+    tasks:
+      m3-read: "Vuelve a leer el diseño del golden path y el plan de lanzamiento"
+      m3-note: "Anota: qué significa «terminado» para la 0.1; cómo llegan las mejoras a servicios antiguos; quién tiene guardia del pipeline estándar"
+      m3-scope: "Acuerda el alcance de la 0.1 con Paula en modo Challenge y luego registra tu decisión en la app"
+      m3-launch: "Escribe el plan de lanzamiento: piloto, tutorial, canal de soporte, mediciones desde el primer día"
+      m3-understand: "Lee las etapas del pipeline en el diseño del golden path y nombra la directiva que aplica cada gate"
+      m3-say: "Responde en voz alta y luego al agente"
+    deliverables:
+      launch-plan: Plan de lanzamiento del golden path 0.1
+    say_it: "¿Cómo lograste que el primer equipo usara la plataforma y qué le costó?"
+
+  m4:
+    title: Conquista a los siguientes cinco equipos
+    when: Semanas 9 a 10
+    situation: El equipo de Ana ya está en producción y la demo salió bien. Un tech lead senior de un equipo adquirido dice que su pipeline funciona desde hace ocho años. Marcela dice que los equipos de Altos adoptarán cuando esté en el contrato.
+    inbox:
+      - from: Marcela Ibarra, Altos Delivery
+        subject: Adopción de la plataforma
+        body: Nuestros equipos están contentos de usar la nueva plataforma. Como cambia su forma de trabajar, esperaríamos que se refleje en la declaración de trabajo antes de empezar.
+    decisions:
+      d-adoption:
+        question: "¿Cómo apoyas a los siguientes equipos?"
+        options:
+          embed: {label: "Integrar un ingeniero de plataforma con cada equipo nuevo durante dos semanas", consequence: "Roadmap de plataforma más lento, adopción más rápida y más contenta."}
+          selfserve: {label: "Tutorial, horas de atención y un canal de chat", consequence: "Barato. Los equipos escépticos esperan y observan."}
+          mandate: {label: "Hacer obligatorio el golden path para todos los servicios nuevos ya", consequence: "El uso sube rápido. El uso deja de decirte si los equipos le dan valor."}
+    tasks:
+      m4-read: "Lee «Adopción y uso» en el modelo de métricas"
+      m4-note: "Anota las cinco etapas del embudo, MONK y qué hacen los Guild Leads"
+      m4-data: "Lee los datos del embudo y de los equipos. ¿Qué equipos adoptaron primero y qué tienen en común?"
+      m4-roleplay: "Haz un juego de roles con el tech lead escéptico y el líder de entrega del proveedor"
+      m4-plan: "Escribe el plan de adopción: metas del embudo, segmentos de equipos con una táctica cada uno, qué se vuelve obligatorio y cuándo (ejercicio L5)"
+      m4-say: "Responde en voz alta y luego al agente"
+    deliverables:
+      adoption-plan: Plan de adopción
+    say_it: "¿Cómo logras que equipos establecidos y contratistas adopten un estándar?"
+
+  m5:
+    title: Fija las reglas
+    when: Semanas 11 a 12
+    situation: Iván vuelve. Quiere aplicación inmediata. Un equipo de Altos no puede cumplir durante un trimestre porque sus imágenes las construye un pipeline del proveedor.
+    inbox:
+      - from: Iván Cano, Seguridad
+        subject: Se necesita una decisión sobre la firma
+        body: Necesito una fecha para exigirla en producción. Y Altos pidió una excepción para el servicio heredado de planeación de rutas. Me inclino a rechazarla.
+    tasks:
+      m5-read: "Lee las directivas, el proceso de excepciones y «Trazabilidad de controles» en el mapa de estándares"
+      m5-note: "Anota: MUST frente a SHOULD; auditar antes de exigir; control compensatorio"
+      m5-data: "Lee las tasas de cumplimiento del scorecard por equipo y proveedor. ¿Cuántos equipos fallarían si la firma se exigiera hoy?"
+      m5-decide: "Escribe el memorando de decisión: cuándo se exige y cómo se reportan las excepciones (ejercicio L7)"
+      m5-exception: "Escribe el registro de excepción del equipo de Altos: aprobar, rechazar o cambiar los términos"
+      m5-say: "Responde en voz alta y luego al agente que interpreta a Iván"
+    deliverables:
+      governance-decision: Memorando de decisión sobre la aplicación
+      exception: Registro de excepción
+    say_it: "¿Cómo equilibras el mandato y la autonomía?"
+
+  m6:
+    title: Muestra los primeros resultados
+    when: Día 90
+    situation: Elena tiene veinte minutos y quiere saber si la plataforma funciona.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Jueves, 20 minutos
+        body: Tráeme números, no capturas de pantalla. Quiero saber si los equipos en tu plataforma están mejor y si debo creerlo.
+    decisions:
+      d-metrics-tool:
+        question: "¿Cómo se producirán los números de aquí en adelante?"
+        options:
+          buy: {label: "Comprar un producto de productividad para desarrolladores", consequence: "Dashboards y encuestas en un trimestre. Un costo por desarrollador cada año."}
+          oss: {label: "Métricas de entrega de código abierto más un formulario de encuesta, medio ingeniero para operarlo", consequence: "Más barato. Tarda más y depende de una persona."}
+          sheets: {label: "Hojas de cálculo llenadas por los Guild Leads", consequence: "Funciona este trimestre. Se detiene cuando la gente se ocupa."}
+    tasks:
+      m6-read: "Lee la página de DX Core 4"
+      m6-note: "Anota las cuatro dimensiones, sus métricas clave y tres contramétricas"
+      m6-data: "Compara equipos dentro y fuera del golden path a lo largo de los trimestres. Escribe tres hallazgos y, para cada uno, qué no pueden probar los datos"
+      m6-scorecard: "Llena el scorecard de Kestrel Parcel en la página de DX Core 4 a partir del conjunto de datos (ejercicio L6)"
+      m6-say: "Presenta a Elena y responde preguntas"
+    deliverables:
+      core4: Scorecard de DX Core 4 llenado con los datos
+      findings: Tres hallazgos y sus límites
+    say_it: "¿Funciona la plataforma? ¿Cómo lo sabes?"
+
+  m7:
+    title: Presupuesto y proveedores
+    when: Mes 4
+    situation: Lucía necesita el presupuesto del próximo año en dos semanas y pregunta si hay que comprar un portal comercial. Los datos muestran equipos de Altos con una tasa de fallo de cambios muy superior a la del resto.
+    inbox:
+      - from: Lucía Montes, Finanzas
+        subject: Entrega del presupuesto
+        body: Necesito tus números para el día 15, con las personas incluidas y una postura sobre construir o comprar el portal. Por favor separa lo único de lo recurrente.
+    decisions:
+      d-portal:
+        question: "¿Portal para el primer año?"
+        options:
+          build: {label: "Construir sobre código abierto, operado internamente", consequence: "Sin costo por licencia. Dos de tus seis ingenieros quedan atados a operarlo."}
+          buy: {label: "Comprar un portal comercial", consequence: "Arranque rápido. El costo por licencia crece con cada desarrollador, contratistas incluidos."}
+          blend: {label: "Portal de código abierto administrado", consequence: "Menos mantenimiento, formatos abiertos. Menos libertad con los plugins."}
+    tasks:
+      m7-read: "Lee el método de FinOps y proveedores y el scorecard de proveedores"
+      m7-note: "Anota: tres tipos de costo; costos unitarios; cláusulas de SLA basadas en resultados; la escalera de remedios"
+      m7-tco: "Ejecuta python3 leadership/finops/tco.py, cambia dos supuestos en scenarios.csv, ejecútalo de nuevo y anota qué se movió"
+      m7-budget: "Llena la plantilla de presupuesto y escribe un memorando de una página sobre construir o comprar (ejercicio L8)"
+      m7-finance: "Defiende el presupuesto y el memorando ante Lucía"
+      m7-vendor: "Llena el scorecard de proveedores con los datos, conduce la QBR con Marcela y escribe el plan de mejora (ejercicio L9)"
+      m7-say: "Responde en voz alta y luego al agente"
+    deliverables:
+      budget: Presupuesto del primer año
+      memo: Memorando de construir o comprar
+      vendor-scorecard: Scorecard de proveedor y plan de mejora
+    say_it: "¿Cómo justificarías esta inversión y qué haces con un proveedor que rinde por debajo de lo esperado?"
+
+  m8:
+    title: Pon orden en la IA
+    when: Mes 5
+    situation: Se usan tres asistentes de IA sin reglas. Un contratista pegó configuración de producción en uno de ellos. Elena quiere reportar ganancias de productividad el próximo trimestre.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: IA
+        body: El consejo pregunta una y otra vez qué obtenemos de la IA. Me dicen que la mitad de los ingenieros usa algo. Dime qué permitimos, cuánto cuesta y qué nos da.
+    decisions:
+      d-ai-seats:
+        question: "¿Quién recibe una licencia de asistente de IA de pago el primer trimestre?"
+        options:
+          all: {label: "Los 420 desarrolladores", consequence: "Sin línea base ni grupo de comparación. Los datos muestran que muchas licencias no se usan."}
+          pilot: {label: "Una cohorte piloto de 60 con un grupo de comparación", consequence: "Puedes medir. Algunos equipos se quejarán por la espera."}
+          none: {label: "Ninguna licencia de pago hasta aprobar la política", consequence: "El uso no autorizado continúa sin reglas."}
+    tasks:
+      m8-read: "Lee la página de capacidad de IA y la política de uso de IA"
+      m8-note: "Anota: cuatro niveles de uso; la IA como amplificador; velocidad y calidad juntas"
+      m8-data: "Lee el uso de licencias de IA en los datos de gasto. ¿Cuántas licencias pagadas están sin uso?"
+      m8-plan: "Escribe el plan de despliegue y medición (ejercicio L10)"
+      m8-say: "Responde en voz alta y luego al agente"
+    deliverables:
+      ai-plan: Plan de despliegue y medición de IA
+    say_it: "¿Cómo llevas la IA más allá de los asistentes individuales y cómo la mides?"
+
+  m9:
+    title: La plataforma falla
+    when: Mes 5
+    situation: Un cambio en el pipeline estándar bloquea todos los despliegues durante tres horas en la primera noche de la temporada alta. No pudo salir una corrección para un hub.
+    inbox:
+      - from: Tomás Leal, VP de Ingeniería
+        subject: Anoche
+        body: El director de operaciones de los hubs quiere saber por qué una plataforma que debía hacernos más seguros impidió que saliera una corrección. Necesito un postmortem para el viernes y algo que pueda decirle hoy.
+    decisions:
+      d-reliability:
+        question: "¿Qué financias después del incidente?"
+        options:
+          invest: {label: "Despliegue escalonado de cambios del pipeline, un SLO y un rol de guardias", consequence: "El roadmap se retrasa tres semanas. La misma falla ahora llegaría a un equipo, no a todos."}
+          process: {label: "Un paso de aprobación manual para cambios del pipeline", consequence: "Se siente más seguro. Frena cada mejora y no habría detectado esto."}
+    tasks:
+      m9-read: "Lee la plantilla de postmortem y las decisiones de diseño del pipeline"
+      m9-note: "Anota: qué significa «sin culpas»; por qué el pipeline estándar necesita un SLO"
+      m9-understand: "Pregunta a Paula qué habría limitado el daño y por qué"
+      m9-postmortem: "Escribe el postmortem y un esquema de continuidad de media página (ejercicio L12)"
+      m9-say: "Di lo que le dirías hoy al director de operaciones de los hubs"
+    deliverables:
+      postmortem: Postmortem y esquema de continuidad
+    say_it: "Cuéntame una falla de tu plataforma y qué cambió después."
+
+  m10:
+    title: Informa al comité y arma el equipo
+    when: Mes 6
+    situation: Fin del segundo trimestre. Diez minutos con el comité ejecutivo y aprobación para cubrir las posiciones restantes.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Comité, el 28
+        body: Diez minutos, una página. Empieza con lo que cambió para el negocio. Termina con lo que necesitas de nosotros.
+    tasks:
+      m10-read: "Lee la plantilla del informe, equipo y contratación, y el modelo de madurez"
+      m10-note: "Anota: resultados antes que herramientas; tres peticiones con un costo cada una; liderar sin autoridad"
+      m10-report: "Escribe el informe trimestral de una página a partir de tus entregables anteriores y los datos (ejercicio L13)"
+      m10-people: "Escribe dos scorecards de puesto y el orden de contratación (ejercicio L11)"
+      m10-understand: "Explica toda la plataforma en cinco minutos sin nombres de producto (ejercicio L14)"
+      m10-say: "Da el informe de diez minutos y responde preguntas"
+    deliverables:
+      quarterly-report: Informe ejecutivo trimestral
+      role-scorecards: Dos scorecards de puesto y orden de contratación
+    say_it: "¿Qué lograste en seis meses y qué necesitas de nosotros?"
+
+  # ====================== SPRINT ======================
+  s1:
+    title: Qué es una plataforma y cómo funciona
+    when: Sesión 1
+    situation: Tienes el mensaje de la CTO. Mañana alguien te pedirá que expliques qué es una plataforma interna para desarrolladores y qué haría tu grupo.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Bienvenido, y lo que necesito de ti
+        body: |
+          Tenemos unas 420 personas escribiendo software: alrededor de 240 empleados y 180 contratistas de dos proveedores, en cuatro stacks, y cada equipo construye y despliega a su manera. No sé decirte con qué frecuencia desplegamos, con qué frecuencia falla ni cuánto cuestan nuestras herramientas por desarrollador.
+
+          Tu grupo es dueño de la plataforma interna para desarrolladores. No quiero un proyecto de herramientas. Quiero que los equipos elijan la plataforma porque les facilita el trabajo, y quiero números que pueda llevar al comité ejecutivo.
+
+          En 30 días dime qué duele más y cómo lo vas a medir. En 60 días muéstrame un equipo trabajando distinto. En 90 días tráeme un roadmap, un presupuesto y los primeros resultados.
+    tasks:
+      s1-read: "Lee el puesto, el escenario y la página de anatomía"
+      s1-note: "En notes/study-notes.md: la definición en una frase, las partes de un IDP, portal frente a plataforma"
+      s1-decide: "Reescribe con tus palabras la misión y la lista de fuera de alcance del charter"
+      s1-understand: "Dibuja de memoria el flujo de una solicitud y luego compruébalo"
+      s1-say: "Explica qué pasa cuando un desarrollador usa la plataforma; luego dile a exec-committee para qué sirve el grupo"
+    deliverables:
+      charter: Charter de la plataforma en tus palabras
+    say_it: "Si tuvieras este puesto, ¿cómo empezarías la creación, implementación y control de la plataforma?"
+
+  s2:
+    title: Demostrar que funciona
+    when: Sesión 2
+    situation: El comité pregunta si la plataforma funciona y qué le está dando la IA a la empresa.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Números
+        body: Tráeme números, no capturas de pantalla. ¿Los equipos en tu plataforma están mejor y debo creerlo?
+    tasks:
+      s2-read: "Lee la página de DX Core 4 y la sección de adopción del modelo de métricas"
+      s2-note: "Una frase por marco; las cinco etapas del embudo; tres contramétricas"
+      s2-data: "Compara equipos dentro y fuera del golden path. Escribe tres hallazgos y qué no puede probar cada uno"
+      s2-decide: "Llena el scorecard de Kestrel Parcel en la página de DX Core 4 a partir del conjunto de datos"
+      s2-say: "Responde en voz alta las dos preguntas y luego al agente"
+    deliverables:
+      core4: Scorecard de DX Core 4 llenado con los datos
+    say_it: "¿Cómo sabrás que la plataforma funciona y cómo mides el impacto de la IA?"
+
+  s3:
+    title: Dinero, proveedores y preguntas difíciles
+    when: Sesión 3
+    situation: Finanzas quiere una postura sobre construir o comprar. Los equipos de un proveedor tienen una tasa de fallo de cambios muy superior a la del resto.
+    inbox:
+      - from: Lucía Montes, Finanzas
+        subject: Construir o comprar
+        body: Antes de ponerlo en el presupuesto necesito ver el costo a tres años con las personas incluidas y el punto en que cambia la respuesta.
+    tasks:
+      s3-read: "Lee el método de FinOps y proveedores y el scorecard de proveedores"
+      s3-note: "SOW, SLA, QBR; tres tipos de costo; showback frente a chargeback; cinco cláusulas de SLA basadas en resultados"
+      s3-tco: "Ejecuta el script de TCO, cambia dos supuestos, ejecútalo de nuevo y anota qué se movió"
+      s3-vendor: "Llena el scorecard de Altos Delivery con los datos y conduce la QBR"
+      s3-finance: "Deja que Lucía ataque tu TCO"
+      s3-gaps: "En notes/private/, escribe una respuesta honesta para cada brecha de tu propia experiencia, cada una terminando con cómo la cerrarías en 90 días"
+    deliverables:
+      vendor-scorecard: Scorecard de proveedor y plan de mejora
+    say_it: "¿Qué haces con un proveedor que rinde por debajo de lo esperado y cómo justificarías el costo de la plataforma?"
+
+  s4:
+    title: Contar la historia completa
+    when: Sesión 4
+    situation: Diez minutos con el comité ejecutivo.
+    inbox:
+      - from: Elena Ríos, CTO
+        subject: Comité
+        body: Diez minutos, una página. Empieza con lo que cambió para el negocio. Termina con lo que necesitas de nosotros.
+    tasks:
+      s4-read: "Lee los primeros 90 días y el plan de golden path"
+      s4-note: "El método de siete pasos con tus palabras; qué es un golden path"
+      s4-decide: "Escribe el informe trimestral de una página para Kestrel Parcel a partir de las sesiones 2 y 3"
+      s4-understand: "Explica la plataforma de punta a punta en cinco minutos sin nombres de producto"
+      s4-say: "Informe de diez minutos y luego diez minutos de preguntas"
+    deliverables:
+      quarterly-report: Informe ejecutivo trimestral
+    say_it: "¿Qué me mostrarías dentro de doce meses?"

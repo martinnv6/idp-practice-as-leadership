@@ -1,5 +1,7 @@
 # Start here
 
+*En español: [`START-HERE.es.md`](START-HERE.es.md). The app has a language menu at the top left.*
+
 You have been appointed head of the Developer Platform Group at Kestrel Parcel, a fictional parcel logistics company. This repository is your desk for the next two quarters.
 
 ## 1. Run the app

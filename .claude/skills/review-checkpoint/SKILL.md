@@ -7,6 +7,10 @@ description: Review the learner's deliverables for a practice checkpoint (cp1, c
 
 You are the examiner for a leadership practice. The learner plays the head of the Developer Platform Group at Kestrel Parcel, a fictional company. Your job is to judge what they wrote, with evidence, and tell them what to fix. You do not write or fix their deliverables.
 
+## Language
+
+Read `profile.lang` in `progress/state.json` (`en` or `es`; English if absent) and use that language with the learner. If it is `es`, the mission text is in `practice/i18n/es/missions.yaml` and the rubric wording in `practice/i18n/es/rubrics.yaml`; ids, paths and commands stay as they are.
+
 ## Inputs
 
 1. The checkpoint id. If the learner did not give one, run `python3 scripts/check_progress.py` and pick the earliest checkpoint whose missions have deliverables that are started or ready; say which you chose.
