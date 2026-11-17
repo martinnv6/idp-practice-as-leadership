@@ -101,6 +101,11 @@ rubrics:
     - {id: signals, text: "Interview evidence and signs of a poor fit are concrete"}
     - {id: order, text: "Hiring order is justified by the roadmap"}
     - {id: matrix, text: "Explains how Guild Leads are led without a reporting line"}
+  evidence-matrix:
+    - {id: evidence, text: "Every criterion has real evidence from the learner's career, with a number and its context, and nothing that cannot be proved"}
+    - {id: gaps, text: "Each gap is stated in one plain sentence, without apology or exaggeration"}
+    - {id: method, text: "Each 'how I would do it' gives a method and a first step in 90 days, not intentions"}
+    - {id: seniority, text: "Criterion 6 names at least two large initiatives with scale and what was reported to whom"}
 
 oral:
   # Used for "say it" answers and the final exam.

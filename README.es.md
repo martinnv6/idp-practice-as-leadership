@@ -48,7 +48,7 @@ La herramienta lee `AGENTS.md`, interpreta a las personas y cuestiona tus respue
 
 Dos ritmos:
 
-- **Sprint:** cuatro sesiones de unos 90 minutos, para cuando una entrevista está cerca.
+- **Sprint:** cinco sesiones de unos 90 minutos, para cuando una entrevista está cerca. La sesión 5 ensaya las seis preguntas de un panel de selección, con evidencia de tu propia carrera guardada en `notes/private/`.
 - **Simulación completa:** once misiones que siguen los dos primeros trimestres en el puesto, con cuatro puntos de control y un examen oral final.
 
 ## Qué muestra la app

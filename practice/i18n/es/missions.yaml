@@ -32,7 +32,7 @@ cast:
 tracks:
   sprint:
     title: Sprint
-    description: Cuatro sesiones de unos 90 minutos. Úsalo cuando una entrevista esté cerca.
+    description: Cinco sesiones de unos 90 minutos. Úsalo cuando una entrevista esté cerca.
   full:
     title: Simulación completa
     description: Once misiones que siguen los dos primeros trimestres en el puesto.
@@ -387,3 +387,24 @@ missions:
     deliverables:
       quarterly-report: Informe ejecutivo trimestral
     say_it: "¿Qué me mostrarías dentro de doce meses?"
+
+  s5:
+    title: Las seis preguntas del panel
+    when: Sesión 5
+    situation: Sal de Kestrel Parcel por una sesión. Un panel de selección para un puesto como este juzga seis cosas y quiere evidencia de tu propia carrera, no de la simulación.
+    inbox:
+      - from: Coach de la práctica
+        subject: Lo que va a juzgar el panel
+        body: |
+          Un panel de selección para una oficina de plataforma de toda la empresa suele pesar seis cosas: productividad de desarrollo medida y reportada a la dirección; credibilidad técnica en varios stacks; adopción de IA a escala con resultados; gestión de proveedores y presupuesto que cambió decisiones de contrato; rediseño de prácticas y roles con agentes de IA; y seniority, incluido inglés fluido.
+
+          Para cada una, trae lo que hiciste, lo que no has hecho y cómo lo harías. Solo hechos reales. Una brecha clara con un método vale más que una afirmación vaga.
+    tasks:
+      s5-read: "Lee la plantilla de la matriz de evidencia y los seis criterios"
+      s5-copy: "Copia la plantilla a notes/private/evidence-matrix.md (Git la ignora)"
+      s5-fill: "Llena la matriz con tu propia carrera: evidencia, brecha y un plan de 90 días por criterio. Empieza por proveedores, luego medición, luego IA"
+      s5-confirm: "Lista cada cifra de la que no estés seguro y cómo la confirmarás. Quita lo que no puedas probar"
+      s5-panel: "Responde en voz alta las seis preguntas, una por una, y luego al agente que interpreta al panel. Responde la pregunta 6 en inglés"
+    deliverables:
+      evidence-matrix: Matriz de evidencia para las seis preguntas del panel
+    say_it: "¿Cuál de las seis es tu punto más débil y qué harás al respecto en tus primeros 90 días?"

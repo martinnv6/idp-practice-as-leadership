@@ -99,6 +99,11 @@ rubrics:
     signals: "La evidencia de entrevista y las señales de mal encaje son concretas"
     order: "El orden de contratación se justifica con el roadmap"
     matrix: "Explica cómo se lidera a los Guild Leads sin línea de reporte"
+  evidence-matrix:
+    evidence: "Cada criterio tiene evidencia real de la carrera de quien aprende, con un número y su contexto, y nada que no se pueda probar"
+    gaps: "Cada brecha se dice en una frase clara, sin disculpas ni exageración"
+    method: "Cada «cómo lo haría» da un método y un primer paso en 90 días, no intenciones"
+    seniority: "El criterio 6 nombra al menos dos iniciativas grandes con su escala y qué se reportó y a quién"
 
 oral:
   structure: "La respuesta tiene un orden claro y termina dentro del tiempo"

@@ -38,8 +38,8 @@ cast:
 tracks:
   sprint:
     title: Sprint
-    description: Four sessions of about 90 minutes. Use it when an interview is close.
-    missions: [s1, s2, s3, s4]
+    description: Five sessions of about 90 minutes. Use it when an interview is close.
+    missions: [s1, s2, s3, s4, s5]
   full:
     title: Full simulation
     description: Eleven missions that follow the first two quarters in the job.
@@ -65,7 +65,7 @@ checkpoints:
     exam: true
   - id: cps
     title: Sprint review
-    after: [s1, s2, s3, s4]
+    after: [s1, s2, s3, s4, s5]
     question: Can you answer the core interview questions from practice, not from memory?
 
 missions:
@@ -479,3 +479,31 @@ missions:
     deliverables:
       - {id: quarterly-report, title: Quarterly executive report, path: leadership/measurement/quarterly-report-q2.md, kind: create, min_words: 300, rubric: quarterly-report}
     say_it: {question: "What would you show me in twelve months?", agent: exec-committee}
+
+  - id: s5
+    title: The panel's six questions
+    when: Session 5
+    personal: true
+    competencies: [measurement, ai, vendors, people, technical]
+    situation: Step out of Kestrel Parcel for one session. A selection panel for a role like this one judges six things, and it wants evidence from your own career, not from the simulation.
+    inbox:
+      - from: Practice coach
+        subject: What the panel will judge
+        body: |
+          A selection panel for a company-wide platform office usually weighs six things: measured developer productivity reported to leadership; technical credibility across stacks; AI adoption at scale with results; vendor and budget management that changed contract decisions; redesign of practices and roles with AI agents; and seniority, including fluent English.
+
+          For each one, bring what you did, what you have not done and how you would do it. Only real facts. A clear gap with a method beats a vague claim.
+    read:
+      - notes/evidence-matrix-template.md
+      - leadership/measurement/dx-core-4.md
+      - leadership/vendors/vendor-scorecard.md
+      - leadership/ai/ai-capability.md
+    tasks:
+      - {id: s5-read, step: read, minutes: 15, tool: Editor, text: "Read the evidence matrix template and the six criteria"}
+      - {id: s5-copy, step: note, minutes: 5, tool: Editor, text: "Copy the template to notes/private/evidence-matrix.md (ignored by Git)"}
+      - {id: s5-fill, step: decide, minutes: 45, tool: Editor, text: "Fill the matrix from your own career: evidence, gap and a 90-day plan for each criterion. Start with vendors, then measurement, then AI"}
+      - {id: s5-confirm, step: understand, minutes: 10, tool: Editor, text: "List every figure you are not sure of and how you will confirm it. Remove anything you cannot prove"}
+      - {id: s5-panel, step: say, minutes: 25, tool: "AI agent: exec-committee", text: "Answer the six questions aloud, one at a time, then to the agent playing the panel. Answer question 6 in English"}
+    deliverables:
+      - {id: evidence-matrix, title: Evidence matrix for the six panel questions, path: notes/private/evidence-matrix.md, kind: create, min_words: 300, rubric: evidence-matrix}
+    say_it: {question: "Which of the six is your weakest, and what will you do about it in your first 90 days?", agent: exec-committee}

@@ -44,7 +44,7 @@ The tool reads `AGENTS.md`, plays the cast and challenges your answers. It will 
 
 Two paces:
 
-- **Sprint:** four sessions of about 90 minutes, for when an interview is close.
+- **Sprint:** five sessions of about 90 minutes, for when an interview is close. Session 5 rehearses the six questions a selection panel asks, with evidence from your own career kept in `notes/private/`.
 - **Full simulation:** eleven missions that follow the first two quarters in the job, with four checkpoints and a final oral exam.
 
 ## What the app shows

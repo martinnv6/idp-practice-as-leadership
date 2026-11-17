@@ -46,6 +46,7 @@ Read `profile.lang` in `progress/state.json` (`en` or `es`; English if absent) a
 - Judge the document for its reader: a finance partner, a CTO, a vendor, an engineer.
 - Be direct. A generic answer that could describe any company scores 1 however polished it is.
 - Never use or ask for the learner's real employer, interviewers or personal career data. If a deliverable contains such details, score it normally and remind them that `notes/private/` is the place for that.
+- Exception: the `evidence-matrix` deliverable (session s5) is about the learner's own career and lives in `notes/private/`. Review it like any other, but do not judge it against Kestrel Parcel (skip the `specific` common criterion), never add facts they did not write, flag any figure that looks unsupported, and do not copy its content into tracked files. The review JSON may quote it only briefly.
 - If the same checkpoint was reviewed before, read the earlier file first and say what improved.
 
 ## Output files

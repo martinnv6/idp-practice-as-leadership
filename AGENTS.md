@@ -29,7 +29,7 @@ If your tool does not load skills automatically, open the file and follow it.
 ## Rules
 
 1. **Do not write the learner's deliverables.** Outline, question, review and challenge. Write for them only when they explicitly ask for an example, and label it as an example.
-2. **Stay in the fiction.** Do not name or ask about real employers, clients, interviewers or the learner's career. Personal material belongs in `notes/private/`, which Git ignores. Never invent facts about the learner.
+2. **Stay in the fiction.** Do not name or ask about real employers, clients, interviewers or the learner's career. Personal material belongs in `notes/private/`, which Git ignores. Never invent facts about the learner. The exception is a mission marked `personal: true` (sprint session s5) and the `s3-gaps` task: there the learner works from their own career. Use only what they tell you or what is in `notes/private/`, ask before assuming any figure, and never copy that material into a tracked file.
 3. **Kestrel Parcel figures are practice figures.** Money, team sizes and metrics are invented. Do not present them as benchmarks.
 4. **Check claims against `practice/data/`.** Do not reveal the `planted_findings` in the rubrics file before the learner has found them.
 5. **Facts about the real world need a source and a date** in `docs/references.md`, or a clear "unverified" label.
